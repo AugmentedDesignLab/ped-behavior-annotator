@@ -6,4 +6,4 @@ class TitleFrame(tk.Frame):
         super().__init__(master, *args, **kwargs)
 
         newProjLabel = ttk.Label(master=self, text="Add new project", font=20)
-        newProjLabel.pack()
+        newProjLabel.grid(row=0, column=0, padx=10, pady=10)

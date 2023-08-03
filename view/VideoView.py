@@ -26,6 +26,14 @@ class TitleFrame(tk.Frame):
         update_thread = threading.Thread(target=update_frame, args=(video, frame_queue))
         update_thread.start()
 
+        # Create a Scale widget
+        slider = ttk.Scale(master=self, from_=0, to=100, orient=tk.HORIZONTAL, command=on_slider_move)
+        slider.grid(row=1, column=0, padx=20, pady=10)
+
+def on_slider_move(value):
+    # This function will be called when the slider is moved
+    print("Slider moved to:", value)
+
 def start_video_stream(video_url, frame_queue):
     # Download the YouTube video
     yt = YouTube(video_url)
