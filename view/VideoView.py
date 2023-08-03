@@ -26,26 +26,26 @@ class TitleFrame(tk.Frame):
         update_thread = threading.Thread(target=update_frame, args=(video, frame_queue))
         update_thread.start()
 
-    def start_video_stream(video_url, frame_queue):
-        # Download the YouTube video
-        yt = YouTube(video_url)
-        stream = yt.streams.filter(file_extension='mp4').first()
+def start_video_stream(video_url, frame_queue):
+    # Download the YouTube video
+    yt = YouTube(video_url)
+    stream = yt.streams.filter(file_extension='mp4').first()
 
-        # Open the video stream
-        cap = cv2.VideoCapture(stream.url)
+    # Open the video stream
+    cap = cv2.VideoCapture(stream.url)
 
-        while True:
-            # Read a frame from the video
-            ret, frame = cap.read()
-            
-            if not ret:
-                break
+    while True:
+        # Read a frame from the video
+        ret, frame = cap.read()
+        
+        if not ret:
+            break
 
-            # Put the frame into the queue
-            frame_queue.put(frame)
+        # Put the frame into the queue
+        frame_queue.put(frame)
 
-        # Release the video stream
-        cap.release()
+    # Release the video stream
+    cap.release()
 
 def update_frame(video_label, frame_queue):
     # Get the frame from the queue (if available)
