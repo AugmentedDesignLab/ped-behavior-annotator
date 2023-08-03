@@ -69,29 +69,34 @@ window.tk.call("source", "azure.tcl")
 window.tk.call("set_theme", "azure")
 
 frameTitle = ttk.Frame(master=window, height=20)
-frameTitle.pack(fill=tk.X, ipadx=10, ipady=10)
+frameTitle.grid(row=0, column=0, padx=10, pady=10)
 frame3 = ttk.Frame(master=window)
-frame3.pack()
+frame3.grid(row=2, column=0, padx=10, pady=10)
 
 newProjLabel = ttk.Label(master=frameTitle, text="Add new project", font=20)
-newProjLabel.pack(side=tk.LEFT)
+newProjLabel.pack()
 
 # call tkinter frame a content area
-frame1 = tk.Frame(master=frame3, width = 1000, height=580, bg="red", border=2)
-frame2 = tk.Frame(master=frame3, width = 1000, height=580, bg="light green")
-frame1.grid(row=0, column=0, padx=10, pady=10)
-frame2.grid(row=0, column=1, padx=10, pady=10)
+frame1 = tk.Frame(master=frame3, width=1000, height=580, bg="red")
+# Prevent the frame from adjusting its size based on its content
+frame1.pack_propagate(False)
+frame2 = tk.Frame(master=frame3, width=1000, height=580, bg="light green")
+frame1.grid(row=1, column=0, padx=10, pady=10)
+frame2.grid(row=1, column=1, padx=10, pady=10)
 
 # Create a label to display the video stream
 video = ttk.Label(master=frame1)
-video.pack()
+video.grid(row=0, column=0, padx=10, pady=10)
+
+frame4 = ttk.Frame(master=window)
+frame4.grid(row=3, column=0, padx=10, pady=10)
 
 def on_slider_move(value):
     # This function will be called when the slider is moved
     print("Slider moved to:", value)
 
 # Create a Scale widget
-slider = ttk.Scale(window, from_=0, to=100, orient=tk.HORIZONTAL, command=on_slider_move)
+slider = ttk.Scale(frame4, from_=0, to=100, orient=tk.HORIZONTAL, command=on_slider_move)
 slider.pack(padx=20, pady=10)
 
 # Create a queue to pass frames between threads
