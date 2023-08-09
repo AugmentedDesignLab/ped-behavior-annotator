@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-class TitleFrame(tk.Frame):
+class TitleView(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 

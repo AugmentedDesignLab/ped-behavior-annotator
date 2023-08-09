@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from TKinterModernThemes.WidgetFrame import Widget
 import TKinterModernThemes as TKMT
-from view import SampleView
+from view import *
 
 def buttonCMD():
         print("Button clicked!")
@@ -72,6 +72,9 @@ class App(TKMT.ThemedTKinterFrame):
 
         sampleView = SampleView()
         sampleView.render(self.videoFrame)
+
+        videoView = VideoView()
+        videoView.render(self.videoFrame)
 
 
 if __name__ == "__main__":

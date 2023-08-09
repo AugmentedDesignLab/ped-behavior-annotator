@@ -1,14 +1,16 @@
 import tkinter as tk
 from tkinter import ttk
+from TKinterModernThemes.WidgetFrame import Widget
+import TKinterModernThemes as TKMT
 import cv2
 from PIL import Image, ImageTk
 from pytube import YouTube
 import threading
 import queue
 
-class TitleFrame(tk.Frame):
-    def __init__(self, master, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
+class VideoView:
+
+    def render(self, parent: TKMT.WidgetFrame):
 
         # Create a label to display the video stream
         video = ttk.Label(master=self)
