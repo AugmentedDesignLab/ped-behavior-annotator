@@ -11,9 +11,10 @@ import queue
 class VideoView:
 
     def render(self, parent: TKMT.WidgetFrame):
+        return 
 
         # Create a label to display the video stream
-        video = ttk.Label(master=self)
+        video = ttk.Label(master=parent)
         video.grid(row=0, column=0, padx=10, pady=10)
 
         # Create a queue to pass frames between threads
@@ -29,7 +30,7 @@ class VideoView:
         update_thread.start()
 
         # Create a Scale widget
-        slider = ttk.Scale(master=self, from_=0, to=100, orient=tk.HORIZONTAL, command=on_slider_move)
+        slider = ttk.Scale(master=parent, from_=0, to=100, orient=tk.HORIZONTAL, command=on_slider_move)
         slider.grid(row=1, column=0, padx=20, pady=10)
 
 def on_slider_move(value):

@@ -1,0 +1,14 @@
+name: pedanno
+channels:
+  - anaconda
+  - jamespreed
+  - conda-forge
+  - defaults
+dependencies:
+  - opencv=4.6.0
+  - pip:
+      - docopt==0.6.2
+      - opencv-contrib-python==4.8.0.74
+      - pipreqs==0.4.13
+      - tkintermodernthemes==1.10.0
+      - ttkthemes==2.3.0
