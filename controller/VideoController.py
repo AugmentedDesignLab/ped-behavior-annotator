@@ -1,8 +1,10 @@
 import cv2
 
 class VideoController:
+    
     def __init__(self, capture: cv2.VideoCapture) -> None:
         self.capture = capture
+        pass
 
     def getNFrames(self) -> int:
         #Total number of frames in the video
