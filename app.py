@@ -3,6 +3,7 @@ from tkinter import ttk
 from TKinterModernThemes.WidgetFrame import Widget
 import TKinterModernThemes as TKMT
 from view import *
+from view.AnnotationEditView import AnnotationEditView
 
 def buttonCMD():
         print("Button clicked!")
@@ -61,8 +62,9 @@ class App(TKMT.ThemedTKinterFrame):
         self.videoFrame = self.leftFrame.addFrame("Video", padx=(0,0), pady=(0,0))
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
-        self.annotationFrame = self.leftFrame.addFrame("Annotation", padx=(0,0), pady=(0,0))
-        self.annotationFrame.Text("Annotation")
+        self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
+        annotationView = AnnotationEditView()
+        annotationView.render(self.annotationFrame)
 
 
         self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(0,0))

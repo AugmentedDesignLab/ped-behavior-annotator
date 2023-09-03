@@ -8,7 +8,9 @@ from pytube import YouTube
 import threading
 import queue
 
-class VideoView:
+from view.View import View
+
+class VideoView(View):
 
     def render(self, parent: TKMT.WidgetFrame):
         return 
