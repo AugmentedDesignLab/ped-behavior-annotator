@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from TKinterModernThemes.WidgetFrame import Widget
 import TKinterModernThemes as TKMT
+from controller.VideoController import VideoController
+from controller.YoutubeController import YoutubeController
 from view import *
 from view.AnnotationEditView import AnnotationEditView
 
@@ -50,16 +52,19 @@ class App(TKMT.ThemedTKinterFrame):
 
         # left and right
         self.leftFrame = self.contentFrame.addFrame("Left", padx=(0,0), pady=(0,0))
-        self.leftFrame.Text("Left Frame")
+        self.leftFrame.Label("Left Frame")
         self.contentFrame.nextCol()
         self.rightFrame = self.contentFrame.addFrame("Right", padx=(0,0), pady=(0,0))
-        self.rightFrame.Text("Right Frame")
+        self.rightFrame.Label("Right Frame")
 
     
     def makeEditor(self):
          # put video player and annotation edit on the left frame
          # put recording on the right
         self.videoFrame = self.leftFrame.addFrame("Video", padx=(0,0), pady=(0,0))
+        videoController = self.makeVideoController()
+        videoView = VideoView(videoController)
+        videoView.render(self.videoFrame)
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
@@ -75,8 +80,10 @@ class App(TKMT.ThemedTKinterFrame):
         sampleView = SampleView()
         sampleView.render(self.videoFrame)
 
-        videoView = VideoView()
-        videoView.render(self.videoFrame)
+
+    def makeVideoController(self) -> VideoController:
+        youtubeController = YoutubeController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
+        return youtubeController
 
 
 if __name__ == "__main__":
