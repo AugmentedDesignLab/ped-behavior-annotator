@@ -1,3 +1,4 @@
+exec(open(r"sys_path_hack.py").read())
 import cv2
 from pytube import YouTube
 
