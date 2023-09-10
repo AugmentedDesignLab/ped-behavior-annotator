@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from TKinterModernThemes.WidgetFrame import Widget
 import TKinterModernThemes as TKMT
+from controller.RecordingController import RecordingController
 from controller.VideoController import VideoController
 from controller.YoutubeController import YoutubeController
 from view import *
@@ -13,23 +14,13 @@ def buttonCMD():
 class App(TKMT.ThemedTKinterFrame):
     def __init__(self, theme, mode, usecommandlineargs=True, usethemeconfigfile=True):
         super().__init__("TITLE", theme, mode, usecommandlineargs, usethemeconfigfile)
-        # self.Button("Auto placed button!", buttonCMD)  # placed at row 0, col 0
-
-        # self.button_frame = self.addLabelFrame("Frame Label")  # placed at row 1, col 0
-
-        # self.button_frame.Button("Button Text", buttonCMD)  # the button is dropped straight into the frame
-
-        # button = ttk.Button(self.button_frame.master, text="Button in frame!")
-        # button.grid(row=1, column=0, padx=10, pady=10, sticky='nsew')
-
-        # button = ttk.Button(self.master, text="Button outside frame!")
-        # button.grid(row=2, column=0, padx=10, pady=10, sticky='nsew')
-
-        # button = ttk.Button(self.master, text="debugPrint() finds this button")
-        # button.grid(row=3, column=0, padx=10, pady=10, sticky='nsew')
-        # self.widgets.widgetlist.append(Widget(button, "Button", 3, 0, 1, 1,
-        #                                       "debugPrint() finds this button"))
-        # self.debugPrint()
+        
+        ### Set up all the global objects #
+        self.context = {
+            "controllers": {
+                "recording": RecordingController(),
+            }
+        }
 
         # create two widgetframes, nav and content
         self.makeNav()
@@ -69,7 +60,10 @@ class App(TKMT.ThemedTKinterFrame):
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
         annotationView = AnnotationEditView()
-        annotationView.render(self.annotationFrame)
+        annotationView.render(self.annotationFrame) 
+        # instead of just the parent frame the inputs should be
+        # 1. time, frameNo, recordingController.
+
 
 
         self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(0,0))
