@@ -5,6 +5,7 @@ import TKinterModernThemes as TKMT
 from controller.RecordingController import RecordingController
 from controller.VideoController import VideoController
 from controller.YoutubeController import YoutubeController
+from managers.ViewManager import ViewManager
 from view import *
 from view.AnnotationEditView import AnnotationEditView
 
@@ -21,6 +22,8 @@ class App(TKMT.ThemedTKinterFrame):
                 "recording": RecordingController(),
             }
         }
+
+        self.viewManager = ViewManager()
 
         # create two widgetframes, nav and content
         self.makeNav()
