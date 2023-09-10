@@ -61,14 +61,12 @@ class AnnotationEditView(View):
     #     window.mainloop()
 
     
-    def render(self, parent: TKMT.WidgetFrame):
+    def render(self, parent: TKMT.WidgetFrame): #also pass time and frame number, and recording controller 
         # frame information
-        parent.Text("Frame #")
-        parent.nextCol()
-        parent.Text("100")
+        parent.Text("Frame # 100")
         parent.setActiveCol(0)
 
-        self.behaviorFrame = parent.addLabelFrame("Behavior", padx=(0,0), pady=(0,0))
+        self.behaviorFrame = parent.addLabelFrame("Behavior", padx=(0,1), pady=(0,1))
         self._renderOptions(self.behaviorFrame)
         self._renderTextField(self.behaviorFrame)
     
@@ -112,3 +110,5 @@ class AnnotationEditView(View):
         
     def textupdate(self, _var, _indx, _mode):
         print("Current text status:", self.textinputvar.get())
+
+    
