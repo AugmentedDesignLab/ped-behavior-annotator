@@ -7,13 +7,21 @@ from PIL import Image, ImageTk
 from pytube import YouTube
 import threading
 import queue
+from controller.VideoController import VideoController
 
-class VideoView:
+from view.View import View
+
+class VideoView(View):
+
+    def __init__(self, videoController: VideoController) -> None:
+        self.videoController = videoController
 
     def render(self, parent: TKMT.WidgetFrame):
+        parent.Label("This is our video", size=12)
+        return 
 
         # Create a label to display the video stream
-        video = ttk.Label(master=self)
+        video = ttk.Label(master=parent)
         video.grid(row=0, column=0, padx=10, pady=10)
 
         # Create a queue to pass frames between threads
@@ -29,7 +37,7 @@ class VideoView:
         update_thread.start()
 
         # Create a Scale widget
-        slider = ttk.Scale(master=self, from_=0, to=100, orient=tk.HORIZONTAL, command=on_slider_move)
+        slider = ttk.Scale(master=parent, from_=0, to=100, orient=tk.HORIZONTAL, command=on_slider_move)
         slider.grid(row=1, column=0, padx=20, pady=10)
 
 def on_slider_move(value):
