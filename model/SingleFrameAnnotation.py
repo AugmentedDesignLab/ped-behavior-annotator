@@ -7,4 +7,3 @@ class SingleFrameAnnotation:
     frame: int
     tags: List[str] = field(default_factory=list)
 
-#get time and frame from annotationEditView

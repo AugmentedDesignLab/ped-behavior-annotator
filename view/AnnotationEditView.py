@@ -3,6 +3,8 @@ from tkinter import *
 from tkinter import ttk
 import TKinterModernThemes as TKMT
 from TKinterModernThemes.WidgetFrame import Widget
+from model import SingleFrameAnnotation
+import allwidgets
 import cv2
 from typing import Tuple
 
@@ -11,64 +13,17 @@ from view.View import View
 
 class AnnotationEditView(View):
 
-    # def __init__(
-    #     self, 
-    #     rootTitle, 
-    #     frameType,
-    #     window=tk.Tk
-    # ):
-    #     self.rootTitle=rootTitle
-    #     self.frameType=frameType
-    #     self.window=window
-    
-    # def display(window):
-    #     window = tk.Tk()
-    #     window.title(window.rootTitle)
-    #     frame = window.frameType
-    #     frame.pack()
-    #     tk.mainloop()
-
-    # def textWidget(window):
-    #     S = tk.Scrollbar(window)
-    #     T = tk.Text(window, height=4, width=50)
-    #     S.pack(side=tk.RIGHT, fill=tk.Y)
-    #     T.pack(side=tk.LEFT, fill=tk.Y)
-    #     S.config(command=T.yview)
-    #     T.config(yscrollcommand=S.set)
-    #     quote = "text"
-    #     T.insert(tk.END, quote)
-    #     window.mainloop()
-
-    # def dropdown(window):
-    #     def show():
-    #         label.config(text = clicked.get())
-
-    #     options = [
-    #         "flinching",
-    #         "crash",
-    #         "jaywalking",
-    #         "distracted"
-    #     ]
-
-    #     clicked = StringVar(window)
-    #     clicked.set("choose")
-    #     drop = OptionMenu( window , clicked , *options )
-    #     drop.pack()
-    #     button = Button( window , text = "your label" , command = show ).pack()
-    #     label = Label( window , text = " " )
-    #     label.pack()
-
-    #     window.mainloop()
-
-    
-    def render(self, parent: TKMT.WidgetFrame): #also pass time and frame number, and recording controller 
+    def render(self, parent: TKMT.WidgetFrame, time, frame): #also pass time and frame number (comes from outside)
         # frame information
-        parent.Text("Frame # 100")
+        self.time=time
+        self.frame=frame
+        parent.Text("Frame # " + str(self.frame))
         parent.setActiveCol(0)
-
         self.behaviorFrame = parent.addLabelFrame("Behavior", padx=(0,1), pady=(0,1))
         self._renderOptions(self.behaviorFrame)
         self._renderTextField(self.behaviorFrame)
+        self._renderSaveButton(self.behaviorFrame)
+        
     
     def _renderOptions(self, parent: TKMT.WidgetFrame):
         options = [
@@ -100,6 +55,9 @@ class AnnotationEditView(View):
             validatecommandargs=(self.textinputvar,)
             )
 
+    def _renderSaveButton(self, parent: TKMT.WidgetFrame):
+        self.togglebuttonvar = tk.BooleanVar()
+        parent.Button("Save Annotation", self.handleButtonClick)
 
     def behaviorChangeHandler(self, option: str, var: tk.BooleanVar):
         print("Checkbox number:", option, "was pressed")
@@ -111,4 +69,9 @@ class AnnotationEditView(View):
     def textupdate(self, _var, _indx, _mode):
         print("Current text status:", self.textinputvar.get())
 
-    
+    def handleButtonClick(self):
+        print("Button clicked. Current toggle button state: ", self.togglebuttonvar.get())
+        self.savedFrame = SingleFrameAnnotation(self.time, self.frame)
+        print("frame created")
+
+    #new save button inside this view, when it's clicked, you need to create an object of SingleFrameAnnotation class and pass in the time and frame from here (render)

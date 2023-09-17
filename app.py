@@ -64,7 +64,7 @@ class App(TKMT.ThemedTKinterFrame):
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
         annotationView = AnnotationEditView()
-        annotationView.render(self.annotationFrame)
+        annotationView.render(self.annotationFrame, 5, 100)
 
 
         self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(0,0))
