@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 import TKinterModernThemes as TKMT
 from TKinterModernThemes.WidgetFrame import Widget
-from model import SingleFrameAnnotation
+from model.SingleFrameAnnotation import SingleFrameAnnotation
 import allwidgets
 import cv2
 from typing import Tuple
