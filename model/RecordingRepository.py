@@ -2,6 +2,8 @@ from model.Recording import Recording
 
 
 class RecordingRepository:
+    """A repository is a collection.
+    """
 
     def __init__(self, dir) -> None:
         pass
