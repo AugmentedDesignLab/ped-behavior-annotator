@@ -7,12 +7,17 @@ from PIL import Image, ImageTk
 from pytube import YouTube
 import threading
 import queue
+from controller.VideoController import VideoController
 
 from view.View import View
 
 class VideoView(View):
 
+    def __init__(self, videoController: VideoController) -> None:
+        self.videoController = videoController
+
     def render(self, parent: TKMT.WidgetFrame):
+        parent.Label("This is our video", size=12)
         return 
 
         # Create a label to display the video stream
