@@ -3,6 +3,8 @@ from tkinter import *
 from tkinter import ttk
 import TKinterModernThemes as TKMT
 from TKinterModernThemes.WidgetFrame import Widget
+from controller.RecordingController import RecordingController
+from model.PedestrianTag import PedestrianTag
 from model.SingleFrameAnnotation import SingleFrameAnnotation
 import allwidgets
 import cv2
@@ -13,30 +15,43 @@ from view.View import View
 
 class AnnotationEditView(View):
 
-    def render(self, parent: TKMT.WidgetFrame, time, frame): #also pass time and frame number (comes from outside)
-        # frame information
-        self.time=time
-        self.frame=frame
-        parent.Text("Frame # " + str(self.frame))
+    def __init__(self, recordingController: RecordingController) -> None:
+        super().__init__()
+        self.recordingController = recordingController
+
+    
+    def _renderView(self, parent: TKMT.WidgetFrame):
+        parent.Text("Frame # " + str(self.currentAnnotation.frame))
         parent.setActiveCol(0)
         self.behaviorFrame = parent.addLabelFrame("Behavior", padx=(0,1), pady=(0,1))
         self._renderOptions(self.behaviorFrame)
         self._renderTextField(self.behaviorFrame)
         self._renderSaveButton(self.behaviorFrame)
-        
+
+
+    def render(self, parent: TKMT.WidgetFrame, time: float, frame: int): #also pass time and frame number (comes from outside)
+        # frame information
+        self.currentAnnotation = SingleFrameAnnotation(time, frame)
+        self._renderView(parent)
+
+    def renderSingleEdit(self, parent: TKMT.WidgetFrame, existingAnnotation: SingleFrameAnnotation):
+        # you do the same thing, but read information from the existingAnnotation object
+        self.currentAnnotation = existingAnnotation
+        self._renderView(parent)
+
     
     def _renderOptions(self, parent: TKMT.WidgetFrame):
         options = [
-            "flinching",
-            "crash",
-            "jaywalking",
-            "distracted"
+            PedestrianTag.Flinch,
+            PedestrianTag.Crash,
+            PedestrianTag.Jaywalking,
+            PedestrianTag.Distracted
         ]
 
-        self.behaviorCheckVars = [tk.BooleanVar(name=option) for option in options]
+        self.behaviorCheckVars = [tk.BooleanVar(name=option.value) for option in options]
         col = 0
         for option, var in zip(options, self.behaviorCheckVars):
-            parent.Checkbutton(option, var, self.behaviorChangeHandler, (option, var), col=col) 
+            parent.Checkbutton(option.value, var, self.behaviorChangeHandler, (option, var), col=col) 
             col += 1
             # the behaviorChangeHandler is called whenever a checkbox is pressed with the associated option and var
 
@@ -57,11 +72,14 @@ class AnnotationEditView(View):
 
     def _renderSaveButton(self, parent: TKMT.WidgetFrame):
         self.togglebuttonvar = tk.BooleanVar()
-        parent.Button("Save Annotation", self.handleButtonClick)
+        parent.Button("Save Annotation", self.handleSave)
 
-    def behaviorChangeHandler(self, option: str, var: tk.BooleanVar):
+    def behaviorChangeHandler(self, option: PedestrianTag, var: tk.BooleanVar):
         print("Checkbox number:", option, "was pressed")
         print("Checkboxes: ", var.get())
+
+        # TODO update the currentAnnotation object's tags
+
 
     def validateText(self, inputVar):
         print("Current text status:", inputVar.get())
@@ -69,9 +87,11 @@ class AnnotationEditView(View):
     def textupdate(self, _var, _indx, _mode):
         print("Current text status:", self.textinputvar.get())
 
-    def handleButtonClick(self):
+    def handleSave(self):
         print("Button clicked. Current toggle button state: ", self.togglebuttonvar.get())
-        self.savedFrame = SingleFrameAnnotation(self.time, self.frame)
+        
+
+        self.recordingController.addSingleFrameAnnotation(self.currentAnnotation)
         print("frame created")
 
     #new save button inside this view, when it's clicked, you need to create an object of SingleFrameAnnotation class and pass in the time and frame from here (render)

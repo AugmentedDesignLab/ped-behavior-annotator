@@ -1,9 +1,14 @@
 from dataclasses import dataclass, field
 from typing import *
 
+from model.PedestrianTag import PedestrianTag
+
 @dataclass
 class SingleFrameAnnotation:
     time: float
     frame: int
-    tags: List[str] = field(default_factory=list)
+    tags: List[PedestrianTag] = field(default_factory=list)
+
+    def __str__(self) -> str:
+        return f"SingleFrameAnnotation(time={self.time}, frame={self.frame}, tags={self.tags})"
 

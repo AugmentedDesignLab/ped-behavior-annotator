@@ -6,9 +6,14 @@ from model.Recording import Recording
 
 class RecordingController:
     def __init__(self, recording: Recording = None):
-        self.recording = Recording() if recording is None else recording
+        self.recording = Recording(
+            name="Test Recording",
+            annotation_path="test_annotation_path",
+            video_path="test_video_path"
+        ) if recording is None else recording
 
     def addSingleFrameAnnotation(self, singleAnnotation: SingleFrameAnnotation):
+        print(f"Saving frame {singleAnnotation}")
         self.recording.singleFrameAnnotation.append(singleAnnotation) # this is still in memory
         # TODO:
         # call the repository to persist changes to the recording.

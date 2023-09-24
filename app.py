@@ -62,7 +62,7 @@ class App(TKMT.ThemedTKinterFrame):
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
-        annotationView = AnnotationEditView()
+        annotationView = AnnotationEditView(self.context["controllers"]["recording"])
         annotationView.render(self.annotationFrame, 5, 100)
 
 
