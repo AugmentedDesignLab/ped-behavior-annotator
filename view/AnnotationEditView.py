@@ -74,4 +74,4 @@ class AnnotationEditView(View):
         self.savedFrame = SingleFrameAnnotation(self.time, self.frame)
         print("frame created")
 
-    #new save button inside this view, when it's clicked, you need to create an object of SingleFrameAnnotation class and pass in the time and frame from here (render)
+
