@@ -4,7 +4,7 @@ from typing import *
 from model.PedestrianTag import PedestrianTag
 
 @dataclass
-class SingleFrameAnnotation:
+class SingleFrameAnnotataion:
     time: float
     frame: int
     tags: List[PedestrianTag] = field(default_factory=list)
