@@ -8,3 +8,4 @@ class PedestrianTag(Enum):
 
 # PedestrianTag.Flinch == this is an object
 # PedestrianTag.Flinch.value == "Flinch" this is a string
+# Add more pedestrian behavior
