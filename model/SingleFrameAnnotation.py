@@ -5,7 +5,7 @@ from model.PedestrianTag import PedestrianTag
 from model.VehicleTag import VehicleTag
 
 @dataclass
-class SingleFrameAnnotataion:
+class SingleFrameAnnotation:
     time: float
     frame: int
     pedTags: List[PedestrianTag] = field(default_factory=list)
