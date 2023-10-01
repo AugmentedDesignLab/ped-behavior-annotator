@@ -6,6 +6,7 @@ from controller.RecordingController import RecordingController
 from controller.VideoController import VideoController
 from controller.YoutubeController import YoutubeController
 from managers.ViewManager import ViewManager
+from model.RecordingRepository import RecordingRepository
 from view import *
 from view.AnnotationEditView import AnnotationEditView
 
@@ -15,13 +16,7 @@ def buttonCMD():
 class App(TKMT.ThemedTKinterFrame):
     def __init__(self, theme, mode, usecommandlineargs=True, usethemeconfigfile=True):
         super().__init__("TITLE", theme, mode, usecommandlineargs, usethemeconfigfile)
-        
-        ### Set up all the global objects #
-        self.context = {
-            "controllers": {
-                "recording": RecordingController(),
-            }
-        }
+        self.initContext()
 
         self.viewManager = ViewManager()
 
@@ -79,6 +74,20 @@ class App(TKMT.ThemedTKinterFrame):
         youtubeController = YoutubeController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
         return youtubeController
 
+
+    def initContext(self):
+         
+        ### Set up all the global objects #
+        recordingRepo = RecordingRepository("./data")
+        self.context = {
+            "controllers": {
+                "recording": RecordingController(recordingRepo),
+            },
+            "repositoryies": {
+                 "recording": recordingRepo,
+            }
+            
+        }
 
 if __name__ == "__main__":
         App("park", "dark")
