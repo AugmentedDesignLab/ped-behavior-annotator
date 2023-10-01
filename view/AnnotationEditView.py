@@ -45,7 +45,11 @@ class AnnotationEditView(View):
             PedestrianTag.Flinch,
             PedestrianTag.Crash,
             PedestrianTag.Jaywalking,
-            PedestrianTag.Distracted
+            PedestrianTag.Distracted,
+            PedestrianTag.NoLook,
+            PedestrianTag.RedLight,
+            PedestrianTag.ChangingLight,
+            PedestrianTag.NoSigns
         ]
 
         self.behaviorCheckVars = [tk.BooleanVar(name=option.value) for option in options]
