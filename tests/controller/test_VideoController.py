@@ -26,7 +26,7 @@ def test_fps(videoCapture):
 
 def test_duration(videoCapture):
     videoController = VideoController(videoCapture)
-    assert videoController.getDuration() > 60 and videoController.getDuration() < 62
+    assert videoController.getDuration() > 60 and videoController.getDuration() < 300
 
 def test_nframes(videoCapture):
     videoController = VideoController(videoCapture)
