@@ -1,1 +1,1 @@
-from VideoController import VideoController
+from .VideoController import VideoController

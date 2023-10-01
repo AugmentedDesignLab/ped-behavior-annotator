@@ -1,10 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
+from typing import Callable
 from TKinterModernThemes.WidgetFrame import Widget
 import TKinterModernThemes as TKMT
 from controller.RecordingController import RecordingController
 from controller.VideoController import VideoController
 from controller.YoutubeController import YoutubeController
+from library import AppEvent
+from library.AppEvent import AppEventType
 from managers.ViewManager import ViewManager
 from view import *
 from view.AnnotationEditView import AnnotationEditView
@@ -22,6 +25,9 @@ class App(TKMT.ThemedTKinterFrame):
                 "recording": RecordingController(),
             }
         }
+
+        ### event streams
+        self.initEventStreams()
 
         self.viewManager = ViewManager()
 
@@ -62,11 +68,8 @@ class App(TKMT.ThemedTKinterFrame):
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
-        annotationView = AnnotationEditView()
-        annotationView.render(self.annotationFrame) 
-        # instead of just the parent frame the inputs should be
-        # 1. time, frameNo, recordingController.
-
+        annotationView = AnnotationEditView(self.context["controllers"]["recording"])
+        annotationView.render(self.annotationFrame, 5, 100)
 
 
         self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(0,0))
@@ -82,6 +85,30 @@ class App(TKMT.ThemedTKinterFrame):
         youtubeController = YoutubeController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
         return youtubeController
 
+
+    def initEventStreams(self):
+         self.annotateFrameHandlers = [] # kust if functions to be called when a annotation is requested
+
+         
+    def unsubscribe(self, appEvent: AppEventType, handler: Callable):
+        if appEvent == AppEventType.requestAnnotation:
+            self.annotateFrameHandlers.remove(handler)
+
+    
+    def subscribe(self, appEvent: AppEventType, handler: Callable):
+        if appEvent == AppEventType.requestAnnotation:
+            self.annotateFrameHandlers.append(handler)
+    
+    def onEvent(self, appEvent: AppEvent):
+        if appEvent.type == AppEventType.requestAnnotation:
+            self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
+            annotationView = AnnotationEditView(self.context["controllers"]["recording"])
+            annotationView.render(self.annotationFrame, 5, 100)
+             
+            # for handler in self.annotateFrameHandlers:
+            #     handler(appEvent.data["timestamp"], appEvent.data["frame"])
+
+    
 
 if __name__ == "__main__":
         App("park", "dark")
