@@ -29,7 +29,7 @@ class AnnotationEditView(View):
         self._renderSaveButton(self.behaviorFrame)
 
 
-    def render(self, parent: TKMT.WidgetFrame, time: float, frame: int): #also pass time and frame number (comes from outside)
+    def render(self, parent: TKMT.WidgetFrame, time: float, frame: int):
         # frame information
         self.currentAnnotation = SingleFrameAnnotation(time, frame)
         self._renderView(parent)
@@ -77,7 +77,7 @@ class AnnotationEditView(View):
     def behaviorChangeHandler(self, option: PedestrianTag, var: tk.BooleanVar):
         print("Checkbox number:", option, "was pressed")
         print("Checkboxes: ", var.get())
-
+        self.currentAnnotation.pedTags.append(option)
         # TODO update the currentAnnotation object's tags
 
 
@@ -89,8 +89,6 @@ class AnnotationEditView(View):
 
     def handleSave(self):
         print("Button clicked. Current toggle button state: ", self.togglebuttonvar.get())
-        
-
         self.recordingController.addSingleFrameAnnotation(self.currentAnnotation)
         print("frame created")
 
