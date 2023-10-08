@@ -6,9 +6,6 @@ class PedestrianTag(Enum):
     Jaywalking = "Jaywalking"
     Distracted = "Distracted"
     NoLook = "No Looking"
-    RedLight = "Red Light"
-    ChangingLight = "Changing Light"
-    NoSigns = "No signs"
 
 
 # PedestrianTag.Flinch == this is an object
