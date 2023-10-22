@@ -93,13 +93,13 @@ class AnnotationEditView(View):
     def _renderTextField(self, parent: TKMT.WidgetFrame):
 
         parent.Text("Additional Notes:", col=0)
-        parent.nextCol()
+        # parent.nextCol()
 
         self.textinputvar = tk.StringVar()
         self.textinputvar.trace_add('write', self.textupdate)
         parent.Entry(
             self.textinputvar, 
-            colspan=3,
+            colspan=4,
             validatecommand=self.validateText, 
             validatecommandargs=(self.textinputvar,)
             )
