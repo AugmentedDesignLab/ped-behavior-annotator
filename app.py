@@ -5,6 +5,8 @@ import TKinterModernThemes as TKMT
 from controller.RecordingController import RecordingController
 from controller.VideoController import VideoController
 from controller.YoutubeController import YoutubeController
+from managers.ControllerManager import ControllerManager
+from managers import ControllerManager
 from managers.ViewManager import ViewManager
 from model.RecordingRepository import RecordingRepository
 from view import *
@@ -16,9 +18,10 @@ def buttonCMD():
 class App(TKMT.ThemedTKinterFrame):
     def __init__(self, theme, mode, usecommandlineargs=True, usethemeconfigfile=True):
         super().__init__("TITLE", theme, mode, usecommandlineargs, usethemeconfigfile)
-        self.initContext()
+        #self.initContext()
 
         self.viewManager = ViewManager()
+        self.controlManager = ControllerManager()
 
         # create two widgetframes, nav and content
         self.makeNav()
@@ -51,13 +54,15 @@ class App(TKMT.ThemedTKinterFrame):
          # put video player and annotation edit on the left frame
          # put recording on the right
         self.videoFrame = self.leftFrame.addFrame("Video", padx=(0,0), pady=(0,0))
-        videoController = self.makeVideoController()
-        videoView = VideoView(videoController)
+        videoController = self.controlManager.getVideoController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
+        videoView = self.viewManager.getVideoView(videoController)
         videoView.render(self.videoFrame)
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
-        annotationView = AnnotationEditView(self.context["controllers"]["recording"])
+        recordController = self.controlManager.getRecordingController(self)
+        annotationView = self.viewManager.getAnnotationView(recordController)
+        #self.context["controllers"]["recording"])
         annotationView.render(self.annotationFrame, 5, 100)
 
 
@@ -68,26 +73,6 @@ class App(TKMT.ThemedTKinterFrame):
 
         sampleView = SampleView()
         sampleView.render(self.videoFrame)
-
-
-    def makeVideoController(self) -> VideoController:
-        youtubeController = YoutubeController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
-        return youtubeController
-
-
-    def initContext(self):
-         
-        ### Set up all the global objects #
-        recordingRepo = RecordingRepository("./data")
-        self.context = {
-            "controllers": {
-                "recording": RecordingController(recordingRepo),
-            },
-            "repositoryies": {
-                 "recording": recordingRepo,
-            }
-            
-        }
 
 if __name__ == "__main__":
         App("park", "dark")
