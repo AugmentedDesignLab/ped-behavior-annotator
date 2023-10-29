@@ -5,6 +5,8 @@ class PedestrianTag(Enum):
     Crash = "Crash"
     Jaywalking = "Jaywalking"
     Distracted = "Distracted"
+    NoLook = "No Looking"
+
 
 # PedestrianTag.Flinch == this is an object
 # PedestrianTag.Flinch.value == "Flinch" this is a string
