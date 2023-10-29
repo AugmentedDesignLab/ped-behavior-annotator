@@ -13,6 +13,7 @@ class RecordingRepository:
     def save(self, recording: Recording) -> bool:
         # save meta
         # save annotations
+        # save in JSON format.
         pass
 
     def load() -> None:
