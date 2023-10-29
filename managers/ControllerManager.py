@@ -1,15 +1,15 @@
+from base64 import urlsafe_b64encode
 from controller.RecordingController import RecordingController
 from controller.VideoController import VideoController
 from controller.YoutubeController import YoutubeController
-from model import RecordingRepository
-
+from model.RecordingRepository import RecordingRepository
 
 class ControllerManager: 
-
-    def __init__(self):
-        self.initContext(self)
         
-    def initContext(self):
+    def __init__(self) -> None:
+        self.initContext()
+
+    def initContext(self) -> None:
         ### Set up all the global objects #
         recordingRepo = RecordingRepository("./data")
         
@@ -20,12 +20,11 @@ class ControllerManager:
             "repositoryies": {
                  "recording": recordingRepo,
             }
-            
         }
 
-    def getRecordingController(self):
+    def getRecordingController(self) -> RecordingController:
         return self.context["controllers"]["recording"]
     
-    def makeVideoController(self) -> VideoController:
-        youtubeController = YoutubeController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
+    def getVideoController(self, url) -> VideoController:
+        youtubeController = YoutubeController(url)
         return youtubeController

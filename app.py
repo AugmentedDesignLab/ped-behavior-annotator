@@ -6,7 +6,6 @@ from controller.RecordingController import RecordingController
 from controller.VideoController import VideoController
 from controller.YoutubeController import YoutubeController
 from managers.ControllerManager import ControllerManager
-from managers import ControllerManager
 from managers.ViewManager import ViewManager
 from model.RecordingRepository import RecordingRepository
 from view import *
@@ -21,8 +20,7 @@ class App(TKMT.ThemedTKinterFrame):
         #self.initContext()
 
         self.viewManager = ViewManager()
-        self.controlManager = ControllerManager()
-
+        self.controllerManager = ControllerManager()
         # create two widgetframes, nav and content
         self.makeNav()
         self.makeContent()
@@ -54,13 +52,13 @@ class App(TKMT.ThemedTKinterFrame):
          # put video player and annotation edit on the left frame
          # put recording on the right
         self.videoFrame = self.leftFrame.addFrame("Video", padx=(0,0), pady=(0,0))
-        videoController = self.controlManager.getVideoController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
+        videoController = self.controllerManager.getVideoController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
         videoView = self.viewManager.getVideoView(videoController)
         videoView.render(self.videoFrame)
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
-        recordController = self.controlManager.getRecordingController(self)
+        recordController = self.controllerManager.getRecordingController()
         annotationView = self.viewManager.getAnnotationView(recordController)
         #self.context["controllers"]["recording"])
         annotationView.render(self.annotationFrame, 5, 100)
