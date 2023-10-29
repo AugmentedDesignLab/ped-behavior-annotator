@@ -8,7 +8,9 @@ from controller.VideoController import VideoController
 from controller.YoutubeController import YoutubeController
 from library import AppEvent
 from library.AppEvent import AppEventType
+from managers.ControllerManager import ControllerManager
 from managers.ViewManager import ViewManager
+from model.RecordingRepository import RecordingRepository
 from view import *
 from view.AnnotationEditView import AnnotationEditView
 
@@ -18,19 +20,13 @@ def buttonCMD():
 class App(TKMT.ThemedTKinterFrame):
     def __init__(self, theme, mode, usecommandlineargs=True, usethemeconfigfile=True):
         super().__init__("TITLE", theme, mode, usecommandlineargs, usethemeconfigfile)
-        
-        ### Set up all the global objects #
-        self.context = {
-            "controllers": {
-                "recording": RecordingController(),
-            }
-        }
+        #self.initContext()
 
         ### event streams
         self.initEventStreams()
 
         self.viewManager = ViewManager()
-
+        self.controllerManager = ControllerManager()
         # create two widgetframes, nav and content
         self.makeNav()
         self.makeContent()
@@ -62,13 +58,15 @@ class App(TKMT.ThemedTKinterFrame):
          # put video player and annotation edit on the left frame
          # put recording on the right
         self.videoFrame = self.leftFrame.addFrame("Video", padx=(0,0), pady=(0,0))
-        videoController = self.makeVideoController()
-        videoView = VideoView(videoController)
+        videoController = self.controllerManager.getVideoController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
+        videoView = self.viewManager.getVideoView(videoController)
         videoView.render(self.videoFrame)
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
-        annotationView = AnnotationEditView(self.context["controllers"]["recording"])
+        recordController = self.controllerManager.getRecordingController()
+        annotationView = self.viewManager.getAnnotationView(recordController)
+        #self.context["controllers"]["recording"])
         annotationView.render(self.annotationFrame, 5, 100)
 
 
