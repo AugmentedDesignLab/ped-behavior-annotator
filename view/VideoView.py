@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from typing import Callable
 from TKinterModernThemes.WidgetFrame import Widget
 import TKinterModernThemes as TKMT
 import cv2
@@ -8,6 +9,7 @@ from pytube import YouTube
 import threading
 import queue
 from controller.VideoController import VideoController
+from library.AppEvent import AppEvent, AppEventType
 
 from view.View import View
 
@@ -90,3 +92,8 @@ def update_frame(video_label, frame_queue):
 
     # Call this function again after a delay to update frames continuously
     video_label.after(10, update_frame, video_label, frame_queue)
+
+    # events
+    def requestAnnotation(eventHandler: Callable):
+        event = AppEvent(AppEventType.requestAnnotation, data={"timestamp": 0, "frame": None})
+        eventHandler(event) # 
