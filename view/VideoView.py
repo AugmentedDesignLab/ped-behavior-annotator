@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 from typing import Callable
-from TKinterModernThemes.WidgetFrame import Widget
 import TKinterModernThemes as TKMT
 import cv2
 from PIL import Image, ImageTk
@@ -19,81 +18,62 @@ class VideoView(View):
         self.videoController = videoController
 
     def render(self, parent: TKMT.WidgetFrame):
-        parent.Label("This is our video", size=12)
-        return 
+        text_label = parent.Label(text="This is our video", size=12)
+        text_label.grid(row=0, column=0, padx=10, pady=10)
 
-        # Create a label to display the video stream
-        video = ttk.Label(master=parent)
-        video.grid(row=0, column=0, padx=10, pady=10)
+        video_label = parent.Label(master=parent)
+        video_label.grid(row=1, column=0, padx=10, pady=10)
 
-        # Create a queue to pass frames between threads
         frame_queue = queue.Queue()
 
-        # Start video streaming in a separate thread
         video_url = "https://www.youtube.com/watch?v=eu4QqwsfXFE"
-        video_thread = threading.Thread(target=start_video_stream, args=(video_url, frame_queue))
+        video_thread = threading.Thread(target=self.start_video_stream, args=(video_url, frame_queue))
         video_thread.start()
 
-        # Start updating frames in the GUI thread
-        update_thread = threading.Thread(target=update_frame, args=(video, frame_queue))
+        update_thread = threading.Thread(target=self.update_frame, args=(video_label, frame_queue))
         update_thread.start()
 
-        # Create a Scale widget
-        slider = ttk.Scale(master=parent, from_=0, to=100, orient=tk.HORIZONTAL, command=on_slider_move)
-        slider.grid(row=1, column=0, padx=20, pady=10)
+        slider = parent.Scale(from_=0, to=100, orient=tk.HORIZONTAL, command=self.on_slider_move)
+        slider.grid(row=2, column=0, padx=20, pady=10)
 
-def on_slider_move(value):
-    # This function will be called when the slider is moved
-    print("Slider moved to:", value)
+        annotate_button = parent.Button(text="Annotate", command=self.requestAnnotation)
+        annotate_button.grid(row=3, column=0, padx=10, pady=10)
 
-def start_video_stream(video_url, frame_queue):
-    # Download the YouTube video
-    yt = YouTube(video_url)
-    stream = yt.streams.filter(file_extension='mp4').first()
+    def on_slider_move(self, value):
+        print("Slider moved to:", value)
 
-    # Open the video stream
-    cap = cv2.VideoCapture(stream.url)
+    def start_video_stream(self, video_url, frame_queue):
+        yt = YouTube(video_url)
+        stream = yt.streams.filter(file_extension='mp4').first()
 
-    while True:
-        # Read a frame from the video
-        ret, frame = cap.read()
-        
-        if not ret:
-            break
+        cap = cv2.VideoCapture(stream.url)
 
-        # Put the frame into the queue
-        frame_queue.put(frame)
+        while True:
+            ret, frame = cap.read()
+            
+            if not ret:
+                break
+            frame_queue.put(frame)
+        cap.release()
 
-    # Release the video stream
-    cap.release()
+    def update_frame(self, video_label, frame_queue):
+        try:
+            frame = frame_queue.get_nowait()
 
-def update_frame(video_label, frame_queue):
-    # Get the frame from the queue (if available)
-    try:
-        frame = frame_queue.get_nowait()
+            frame = cv2.resize(frame, (960, 540))  # Change the size here as needed
 
-        # Resize the frame to the desired size
-        frame = cv2.resize(frame, (960, 540))  # Change the size here as needed
+            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            pil_image = Image.fromarray(frame_rgb)
 
-        # Convert frame to PIL Image
-        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        pil_image = Image.fromarray(frame_rgb)
+            photo = ImageTk.PhotoImage(image=pil_image)
+            video_label.config(image=photo)
+            video_label.image = photo
 
-        # Convert PIL Image to Tkinter PhotoImage
-        photo = ImageTk.PhotoImage(image=pil_image)
+        except queue.Empty:
+            pass
 
-        # Update the Tkinter Label with the new frame
-        video_label.config(image=photo)
-        video_label.image = photo
+        video_label.after(10, self.update_frame, video_label, frame_queue)
 
-    except queue.Empty:
-        # If the queue is empty, there's no new frame yet, so do nothing
-        pass
-
-    # Call this function again after a delay to update frames continuously
-    video_label.after(10, update_frame, video_label, frame_queue)
-
-    # events
-    def requestAnnotation(eventHandler: Callable):
+    def requestAnnotation(self):
         event = AppEvent(AppEventType.requestAnnotation, data={"timestamp": 0, "frame": None})
-        eventHandler(event) # 
+        self.videoController.eventHandler(event)
