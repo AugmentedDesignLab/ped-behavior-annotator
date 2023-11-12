@@ -23,6 +23,7 @@ class VideoView(View):
     def render(self, parent: TKMT.WidgetFrame, video_url = "https://www.youtube.com/watch?v=eu4QqwsfXFE"):
 
         self.videoController = YoutubeController(url=video_url)
+        self.currentFrame.set(0)
 
         text_label = parent.Label(text="This is our video", size=12)
         text_label.grid(row=0, column=0, padx=10, pady=10)
@@ -30,21 +31,21 @@ class VideoView(View):
         video_label = parent.Label("Video view")
         video_label.grid(row=1, column=0, padx=10, pady=10)
 
-        frame_queue = queue.Queue()
+        # frame_queue = queue.Queue()
+        frameList = []
 
         # video_url = "https://www.youtube.com/watch?v=eu4QqwsfXFE"
-        video_thread = threading.Thread(target=self.videoController.captureFrames, args=(frame_queue,))
+        video_thread = threading.Thread(target=self.videoController.captureFrames, args=(frameList,))
         video_thread.start()
 
         # self.videoController.captureFrames(frame_queue)
 
-        update_thread = threading.Thread(target=self.update_frame, args=(video_label, frame_queue))
+        update_thread = threading.Thread(target=self.update_frame, args=(video_label, frameList))
         update_thread.start()
 
         # slider = parent.Scale(from_=0, to=100, orient=tk.HORIZONTAL, command=self.on_slider_move)
         # slider.grid(row=2, column=0, padx=20, pady=10)
         
-        self.currentFrame.set(0)
         parent.Scale(0, self.videoController.getNFrames(), self.currentFrame, widgetkwargs={"command":self.on_slider_move})
         parent.Progressbar(self.currentFrame)
 
@@ -54,12 +55,28 @@ class VideoView(View):
     def on_slider_move(self, value):
         print("Slider moved to frame:", value)
 
-    def update_frame(self, video_label, frame_queue):
+    def update_frame(self, video_label: ttk.Label, frameList):
     
-        try:
-            frame = frame_queue.get_nowait()
+        # try:
+        #     frame = frame_queue.get_nowait()
 
-            frame = cv2.resize(frame, (960, 540))  # Change the size here as needed
+        #     frame = cv2.resize(frame, (960, 540))  # Change the size here as needed
+
+        #     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        #     pil_image = Image.fromarray(frame_rgb)
+
+        #     photo = ImageTk.PhotoImage(image=pil_image)
+        #     video_label.config(image=photo)
+        #     video_label.image = photo
+
+        #     self.currentFrame.set(self.currentFrame.get() + 1) # incrementing the current frame number.
+
+        # except queue.Empty:
+        #     pass
+        
+        if len(frameList) - 1 > self.currentFrame.get(): # we have a new frame
+            frame = frameList[self.currentFrame.get() + 1]
+            frame = cv2.resize(frame, (960, 540))
 
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             pil_image = Image.fromarray(frame_rgb)
@@ -70,10 +87,8 @@ class VideoView(View):
 
             self.currentFrame.set(self.currentFrame.get() + 1) # incrementing the current frame number.
 
-        except queue.Empty:
-            pass
-
-        video_label.after(10, self.update_frame, video_label, frame_queue)
+        inteval = int(1000 / self.videoController.getFPS()) # ms
+        video_label.after(inteval, self.update_frame, video_label, frameList)
 
     def requestAnnotation(self):
         event = AppEvent(AppEventType.requestAnnotation, data={"timestamp": 0, "frame": self.currentFrame})

@@ -1,3 +1,4 @@
+from typing import List
 import cv2
 import queue
 class VideoController:
@@ -35,12 +36,13 @@ class VideoController:
         return max(currentFrame - frame_diff, 0)
     
 
-    def captureFrames(self, frameQueue: queue.Queue):
+    def captureFrames(self, frameList: List[cv2.UMat]):
         while True:
             ret, frame = self.capture.read()
             if not ret:
                 break
-            frameQueue.put(frame)
+            # frameQueue.put(frame)
+            frameList.append(frame)
         self.capture.release()
         pass
 
