@@ -57,23 +57,6 @@ class VideoView(View):
 
     def update_frame(self, video_label: ttk.Label, frameList):
     
-        # try:
-        #     frame = frame_queue.get_nowait()
-
-        #     frame = cv2.resize(frame, (960, 540))  # Change the size here as needed
-
-        #     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        #     pil_image = Image.fromarray(frame_rgb)
-
-        #     photo = ImageTk.PhotoImage(image=pil_image)
-        #     video_label.config(image=photo)
-        #     video_label.image = photo
-
-        #     self.currentFrame.set(self.currentFrame.get() + 1) # incrementing the current frame number.
-
-        # except queue.Empty:
-        #     pass
-        
         if len(frameList) - 1 > self.currentFrame.get(): # we have a new frame
             frame = frameList[self.currentFrame.get() + 1]
             frame = cv2.resize(frame, (960, 540))
