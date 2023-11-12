@@ -1,5 +1,5 @@
 import cv2
-
+import queue
 class VideoController:
     
     def __init__(self, capture: cv2.VideoCapture) -> None:
@@ -33,3 +33,14 @@ class VideoController:
         fps = self.getFPS()
         frame_diff = int(duration * fps)
         return max(currentFrame - frame_diff, 0)
+    
+
+    def captureFrames(self, frameQueue: queue.Queue):
+        while True:
+            ret, frame = self.capture.read()
+            if not ret:
+                break
+            frameQueue.put(frame)
+        self.capture.release()
+        pass
+

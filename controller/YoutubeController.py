@@ -19,6 +19,6 @@ class YoutubeController(VideoController):
 
     def __del__(self):
         self.capture.release()
-        os.remove('temp_video.mp4')
+        # os.remove('temp_video.mp4')
 
     # Test that the video is actually deleted after the object is deleted. 

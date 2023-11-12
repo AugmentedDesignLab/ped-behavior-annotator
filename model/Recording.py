@@ -21,13 +21,14 @@ class Recording:
         Returns:
             str: _description_
         """
-        return f"{
-            'name': self.name,
-            'annotation_path': self.annotation_path,
-            'video_path': self.video_path,
-            'multiFrameAnnotations': self.multiFrameAnnotations, # this will not work, we need to convert this list to a string instead
-            'singleFrameAnnotation': self.singleFrameAnnotation # this will not work, we need to convert this list to a string instead
-        }"
+        # return f"{
+        #     'name': self.name,
+        #     'annotation_path': self.annotation_path,
+        #     'video_path': self.video_path,
+        #     'multiFrameAnnotations': self.multiFrameAnnotations, # this will not work, we need to convert this list to a string instead
+        #     'singleFrameAnnotation': self.singleFrameAnnotation # this will not work, we need to convert this list to a string instead
+        # }"
+        return ""
     
     def fromJSON(self, json: str) -> 'Recording':
         # read the json string and convert it to a Recording object
