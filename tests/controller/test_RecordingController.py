@@ -27,7 +27,7 @@ def test_addSingleFrameAnnotation(singleAnnotation):
     recordingController.addSingleFrameAnnotation(singleAnnotation)
 
     # Assert for not null value. 
-    assert recordingController.getRecordingByVideoPath(video_url) != NULL
+    assert recordingController.getRecordingByVideoPath(video_url) != None
 
 def test_addMultiFrameAnnotation():
     recording = Recording("")
@@ -36,4 +36,4 @@ def test_addMultiFrameAnnotation():
     recordingController = RecordingController(repository, recording)
     recordingController.addMultiFrameAnnotation(multiAnnotation)
 
-    assert recordingController.getRecordingByVideoPath(video_url) != NULL
+    assert recordingController.getRecordingByVideoPath(video_url) != None
