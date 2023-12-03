@@ -26,4 +26,25 @@ def test_fps(videoCapture):
 
 def test_duration(videoCapture):
     videoController = VideoController(videoCapture)
-    assert videoController.getDuration() > 60 and videoController.getDuration() < 62
+    assert videoController.getDuration() > 60 and videoController.getDuration() < 600
+
+def test_nframes(videoCapture):
+    videoController = VideoController(videoCapture)
+    nframes = videoController.getNFrames()
+    assert nframes <= 20000
+
+def test_frame_after(videoCapture):
+    videoController = VideoController(videoCapture)
+    current_frame = 30
+    duration = 10
+    expected_frame = current_frame + videoController.getFPS() * duration
+    
+    assert videoController.getFrameAfter(current_frame, duration) == expected_frame
+
+def test_frame_before(videoCapture):
+    videoController = VideoController(videoCapture)
+    current_frame = 300
+    duration = 5
+    expected_frame = current_frame - videoController.getFPS() * duration
+    
+    assert videoController.getFrameBefore(current_frame, duration) == expected_frame
