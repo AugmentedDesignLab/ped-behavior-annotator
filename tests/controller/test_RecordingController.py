@@ -20,7 +20,7 @@ def multiAnnotation() -> MultiFrameAnnotation:
 
 def test_addSingleFrameAnnotation(singleAnnotation):
     # Create a Repository object and Recording Object. 
-    recording = Recording("")
+    recording = Recording(name="", annotation_path="", video_path="")
     video_url = "https://www.youtube.com/watch?v=eu4QqwsfXFE"
     repository = RecordingRepository(video_url)
     recordingController = RecordingController(repository, recording)
@@ -30,7 +30,9 @@ def test_addSingleFrameAnnotation(singleAnnotation):
     assert recordingController.getRecordingByVideoPath(video_url) != None
 
 def test_addMultiFrameAnnotation():
-    recording = Recording("")
+    
+    recording = Recording(name="", annotation_path="", video_path="")
+    
     video_url = "https://www.youtube.com/watch?v=eu4QqwsfXFE"
     repository = RecordingRepository(video_url)
     recordingController = RecordingController(repository, recording)
