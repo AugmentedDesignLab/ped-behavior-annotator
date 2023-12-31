@@ -1,6 +1,0 @@
-pillow==8.4.0
-pytube==15.0.0
-ttkthemes==2.3.0
-tkintermodernthemes==1.10.0
-opencv_contrib_python==4.8.0.74
-opencv-python==4.6.0
