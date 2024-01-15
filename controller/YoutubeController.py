@@ -10,7 +10,6 @@ class YoutubeController(VideoController):
         yt = YouTube(url)
         stream = yt.streams.filter(file_extension='mp4').first()
         filepath = stream.download(filename='temp_video.mp4')
-        print(filepath)
 
         # Create a capture object
         self.capture = cv2.VideoCapture(filepath)

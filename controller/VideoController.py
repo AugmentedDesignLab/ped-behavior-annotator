@@ -11,9 +11,9 @@ class VideoController:
         #Total number of frames in the video
         return int(self.capture.get(cv2.CAP_PROP_FRAME_COUNT))
 
-    def getFPS(self) -> float:
+    def getFPS(self) -> int:
         #FPS of the video
-        return self.capture.get(cv2.CAP_PROP_FPS)
+        return int(self.capture.get(cv2.CAP_PROP_FPS))
 
     def getDuration(self) -> float:
         #Duration of the video in seconds
