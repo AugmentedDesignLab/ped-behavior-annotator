@@ -93,7 +93,7 @@ class VideoView:
         self.current_frame.set(0)
 
         video_label = parent.Label(text="Video view")
-        video_label.grid(row=0, column=0, padx=10, pady=10)
+        video_label.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
 
         frame_list = []
 
@@ -103,19 +103,23 @@ class VideoView:
         video_label.after(0, lambda: self.update_frame(video_label, frame_list))
 
         parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.current_frame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=0, padx=20, pady=10)
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=0, columnspan=3, padx=20, pady=10)
         
         parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.start_frame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=0, padx=20, pady=10)
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=0, columnspan=3, padx=20, pady=10)
         
         parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.end_frame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=3, column=0, padx=20, pady=10)
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=3, column=0, columnspan=3, padx=20, pady=10)
         self.end_frame.set(self.videoController.getNFrames())
 
-        parent.Button(text="Pause" if self.playing.get() else "Play", command=self.toggle_play_pause).grid(
+        parent.Button(text="<<", command=self.skip_left).grid(
             row=4, column=0, padx=10, pady=10)
+        parent.Button(text="Pause" if self.playing.get() else "Play", command=self.toggle_play_pause).grid(
+            row=4, column=1, padx=10, pady=10)
+        parent.Button(text=">>", command=self.skip_right).grid(
+            row=4, column=2, padx=10, pady=10)
 
-        parent.Button(text="Match Frame", command=self.match_frame).grid(row=5, column=0, padx=10, pady=10)
+        parent.Button(text="Match Frame", command=self.match_frame).grid(row=5, column=0, columnspan=3, padx=10, pady=10)
 
     def on_slider_move(self, value):
         print("Slider moved to frame:", value)
@@ -127,17 +131,18 @@ class VideoView:
                 self.current_frame.set(self.start_frame.get())
             if self.current_frame.get() > self.end_frame.get():
                 self.current_frame.set(self.start_frame.get())
+
+            frame = frame_list[self.current_frame.get()]
+            frame = cv2.resize(frame, (480, 270))
+
+            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            pil_image = Image.fromarray(frame_rgb)
+
+            photo = ImageTk.PhotoImage(image=pil_image)
+            video_label.config(image=photo)
+            video_label.image = photo
+
             if self.playing.get():
-                frame = frame_list[self.current_frame.get() + 1]
-                frame = cv2.resize(frame, (480, 270))
-
-                frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                pil_image = Image.fromarray(frame_rgb)
-
-                photo = ImageTk.PhotoImage(image=pil_image)
-                video_label.config(image=photo)
-                video_label.image = photo
-
                 self.current_frame.set(self.current_frame.get() + 1)
 
                 if self.fps == 0:
@@ -150,10 +155,18 @@ class VideoView:
 
         # Start the first update
         video_label.after(0, update)
-
+        
     def toggle_play_pause(self):
         self.playing.set(not self.playing.get())
         print("Paused" if not self.playing.get() else "Playing")
+
+    def skip_left(self):
+        self.current_frame.set(self.current_frame.get()-30)
+
+    def skip_right(self):
+        self.current_frame.set(self.current_frame.get()+30)
+        if self.current_frame.get() > self.end_frame.get():
+            self.current_frame.set(self.end_frame.get())
 
     def match_frame(self):
         matching_frame = self.start_frame.get()
