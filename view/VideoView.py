@@ -125,7 +125,7 @@ class VideoView:
             # if self.playing.get() and len(frame_list) - 1 > self.current_frame.get():
             if self.current_frame.get() < self.start_frame.get():
                 self.current_frame.set(self.start_frame.get())
-            if self.current_frame.get() >= self.end_frame.get():
+            if self.current_frame.get() > self.end_frame.get():
                 self.current_frame.set(self.start_frame.get())
             if self.playing.get():
                 frame = frame_list[self.current_frame.get() + 1]
