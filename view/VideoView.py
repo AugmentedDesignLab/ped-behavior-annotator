@@ -103,13 +103,13 @@ class VideoView:
         video_label.after(0, lambda: self.update_frame(video_label, frame_list))
 
         parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.current_frame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=0, columnspan=3, padx=20, pady=10)
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=0, columnspan=3, padx=10, pady=10)
         
         parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.start_frame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=0, columnspan=3, padx=20, pady=10)
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=0, columnspan=3, padx=10, pady=10)
         
         parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.end_frame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=3, column=0, columnspan=3, padx=20, pady=10)
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=3, column=0, columnspan=3, padx=10, pady=10)
         self.end_frame.set(self.videoController.getNFrames())
 
         parent.Button(text="<<", command=self.skip_left).grid(
@@ -118,8 +118,9 @@ class VideoView:
             row=4, column=1, padx=10, pady=10)
         parent.Button(text=">>", command=self.skip_right).grid(
             row=4, column=2, padx=10, pady=10)
-
-        parent.Button(text="Match Frame", command=self.match_frame).grid(row=5, column=0, columnspan=3, padx=10, pady=10)
+        
+        parent.Button(text="Match Frame", command=self.match_frame).grid(row=5, column=0, columnspan=2, padx=10, pady=10)
+        parent.Button(text="Replay Segment", command=self.replay_segment).grid(row=5, column=2, columnspan=1, padx=10, pady=10)
 
     def on_slider_move(self, value):
         print("Slider moved to frame:", value)
@@ -130,7 +131,7 @@ class VideoView:
             if self.current_frame.get() < self.start_frame.get():
                 self.current_frame.set(self.start_frame.get())
             if self.current_frame.get() > self.end_frame.get():
-                self.current_frame.set(self.start_frame.get())
+                self.current_frame.set(self.end_frame.get())
 
             frame = frame_list[self.current_frame.get()]
             frame = cv2.resize(frame, (480, 270))
@@ -165,11 +166,12 @@ class VideoView:
 
     def skip_right(self):
         self.current_frame.set(self.current_frame.get()+30)
-        if self.current_frame.get() > self.end_frame.get():
-            self.current_frame.set(self.end_frame.get())
 
     def match_frame(self):
         matching_frame = self.start_frame.get()
         self.end_frame.set(matching_frame)
         self.current_frame.set(matching_frame)
         self.playing.set(True)
+    
+    def replay_segment(self):
+        self.current_frame.set(self.start_frame.get())
