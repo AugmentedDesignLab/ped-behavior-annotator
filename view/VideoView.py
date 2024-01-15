@@ -104,21 +104,30 @@ class VideoView:
 
         parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.current_frame,
                   widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=0, padx=20, pady=10)
-
-        parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.end_frame,
+        
+        parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.start_frame,
                   widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=0, padx=20, pady=10)
+        
+        parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.end_frame,
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=3, column=0, padx=20, pady=10)
+        self.end_frame.set(self.videoController.getNFrames())
 
         parent.Button(text="Pause" if self.playing.get() else "Play", command=self.toggle_play_pause).grid(
-            row=3, column=0, padx=10, pady=10)
+            row=4, column=0, padx=10, pady=10)
 
-        parent.Button(text="Match Frame", command=self.match_frame).grid(row=4, column=0, padx=10, pady=10)
+        parent.Button(text="Match Frame", command=self.match_frame).grid(row=5, column=0, padx=10, pady=10)
 
     def on_slider_move(self, value):
         print("Slider moved to frame:", value)
 
     def update_frame(self, video_label, frame_list):
         def update():
-            if self.playing.get() and len(frame_list) - 1 > self.current_frame.get():
+            # if self.playing.get() and len(frame_list) - 1 > self.current_frame.get():
+            if self.current_frame.get() < self.start_frame.get():
+                self.current_frame.set(self.start_frame.get())
+            if self.current_frame.get() == self.end_frame.get():
+                self.current_frame.set(self.start_frame.get())
+            if self.playing.get():
                 frame = frame_list[self.current_frame.get() + 1]
                 frame = cv2.resize(frame, (480, 270))
 
