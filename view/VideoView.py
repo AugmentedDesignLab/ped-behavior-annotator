@@ -19,6 +19,8 @@ class VideoView(View):
     def __init__(self, eventManager: EventManager) -> None:
         self.eventManager = eventManager
         self.currentFrame = tk.IntVar(value=0)
+        self.frameNumberText = StringVar()
+        self.currentFrame.trace('w', self.update_frame_number_text)
 
     def render(self, parent: TKMT.WidgetFrame, video_url = "https://www.youtube.com/watch?v=eu4QqwsfXFE"):
 
@@ -30,6 +32,9 @@ class VideoView(View):
 
         video_label = parent.Label("Video view")
         video_label.grid(row=1, column=0, padx=10, pady=10)
+
+        frame_number_label = parent.Label(textvariable=self.frameNumberText, size=12)
+        frame_number_label.grid(row=4, column=0, padx=10, pady=10)
 
         # frame_queue = queue.Queue()
         frameList = []
@@ -72,6 +77,9 @@ class VideoView(View):
 
         inteval = int(1000 / self.videoController.getFPS()) # ms
         video_label.after(inteval, self.update_frame, video_label, frameList)
+
+    def update_frame_number_text(self, *args):
+        self.frameNumberText.set(f"Current Frame: {self.currentFrame.get()}")
 
     def requestAnnotation(self):
         event = AppEvent(AppEventType.requestAnnotation, data={"timestamp": 0, "frame": self.currentFrame})
