@@ -5,7 +5,7 @@ from TKinterModernThemes.WidgetFrame import Widget
 import TKinterModernThemes as TKMT
 from controller.RecordingController import RecordingController
 from controller.VideoController import VideoController
-from controller.YoutubeController import YoutubeController
+#from controller.YoutubeController import YoutubeController
 from library import AppEvent
 from library.AppEvent import AppEventType
 from managers.ControllerManager import ControllerManager
@@ -13,6 +13,7 @@ from managers.ViewManager import ViewManager
 from model.RecordingRepository import RecordingRepository
 from view import *
 from view.AnnotationEditView import AnnotationEditView
+from view.TitleView import TitleView
 
 def buttonCMD():
         print("Button clicked!")
@@ -35,6 +36,7 @@ class App(TKMT.ThemedTKinterFrame):
         self.run()
     
     def makeNav(self):
+        #TODO: call render titleview here I think
         self.navFrame = self.addFrame("Nav")
         self.navFrame.Button("New Project", buttonCMD)
         self.navFrame.nextCol()
@@ -42,6 +44,9 @@ class App(TKMT.ThemedTKinterFrame):
         self.navFrame.setActiveCol(0)
         self.navFrame.Text("Recording Name")
         self.navFrame.Text("Annotation Path")
+
+        titleView = TitleView()
+        titleView.render(self.navFrame)
     
     def makeContent(self):
         self.contentFrame = self.addFrame("Content", padx=(0,0), pady=(0,0))
@@ -58,9 +63,9 @@ class App(TKMT.ThemedTKinterFrame):
          # put video player and annotation edit on the left frame
          # put recording on the right
         self.videoFrame = self.leftFrame.addFrame("Video", padx=(0,0), pady=(0,0))
-        videoController = self.controllerManager.getVideoController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
-        videoView = self.viewManager.getVideoView(videoController)
-        videoView.render(self.videoFrame)
+        #videoController = self.controllerManager.getVideoController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
+        #videoView = self.viewManager.getVideoView(videoController)
+        #videoView.render(self.videoFrame)
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
