@@ -61,7 +61,7 @@ class VideoView:
         parent.Button(text="Match Frame", command=self.match_frame).grid(row=5, column=0, columnspan=2, padx=10, pady=10)
         parent.Button(text="Replay Segment", command=self.replay_segment).grid(row=5, column=2, columnspan=1, padx=10, pady=10)
 
-        frame_number_label = parent.Label(text=self.frameNumberText.get(), size=12)
+        frame_number_label = parent.Label(text=self.frameNumberText.get(), size=12, widgetkwargs={"textvariable":self.frameNumberText})
         frame_number_label.grid(row=6, column=0, columnspan=3, padx=10, pady=10)
 
     def on_slider_move(self, value):
