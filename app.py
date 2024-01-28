@@ -21,6 +21,8 @@ class App(TKMT.ThemedTKinterFrame):
     def __init__(self, theme, mode, usecommandlineargs=True, usethemeconfigfile=True):
         super().__init__("TITLE", theme, mode, usecommandlineargs, usethemeconfigfile)
         #self.initContext()
+        global firstWindow
+        firstWindow = False
 
         self.eventManager = EventManager()
         self.viewManager = ViewManager(self.eventManager)
