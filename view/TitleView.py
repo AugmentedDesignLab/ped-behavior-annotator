@@ -9,7 +9,7 @@ class TitleView(tk.Frame):
     def _renderView(self, parent: TKMT.WidgetFrame):
         parent.setActiveCol(0)
         self.titleFrame = parent.addLabelFrame("Title View", padx=(0,1), pady=(0,1))
-        newProjButton = ttk.Button(master=self, text="Add new project", command=self.renderTitleView)
+        newProjButton = parent.Button(text="Add new project", command=self.renderTitleView)
         newProjButton.grid(row=0, column=0, padx=10, pady=10)
         newProjButton.invoke()
 
@@ -21,8 +21,8 @@ class TitleView(tk.Frame):
         parent.setActiveCol(0)
         self.startFrame = parent.addLabelFrame("Start", padx=(0,1), pady=(0,1))
         self.input_frame = parent.addLabelFrame("Title View", rowspan=2)
-        self.textinputvar.trace_add('Add YouTube link here', parent.textupdate)
-        self.input_frame.Entry(parent.textinputvar, validatecommand=parent.validateText)
+        self.textinputvar.trace_add('Add YouTube link here', self.textupdate)
+        self.input_frame.Entry(self.textinputvar, validatecommand=self.validateText)
 
     def renderTitleView(self, parent: TKMT.WidgetFrame):
         self._titleView(parent)
