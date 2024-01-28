@@ -20,7 +20,7 @@ class VideoView:
         self.eventManager = eventManager
         self.currentFrame = tk.IntVar(value=0)
         self.frameNumberText = tk.StringVar()
-        self.currentFrame.trace('w', self.update_frame_number_text)
+        self.currentFrame.trace_add('write', self.update_frame_number_text)
         self.startFrame = tk.IntVar(value=0)
         self.endFrame = tk.IntVar(value=0)
         self.fps = 0
