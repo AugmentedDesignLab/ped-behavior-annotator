@@ -13,6 +13,7 @@ from library.AppEvent import AppEvent, AppEventType
 from managers.EventManager import EventManager
 
 from view.View import View
+import time
 
 class VideoView:
 
@@ -25,8 +26,9 @@ class VideoView:
         self.endFrame = tk.IntVar(value=0)
         self.fps = 0
         self.playing = tk.BooleanVar(value=True)
+        self.needReset = False
 
-    def render(self, parent: TKMT.WidgetFrame, video_url="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
+    def render(self, parent: TKMT.WidgetFrame, video_url):
         self.videoController = YoutubeController(url=video_url)
         self.currentFrame.set(0)
 
@@ -64,11 +66,22 @@ class VideoView:
         frame_number_label = parent.Label(text=self.frameNumberText.get(), size=12, widgetkwargs={"textvariable":self.frameNumberText})
         frame_number_label.grid(row=6, column=0, columnspan=3, padx=10, pady=10)
 
+    def destroy(self, newVideoURL):
+        # 1. Clean up old update loop
+        self.needReset = True
+        time.sleep(2)
+        # 2. load the new one
+
+
+    
+
     def on_slider_move(self, value):
         print("Slider moved to frame:", value)
 
     def update_frame(self, video_label, frameList):
         def update():
+            if self.needReset:
+                return
             # if self.playing.get() and len(frameList) - 1 > self.currentFrame.get():
             if self.currentFrame.get() < self.startFrame.get():
                 self.currentFrame.set(self.startFrame.get())

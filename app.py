@@ -9,6 +9,7 @@ from controller.YoutubeController import YoutubeController
 from managers.ControllerManager import ControllerManager
 from managers.EventManager import EventManager
 from managers.ViewManager import ViewManager
+from library.AppEvent import AppEvent, AppEventType
 from model.RecordingRepository import RecordingRepository
 from view import *
 from view.AnnotationEditView import AnnotationEditView
@@ -32,6 +33,8 @@ class App(TKMT.ThemedTKinterFrame):
         self.makeContent()
         self.makeEditor()
         # self.debugPrint()
+
+        self.eventManager.subscribe(AppEventType.newProject, self.handleNewProject)
         self.run()
     
     def makeNav(self):
@@ -62,8 +65,8 @@ class App(TKMT.ThemedTKinterFrame):
          # put video player and annotation edit on the left frame
          # put recording on the right
         self.videoFrame = self.leftFrame.addFrame("Video", padx=(0,0), pady=(0,0))
-        videoView = self.viewManager.getVideoView()
-        videoView.render(self.videoFrame)
+        self.createVideoView()
+        
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
@@ -85,6 +88,16 @@ class App(TKMT.ThemedTKinterFrame):
     def makeVideoController(self) -> VideoController:
         youtubeController = YoutubeController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
         return youtubeController
+
+    
+    def handleNewProject(self, event: AppEvent):
+        print("New project event handled")
+        self.createVideoView(event.data["videoURL"])
+
+        
+    def createVideoView(self, videoURL="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
+        videoView = self.viewManager.getVideoView()
+        videoView.render(self.videoFrame, videoURL)
 
 
 
