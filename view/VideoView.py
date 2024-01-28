@@ -35,7 +35,7 @@ class VideoView:
 
         frameList = []
 
-        frame_number_label = parent.Label(textvariable=self.frameNumberText, size=12)
+        frame_number_label = parent.Label(text=self.frameNumberText, size=12)
         frame_number_label.grid(row=4, column=0, padx=10, pady=10)
 
         # video_url = "https://www.youtube.com/watch?v=eu4QqwsfXFE"
