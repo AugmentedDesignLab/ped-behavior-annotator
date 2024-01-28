@@ -95,6 +95,9 @@ class VideoView:
                 video_label.after(interval, update)
             else:
                 video_label.after(1000, update)
+        
+        # Start the first update
+        video_label.after(0, update)
 
     def update_frame_number_text(self, *args):
         self.frameNumberText.set(f"Current Frame: {self.currentFrame.get()}")
