@@ -64,7 +64,7 @@ class App(TKMT.ThemedTKinterFrame):
     def makeEditor(self):
          # put video player and annotation edit on the left frame
          # put recording on the right
-        self.videoFrame = self.leftFrame.addFrame("Video", padx=(0,0), pady=(0,0))
+        self.videoFrame = self.leftFrame.addFrame("Video View", padx=(0,0), pady=(0,0))
         self.createVideoView()
         
         # self.videoFrame.Text("Video")

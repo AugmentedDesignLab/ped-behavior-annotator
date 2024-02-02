@@ -102,7 +102,8 @@ class AnnotationEditView(View):
             validatecommand=self.validateText, 
             validatecommandargs=(self.textinputvar,),
             col=1,
-            row=1
+            row=1,
+            rowspan=3
             )
 
     def _renderSaveButton(self, parent: TKMT.WidgetFrame):

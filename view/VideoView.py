@@ -19,11 +19,22 @@ class VideoView:
 
     def __init__(self, eventManager: EventManager) -> None:
         self.eventManager = eventManager
+        
         self.currentFrame = tk.IntVar(value=0)
-        self.frameNumberText = tk.StringVar()
-        self.currentFrame.trace_add('write', self.update_frame_number_text)
+        self.currentFrameText = tk.StringVar()
+        self.currentFrame.trace_add('write', self.updateCurrentFrameText)
+
         self.startFrame = tk.IntVar(value=0)
+        self.startFrameText = tk.StringVar()
+        self.startFrameText.set("Start Frame: 0")
+        self.startFrame.trace_add('write', self.updateStartFrameText)
+
         self.endFrame = tk.IntVar(value=0)
+        self.endFrameText = tk.StringVar()
+        self.endFrame.trace_add('write', self.updateEndFrameText)
+
+        self.segmentProgress = tk.IntVar(value=0)
+
         self.fps = 0
         self.playing = tk.BooleanVar(value=True)
         self.needReset = False
@@ -32,8 +43,8 @@ class VideoView:
         self.videoController = YoutubeController(url=video_url)
         self.currentFrame.set(0)
 
-        video_label = parent.Label(text="Video view")
-        video_label.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
+        video_label = parent.Label(text="Video")
+        video_label.grid(row=0, column=0, rowspan=6, columnspan=3, padx=10, pady=10)
 
         frameList = []
 
@@ -44,27 +55,35 @@ class VideoView:
         video_label.after(0, lambda: self.update_frame(video_label, frameList))
 
         parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.currentFrame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=0, columnspan=3, padx=10, pady=10)
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=0, column=3, columnspan=3, padx=10, pady=10)
         
         parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=0, columnspan=3, padx=10, pady=10)
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=3, columnspan=3, padx=10, pady=10)
         
         parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.endFrame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=3, column=0, columnspan=3, padx=10, pady=10)
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=3, columnspan=3, padx=10, pady=10)
         self.endFrame.set(self.videoController.getNFrames())
 
         parent.Button(text="<<", command=self.skip_left).grid(
-            row=4, column=0, padx=10, pady=10)
+            row=3, column=3, padx=10, pady=10)
         parent.Button(text="Pause" if self.playing.get() else "Play", command=self.toggle_play_pause).grid(
-            row=4, column=1, padx=10, pady=10)
+            row=3, column=4, padx=10, pady=10)
         parent.Button(text=">>", command=self.skip_right).grid(
-            row=4, column=2, padx=10, pady=10)
+            row=3, column=5, padx=10, pady=10)
         
-        parent.Button(text="Match Frame", command=self.match_frame).grid(row=5, column=0, columnspan=2, padx=10, pady=10)
-        parent.Button(text="Replay Segment", command=self.replay_segment).grid(row=5, column=2, columnspan=1, padx=10, pady=10)
+        parent.Button(text="Match Frame", command=self.match_frame).grid(row=4, column=3, columnspan=2, padx=10, pady=10)
+        parent.Button(text="Replay Segment", command=self.replay_segment).grid(row=4, column=5, columnspan=1, padx=10, pady=10)
 
-        frame_number_label = parent.Label(text=self.frameNumberText.get(), size=12, widgetkwargs={"textvariable":self.frameNumberText})
-        frame_number_label.grid(row=6, column=0, columnspan=3, padx=10, pady=10)
+        parent.Progressbar(variable=self.segmentProgress, mode="determinate", lower=0, upper=100, row=5, col=3, colspan=3)
+
+        currentFrameLabel = parent.Label(text=self.currentFrameText.get(), size=12, widgetkwargs={"textvariable":self.currentFrameText})
+        currentFrameLabel.grid(row=0, column=6, columnspan=1, padx=10, pady=10)
+
+        startFrameLabel = parent.Label(text=self.startFrameText.get(), size=12, widgetkwargs={"textvariable":self.startFrameText})
+        startFrameLabel.grid(row=1, column=6, columnspan=1, padx=10, pady=10)
+
+        endFrameLabel = parent.Label(text=self.endFrameText.get(), size=12, widgetkwargs={"textvariable":self.endFrameText})
+        endFrameLabel.grid(row=2, column=6, columnspan=1, padx=10, pady=10)
 
     def destroy(self, newVideoURL):
         # 1. Clean up old update loop
@@ -87,6 +106,8 @@ class VideoView:
                 self.currentFrame.set(self.startFrame.get())
             if self.currentFrame.get() > self.endFrame.get():
                 self.currentFrame.set(self.endFrame.get())
+
+            self.segmentProgress.set(int((self.currentFrame.get()-self.startFrame.get())/(self.endFrame.get()-self.startFrame.get()) * 100))
 
             frame = frameList[self.currentFrame.get()]
             frame = cv2.resize(frame, (480, 270))
@@ -112,8 +133,14 @@ class VideoView:
         # Start the first update
         video_label.after(0, update)
 
-    def update_frame_number_text(self, *args):
-        self.frameNumberText.set(f"Current Frame: {self.currentFrame.get()}")
+    def updateCurrentFrameText(self, *args):
+        self.currentFrameText.set(f"Current Frame: {self.currentFrame.get()}")
+
+    def updateStartFrameText(self, *args):
+        self.startFrameText.set(f"Start Frame: {self.startFrame.get()}")
+    
+    def updateEndFrameText(self, *args):
+        self.endFrameText.set(f"End Frame: {self.endFrame.get()}")
 
     def requestAnnotation(self):
         event = AppEvent(AppEventType.requestAnnotation, data={"timestamp": 0, "frame": self.currentFrame})
