@@ -20,7 +20,7 @@ class VideoView:
         self.eventManager = eventManager
         self.currentFrame = tk.IntVar(value=0)
         self.frameNumberText = tk.StringVar()
-        self.currentFrame.trace('w', self.update_frame_number_text)
+        self.currentFrame.trace_add('write', self.update_frame_number_text)
         self.startFrame = tk.IntVar(value=0)
         self.endFrame = tk.IntVar(value=0)
         self.fps = 0
@@ -64,7 +64,7 @@ class VideoView:
         parent.Button(text="Match Frame", command=self.match_frame).grid(row=5, column=0, columnspan=2, padx=10, pady=10)
         parent.Button(text="Replay Segment", command=self.replay_segment).grid(row=5, column=2, columnspan=1, padx=10, pady=10)
 
-        frame_number_label = parent.Label(text=self.frameNumberText.get(), size=12)
+        frame_number_label = parent.Label(text=self.frameNumberText.get(), size=12, widgetkwargs={"textvariable":self.frameNumberText})
         frame_number_label.grid(row=6, column=0, columnspan=3, padx=10, pady=10)
 
     def on_slider_move(self, value):
@@ -98,6 +98,9 @@ class VideoView:
                 video_label.after(interval, update)
             else:
                 video_label.after(1000, update)
+        
+        # Start the first update
+        video_label.after(0, update)
 
     def update_frame_number_text(self, *args):
         self.frameNumberText.set(f"Current Frame: {self.currentFrame.get()}")
