@@ -101,7 +101,7 @@ class VideoView:
     
     def updateAfterDestroy(self):
         self.videoController = YoutubeController(url=self.videoURL)
-        self.currentFrame.set(0)
+        # self.currentFrame.set(0)
         self.frameList.clear()
         self.videoThread = threading.Thread(target=self.videoController.captureFrames, args=(self.frameList,))
         self.videoThread.start()
@@ -119,6 +119,8 @@ class VideoView:
         # self.endSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.endFrame,
         #           widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=3, columnspan=3, padx=10, pady=10)
                   
+        self.currentFrame.set(0)
+        self.startFrame.set(0)
         self.endFrame.set(self.videoController.getNFrames())
 
         self.needReset = False
