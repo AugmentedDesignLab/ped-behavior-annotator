@@ -31,7 +31,7 @@ class RecordingController:
     def addSingleFrameAnnotation(self, singleFrameAnnotation: SingleFrameAnnotation):
         print(f"Saving frame {singleFrameAnnotation}")
         self._recording.singleFrameAnnotation.append(singleFrameAnnotation) # this is still in memory
-        self.repository.save(self._recording)
+        # self.repository.save(self._recording)
         # TODO:
         # call the repository to persist changes to the recording.
         pass
@@ -40,9 +40,11 @@ class RecordingController:
     def addMultiFrameAnnotation(self, multiFrameAnnotation: MultiFrameAnnotation):
         print(f"Saving frame {multiFrameAnnotation}")
         self._recording.multiFrameAnnotations.append(multiFrameAnnotation)
-        self.repository.save(self._recording)
+        # self.repository.save(self._recording)
         pass
 
+    def saveProject(self):
+        self.repository.save(self._recording)
 
     def getRecordingByVideoPath(self, videoPath: str):
         self._recording = self.repository.getByVideoPath(videoPath)

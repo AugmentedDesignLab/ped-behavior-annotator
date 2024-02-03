@@ -36,15 +36,16 @@ class App(TKMT.ThemedTKinterFrame):
 
         self.eventManager.subscribe(AppEventType.newProject, self.handleNewProject)
         self.eventManager.subscribe(AppEventType.requestAnnotation, self.handleNewAnnotation)
+        self.eventManager.subscribe(AppEventType.saveProject, self.handleSaveProject)
         self.run()
     
     def makeNav(self):
         #TODO: call render titleview here I think
         self.navFrame = self.addFrame("Nav")
-        self.navFrame.Button("New Project", buttonCMD)
-        self.navFrame.nextCol()
-        self.navFrame.Button("Save", buttonCMD)
-        self.navFrame.setActiveCol(0)
+        # self.navFrame.Button("New Project", buttonCMD)
+        # self.navFrame.nextCol()
+        # self.navFrame.Button("Save", buttonCMD)
+        # self.navFrame.setActiveCol(0)
         self.navFrame.Text("Recording Name")
         self.navFrame.Text("Annotation Path")
 
@@ -71,8 +72,8 @@ class App(TKMT.ThemedTKinterFrame):
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
-        self.recordController = self.controllerManager.getRecordingController()
-        self.annotationEditView = self.viewManager.getAnnotationEditView(self.recordController, self.eventManager)
+        self.recordingController = self.controllerManager.getRecordingController()
+        self.annotationEditView = self.viewManager.getAnnotationEditView(self.recordingController, self.eventManager)
         #self.context["controllers"]["recording"])
         self.annotationEditView.render(self.annotationFrame)
 
@@ -100,6 +101,9 @@ class App(TKMT.ThemedTKinterFrame):
         # save current video if exists
         self.createVideoView(event.data["videoURL"])
 
+    def handleSaveProject(self, event: AppEvent):
+        print("Save project event handled")
+        self.recordingController.saveProject()
         
     def createVideoView(self, videoURL="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
         self.videoView = self.viewManager.getVideoView()

@@ -21,6 +21,11 @@ class TitleView(tk.Frame):
         # self.titleFrame = self.parent.addLabelFrame("Title View", padx=(0,1), pady=(0,1))
         newProjButton = self.parent.Button(text="Add new project", command=self.renderNewProjectView)
         newProjButton.grid(row=0, column=0, padx=10, pady=10)
+        saveProjButton = self.parent.Button(text="Save project", command=self.saveProject)
+        saveProjButton.grid(row=0, column=1, padx=10, pady=10)
+
+    def saveProject(self):
+        self.eventManager.onEvent(AppEvent(type=AppEventType.saveProject, data={}))
 
     def renderNewProjectView(self):
         NewProjectWindow(self, "park", "dark")

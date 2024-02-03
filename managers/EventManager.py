@@ -13,6 +13,7 @@ class EventManager:
     def initEventStreams(self):
          self.annotateFrameHandlers = [] # kust if functions to be called when a annotation is requested
          self.newProjectHandlers = []
+         self.saveProjectHandlers = []
 
          
     def unsubscribe(self, appEvent: AppEventType, handler: Callable):
@@ -20,6 +21,8 @@ class EventManager:
             self.annotateFrameHandlers.remove(handler)
         if appEvent == AppEventType.newProject:
             self.newProjectHandlers.remove(handler)
+        if appEvent == AppEventType.saveProject:
+            self.saveProjectHandlers.remove(handler)
 
     
     def subscribe(self, appEvent: AppEventType, handler: Callable):
@@ -27,6 +30,8 @@ class EventManager:
             self.annotateFrameHandlers.append(handler)
         if appEvent == AppEventType.newProject:
             self.newProjectHandlers.append(handler)
+        if appEvent == AppEventType.saveProject:
+            self.saveProjectHandlers.append(handler)
     
     def onEvent(self, appEvent: AppEvent):
         # if appEvent.type == AppEventType.requestAnnotation:
@@ -44,5 +49,9 @@ class EventManager:
                 handler(appEvent)
 
         if appEvent.type == AppEventType.newProject:
+            for handler in self.newProjectHandlers:
+                handler(appEvent)
+
+        if appEvent.type == AppEventType.saveProject:
             for handler in self.newProjectHandlers:
                 handler(appEvent)

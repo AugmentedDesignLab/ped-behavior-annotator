@@ -181,9 +181,9 @@ class AnnotationEditView(View):
 
         for var in self.pedCheckbuttons:
             var.set(False)
-        for button in self.vehicleCheckbuttons:
+        for var in self.vehicleCheckbuttons:
             var.set(False)
-        for button in self.sceneCheckbuttons:
+        for var in self.sceneCheckbuttons:
             var.set(False)
 
         self.textinputvar.set("")
