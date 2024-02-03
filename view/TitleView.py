@@ -1,10 +1,15 @@
 import tkinter as tk
 from tkinter import ttk
 import TKinterModernThemes as TKMT
+from library.AppEvent import AppEvent, AppEventType
+from managers.EventManager import EventManager
 
 class TitleView(tk.Frame):
-    def __init__(self, *args, **kwargs):
+   
+    def __init__(self, eventManager: EventManager, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.eventManager = eventManager
+
         self.videoURL = tk.StringVar(value="")
         self.videoURL.trace_add('write', self.videoURLUpdated)
         self.parent = None
@@ -22,8 +27,7 @@ class TitleView(tk.Frame):
 
     def videoURLUpdated(self, *args):
         print("Video URL updated", self.videoURL)
-
-    
+        self.eventManager.onEvent(AppEvent(type=AppEventType.newProject, data={"videoURL": self.videoURL.get()}))
     
 class NewProjectWindow(TKMT.ThemedTKinterFrame):
     def __init__(self, titleView: TitleView, theme, mode, usecommandlineargs=True, usethemeconfigfile=True):

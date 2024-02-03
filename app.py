@@ -47,7 +47,7 @@ class App(TKMT.ThemedTKinterFrame):
         self.navFrame.Text("Recording Name")
         self.navFrame.Text("Annotation Path")
 
-        titleView = TitleView()
+        titleView = TitleView(self.eventManager)
         titleView.render(self.navFrame)
     
     def makeContent(self):
@@ -92,6 +92,7 @@ class App(TKMT.ThemedTKinterFrame):
     
     def handleNewProject(self, event: AppEvent):
         print("New project event handled")
+        # save current video if exists
         self.createVideoView(event.data["videoURL"])
 
         
