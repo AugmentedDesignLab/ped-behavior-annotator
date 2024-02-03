@@ -54,15 +54,16 @@ class VideoView:
 
 
         self.currentSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.currentFrame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=0, column=3, columnspan=3, padx=10, pady=10)
-        print("parent type", type(parent))
-        print("renderslider", self.currentSlider)
+                  widgetkwargs={"command":self.on_slider_move})
+        self.currentSlider.grid(row=0, column=3, columnspan=3, padx=10, pady=10)
         
         self.startSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=3, columnspan=3, padx=10, pady=10)
+                  widgetkwargs={"command":self.on_slider_move})
+        self.startSlider.grid(row=1, column=3, columnspan=3, padx=10, pady=10)
         
         self.endSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.endFrame,
-                  widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=3, columnspan=3, padx=10, pady=10)
+                  widgetkwargs={"command":self.on_slider_move})
+        self.endSlider.grid(row=2, column=3, columnspan=3, padx=10, pady=10)
 
         self.endFrame.set(self.videoController.getNFrames())
         
@@ -93,15 +94,23 @@ class VideoView:
 
     def updateVideo(self, videoURL: str):
 
+        self.videoURL = videoURL
         self.destroy()
-        self.videoController = YoutubeController(url=videoURL)
+        self.videoLabel.after(2000, self.updateAfterDestroy)
+
+    
+    def updateAfterDestroy(self):
+        self.videoController = YoutubeController(url=self.videoURL)
         self.currentFrame.set(0)
+        self.frameList.clear()
         self.videoThread = threading.Thread(target=self.videoController.captureFrames, args=(self.frameList,))
         self.videoThread.start()
 
         print("update video slider", self.currentSlider)
         
         self.currentSlider.upper = self.videoController.getNFrames()
+        self.startSlider.upper = self.videoController.getNFrames()
+        self.endSlider.upper = self.videoController.getNFrames()
         print(f"the upper for current slider should be {self.videoController.getNFrames()}")
         
         # self.startSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
@@ -120,6 +129,8 @@ class VideoView:
     def destroy(self):
         # 1. Clean up old update loop
         self.needReset = True
+        self.currentFrame.set(0)
+        self.frameList.clear()
         time.sleep(2)
 
         assert self.videoThread.is_alive() == False
@@ -136,34 +147,38 @@ class VideoView:
         if self.needReset:
             print("Cleaning up the old video loop")
             return
-        # if self.playing.get() and len(self.frameList) - 1 > self.currentFrame.get():
-        if self.currentFrame.get() < self.startFrame.get():
-            self.currentFrame.set(self.startFrame.get())
-        if self.currentFrame.get() > self.endFrame.get():
-            self.currentFrame.set(self.endFrame.get())
-
-        self.segmentProgress.set(int((self.currentFrame.get()-self.startFrame.get())/(self.endFrame.get()-self.startFrame.get()) * 100))
-
-        frame = self.frameList[self.currentFrame.get()]
-        frame = cv2.resize(frame, (480, 270))
-
-        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        pil_image = Image.fromarray(frame_rgb)
-
-        photo = ImageTk.PhotoImage(image=pil_image)
-        self.videoLabel.config(image=photo)
-        self.videoLabel.image = photo
-
-        if self.playing.get():
-            self.currentFrame.set(self.currentFrame.get() + 1)
-
-            if self.fps == 0:
-                self.fps = self.videoController.getFPS()
-            interval = int(1000 / self.fps)  # ms
-            # Use 'after' to schedule the next update
-            self.videoLabel.after(interval, self.update_frame)
-        else:
+        if len(self.frameList) == 0:
+            print("waiting 1 second for the frames.")
             self.videoLabel.after(1000, self.update_frame)
+        else:
+            # if self.playing.get() and len(self.frameList) - 1 > self.currentFrame.get():
+            if self.currentFrame.get() < self.startFrame.get():
+                self.currentFrame.set(self.startFrame.get())
+            if self.currentFrame.get() > self.endFrame.get():
+                self.currentFrame.set(self.endFrame.get())
+
+            self.segmentProgress.set(int((self.currentFrame.get()-self.startFrame.get())/(self.endFrame.get()-self.startFrame.get()) * 100))
+
+            frame = self.frameList[self.currentFrame.get()]
+            frame = cv2.resize(frame, (480, 270))
+
+            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            pil_image = Image.fromarray(frame_rgb)
+
+            photo = ImageTk.PhotoImage(image=pil_image)
+            self.videoLabel.config(image=photo)
+            self.videoLabel.image = photo
+
+            if self.playing.get():
+                self.currentFrame.set(self.currentFrame.get() + 1)
+
+                if self.fps == 0:
+                    self.fps = self.videoController.getFPS()
+                interval = int(1000 / self.fps)  # ms
+                # Use 'after' to schedule the next update
+                self.videoLabel.after(interval, self.update_frame)
+            else:
+                self.videoLabel.after(1000, self.update_frame)
     
         # Start the first update
 
