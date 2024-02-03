@@ -20,7 +20,7 @@ class RecordingRepository:
         recordingJson = recording.toJSON()
         file = open(self.location, 'a', newline="\n")
         json.dump(recordingJson, file)
-        file.write("\n");
+        file.write("\n")
         file.close()
 
     def load() -> None:

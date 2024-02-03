@@ -113,20 +113,27 @@ class AnnotationEditView(View):
     def behaviorChangeHandler(self, option: PedestrianTag, var: tk.BooleanVar):
         print("Checkbox number:", option, "was pressed")
         print("Checkboxes: ", var.get())
-        self.currentAnnotation.pedTags.append(option)
+        if var.get():
+            self.currentAnnotation.pedTags.append(option)
         #update the currentAnnotation object's tags
+        else:
+            self.currentAnnotation.pedTags.remove(option)
 
     def egoBehaviorChangeHandler(self, option: VehicleTag, var: tk.BooleanVar):
         print("Checkbox number:", option, "was pressed")
         print("Checkboxes: ", var.get())
-        self.currentAnnotation.egoTags.append(option)
+        if var.get():
+            self.currentAnnotation.egoTags.append(option)
+        else:
+            self.currentAnnotation.egoTags.remove(option)
 
     def envBehaviorChangeHandler(self, option: SceneTag, var: tk.BooleanVar):
         print("Checkbox number:", option, "was pressed")
         print("Checkboxes: ", var.get())
-        self.currentAnnotation.sceneTags.append(option)
-
-
+        if var.get():
+            self.currentAnnotation.sceneTags.append(option)
+        else:
+            self.currentAnnotation.sceneTags.remove(option)
 
     def validateText(self, inputVar):
         print("Current text status:", inputVar.get())
