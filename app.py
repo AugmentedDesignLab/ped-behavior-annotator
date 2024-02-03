@@ -92,9 +92,8 @@ class App(TKMT.ThemedTKinterFrame):
 
     def handleNewAnnotation(self, event: AppEvent):
         print("Annotation event handled")
-        videoView = self.viewManager.getVideoView()
-        self.annotationEditView.currentAnnotationStartFrame = videoView.startFrame
-        self.annotationEditView.currentAnnotationEndFrame = videoView.startFrame
+        self.annotationEditView.currentAnnotationStartFrame.set(self.videoView.startFrame.get())
+        self.annotationEditView.currentAnnotationEndFrame.set(self.videoView.endFrame.get())
 
     def handleNewProject(self, event: AppEvent):
         print("New project event handled")
@@ -103,8 +102,8 @@ class App(TKMT.ThemedTKinterFrame):
 
         
     def createVideoView(self, videoURL="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
-        videoView = self.viewManager.getVideoView()
-        videoView.render(self.videoFrame, videoURL)
+        self.videoView = self.viewManager.getVideoView()
+        self.videoView.render(self.videoFrame, videoURL)
 
 
 

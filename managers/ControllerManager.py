@@ -11,13 +11,13 @@ class ControllerManager:
 
     def initContext(self) -> None:
         ### Set up all the global objects #
-        recordingRepo = RecordingRepository("./data")
+        recordingRepo = RecordingRepository("test.json")
         
         self.context = {
             "controllers": {
                 "recording": RecordingController(recordingRepo),
             },
-            "repositoryies": {
+            "repositories": {
                  "recording": recordingRepo,
             }
         }

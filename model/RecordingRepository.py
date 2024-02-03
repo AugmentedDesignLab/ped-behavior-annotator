@@ -1,7 +1,7 @@
 from model.Recording import Recording
 from typing import *
 import json
-
+import os
 
 class RecordingRepository:
     """A repository is a collection.
@@ -10,7 +10,8 @@ class RecordingRepository:
     def __init__(self, dir: str) -> None:
         self._recordings: Dict[str, Recording] = {} # recording001 -> recording object for 001
 
-        self.location = dir
+        # self.location = dir
+        self.location = os.path.join(os.getcwd(), dir) # where dir = relative path
         pass
 
     def save(self, recording: Recording) -> bool:

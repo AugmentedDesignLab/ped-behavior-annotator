@@ -10,7 +10,7 @@ class RecordingController:
     def __init__(self, repository: RecordingRepository, recording: Recording = None):
         self.repository = repository
         self._recording = recording
-
+        self.initNewRecording("TestRecording", self.repository.location, "https://www.youtube.com/watch?v=eu4QqwsfXFE")
 
     @property
     def recording(self) -> Recording:
@@ -28,9 +28,9 @@ class RecordingController:
         self._recording = recording
 
 
-    def addSingleFrameAnnotation(self, singleAnnotation: SingleFrameAnnotation):
-        print(f"Saving frame {singleAnnotation}")
-        self._recording.singleFrameAnnotation.append(singleAnnotation) # this is still in memory
+    def addSingleFrameAnnotation(self, singleFrameAnnotation: SingleFrameAnnotation):
+        print(f"Saving frame {singleFrameAnnotation}")
+        self._recording.singleFrameAnnotation.append(singleFrameAnnotation) # this is still in memory
         self.repository.save(self._recording)
         # TODO:
         # call the repository to persist changes to the recording.
@@ -38,6 +38,7 @@ class RecordingController:
 
 
     def addMultiFrameAnnotation(self, multiFrameAnnotation: MultiFrameAnnotation):
+        print(f"Saving frame {multiFrameAnnotation}")
         self._recording.multiFrameAnnotations.append(multiFrameAnnotation)
         self.repository.save(self._recording)
         pass
