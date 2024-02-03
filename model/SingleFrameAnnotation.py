@@ -1,3 +1,4 @@
+import json
 from dataclasses import dataclass, field
 from typing import *
 
@@ -15,4 +16,9 @@ class SingleFrameAnnotation:
 
     def __str__(self) -> str:
         return f"SingleFrameAnnotation(time={self.time}, frame={self.frame}, pedTags={self.pedTags}, egoTags={self.egoTags}, sceneTags={self.sceneTags})"
-
+    def toJSON(self) -> str:
+        """A valid JSON representation of the object
+        Returns:
+            str: _description_
+            """
+        return self.__str__()
