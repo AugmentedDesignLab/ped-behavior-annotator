@@ -66,8 +66,8 @@ class AnnotationEditView(View):
         col = 0
         self.pedCheckbuttons = []
         for option, var in zip(options, self.behaviorCheckVars):
-            temp = parent.Checkbutton(option.value, var, self.behaviorChangeHandler, (option, var), col=col) 
-            self.pedCheckbuttons.append(temp)
+            parent.Checkbutton(option.value, var, self.behaviorChangeHandler, (option, var), col=col) 
+            self.pedCheckbuttons.append(var)
             col += 1
             # the behaviorChangeHandler is called whenever a checkbox is pressed with the associated option and var
 
@@ -83,8 +83,8 @@ class AnnotationEditView(View):
         col = 0
         self.vehicleCheckbuttons = []
         for option, var in zip(options, self.behaviorCheckVars):
-            temp = parent.Checkbutton(option.value, var, self.egoBehaviorChangeHandler, (option, var), col=col) 
-            self.vehicleCheckbuttons.append(temp)
+            parent.Checkbutton(option.value, var, self.egoBehaviorChangeHandler, (option, var), col=col) 
+            self.vehicleCheckbuttons.append(var)
             col += 1
 
     def _renderSceneOptions(self, parent: TKMT.WidgetFrame):
@@ -99,8 +99,8 @@ class AnnotationEditView(View):
         col = 0
         self.sceneCheckbuttons = []
         for option, var in zip(options, self.behaviorCheckVars):
-            temp = parent.Checkbutton(option.value, var, self.envBehaviorChangeHandler, (option, var), col=col) 
-            self.sceneCheckbuttons.append(temp)
+            parent.Checkbutton(option.value, var, self.envBehaviorChangeHandler, (option, var), col=col) 
+            self.sceneCheckbuttons.append(var)
             col += 1
 
     def _renderTextField(self, parent: TKMT.WidgetFrame):
@@ -179,12 +179,14 @@ class AnnotationEditView(View):
         self.egoTags = []
         self.sceneTags = []
 
-        for button in self.pedCheckbuttons:
-            button.variable.set(False)
+        for var in self.pedCheckbuttons:
+            var.set(False)
         for button in self.vehicleCheckbuttons:
-            button.variable.set(False)
+            var.set(False)
         for button in self.sceneCheckbuttons:
-            button.variable.set(False)
+            var.set(False)
+
+        self.textinputvar.set("")
             
         print("frame created")
 
