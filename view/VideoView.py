@@ -43,25 +43,26 @@ class VideoView:
         self.videoController = YoutubeController(url=video_url)
         self.currentFrame.set(0)
 
-        video_label = parent.Label(text="Video")
-        video_label.grid(row=0, column=0, rowspan=6, columnspan=3, padx=10, pady=10)
+        self.videoLabel = parent.Label(text="Video")
+        self.videoLabel.grid(row=0, column=0, rowspan=6, columnspan=3, padx=10, pady=10)
 
-        frameList = []
+        self.frameList = []
 
         # video_url = "https://www.youtube.com/watch?v=eu4QqwsfXFE"
-        video_thread = threading.Thread(target=self.videoController.captureFrames, args=(frameList,))
-        video_thread.start()
+        self.videoThread = threading.Thread(target=self.videoController.captureFrames, args=(self.frameList,))
+        self.videoThread.start()
 
-        video_label.after(0, lambda: self.update_frame(video_label, frameList))
+        self.videoLabel.after(0, self.update_frame)
 
-        parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.currentFrame,
+        self.currentSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.currentFrame,
                   widgetkwargs={"command":self.on_slider_move}).grid(row=0, column=3, columnspan=3, padx=10, pady=10)
         
-        parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
+        self.startSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
                   widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=3, columnspan=3, padx=10, pady=10)
         
-        parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.endFrame,
+        self.endSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.endFrame,
                   widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=3, columnspan=3, padx=10, pady=10)
+                  
         self.endFrame.set(self.videoController.getNFrames())
 
         parent.Button(text="<<", command=self.skip_left).grid(
@@ -84,11 +85,25 @@ class VideoView:
 
         endFrameLabel = parent.Label(text=self.endFrameText.get(), size=12, widgetkwargs={"textvariable":self.endFrameText})
         endFrameLabel.grid(row=2, column=6, columnspan=1, padx=10, pady=10)
+        
 
-    def destroy(self, newVideoURL):
+    def updateVideo(self, videoURL: str):
+
+        self.destroy()
+        self.videoController = YoutubeController(url=video_url)
+        self.currentFrame.set(0)
+        self.videoThread = threading.Thread(target=self.videoController.captureFrames, args=(self.frameList,))
+        self.videoThread.start()
+
+
+
+    def destroy(self):
         # 1. Clean up old update loop
         self.needReset = True
         time.sleep(2)
+
+        assert self.videoThread.is_alive() == False
+        # self.videoThread.term
         # 2. load the new one
 
 
@@ -97,41 +112,40 @@ class VideoView:
     def on_slider_move(self, value):
         print("Slider moved to frame:", value)
 
-    def update_frame(self, video_label, frameList):
-        def update():
-            if self.needReset:
-                return
-            # if self.playing.get() and len(frameList) - 1 > self.currentFrame.get():
-            if self.currentFrame.get() < self.startFrame.get():
-                self.currentFrame.set(self.startFrame.get())
-            if self.currentFrame.get() > self.endFrame.get():
-                self.currentFrame.set(self.endFrame.get())
+    def update_frame(self):
+        if self.needReset:
+            print("Cleaning up the old video loop")
+            return
+        # if self.playing.get() and len(self.frameList) - 1 > self.currentFrame.get():
+        if self.currentFrame.get() < self.startFrame.get():
+            self.currentFrame.set(self.startFrame.get())
+        if self.currentFrame.get() > self.endFrame.get():
+            self.currentFrame.set(self.endFrame.get())
 
-            self.segmentProgress.set(int((self.currentFrame.get()-self.startFrame.get())/(self.endFrame.get()-self.startFrame.get()) * 100))
+        self.segmentProgress.set(int((self.currentFrame.get()-self.startFrame.get())/(self.endFrame.get()-self.startFrame.get()) * 100))
 
-            frame = frameList[self.currentFrame.get()]
-            frame = cv2.resize(frame, (480, 270))
+        frame = self.frameList[self.currentFrame.get()]
+        frame = cv2.resize(frame, (480, 270))
 
-            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            pil_image = Image.fromarray(frame_rgb)
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        pil_image = Image.fromarray(frame_rgb)
 
-            photo = ImageTk.PhotoImage(image=pil_image)
-            video_label.config(image=photo)
-            video_label.image = photo
+        photo = ImageTk.PhotoImage(image=pil_image)
+        self.videoLabel.config(image=photo)
+        self.videoLabel.image = photo
 
-            if self.playing.get():
-                self.currentFrame.set(self.currentFrame.get() + 1)
+        if self.playing.get():
+            self.currentFrame.set(self.currentFrame.get() + 1)
 
-                if self.fps == 0:
-                    self.fps = self.videoController.getFPS()
-                interval = int(1000 / self.fps)  # ms
-                # Use 'after' to schedule the next update
-                video_label.after(interval, update)
-            else:
-                video_label.after(1000, update)
-        
+            if self.fps == 0:
+                self.fps = self.videoController.getFPS()
+            interval = int(1000 / self.fps)  # ms
+            # Use 'after' to schedule the next update
+            self.videoLabel.after(interval, self.update_frame)
+        else:
+            self.videoLabel.after(1000, self.update_frame)
+    
         # Start the first update
-        video_label.after(0, update)
 
     def updateCurrentFrameText(self, *args):
         self.currentFrameText.set(f"Current Frame: {self.currentFrame.get()}")
@@ -148,7 +162,7 @@ class VideoView:
 #         # self.videoController.eventHandler(event)
 #         self.eventManager.onEvent(event)
 #         # Start the first update
-# #        video_label.after(0, update)
+# #        self.videoLabel.after(0, update)
         
     def toggle_play_pause(self):
         self.playing.set(not self.playing.get())
