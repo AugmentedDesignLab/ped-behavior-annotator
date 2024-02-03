@@ -12,8 +12,8 @@ class ViewManager:
     def __init__(self, eventManager: EventManager) -> None:
         self.eventManager = eventManager
 
-    def getAnnotationView(self, recordingController: RecordingController): 
-        return AnnotationEditView(recordingController)
+    def getAnnotationEditView(self, recordingController: RecordingController, eventManager: EventManager): 
+        return AnnotationEditView(recordingController, eventManager)
         
     def getVideoView(self):
         return VideoView(self.eventManager)

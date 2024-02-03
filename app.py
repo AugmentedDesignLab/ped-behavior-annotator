@@ -35,6 +35,7 @@ class App(TKMT.ThemedTKinterFrame):
         # self.debugPrint()
 
         self.eventManager.subscribe(AppEventType.newProject, self.handleNewProject)
+        self.eventManager.subscribe(AppEventType.requestAnnotation, self.handleNewAnnotation)
         self.run()
     
     def makeNav(self):
@@ -70,10 +71,10 @@ class App(TKMT.ThemedTKinterFrame):
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
-        recordController = self.controllerManager.getRecordingController()
-        annotationView = self.viewManager.getAnnotationView(recordController)
+        self.recordController = self.controllerManager.getRecordingController()
+        self.annotationEditView = self.viewManager.getAnnotationEditView(self.recordController, self.eventManager)
         #self.context["controllers"]["recording"])
-        annotationView.render(self.annotationFrame, 5, 100)
+        self.annotationEditView.render(self.annotationFrame)
 
 
         self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(0,0))
@@ -89,7 +90,12 @@ class App(TKMT.ThemedTKinterFrame):
         youtubeController = YoutubeController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
         return youtubeController
 
-    
+    def handleNewAnnotation(self, event: AppEvent):
+        print("Annotation event handled")
+        videoView = self.viewManager.getVideoView()
+        self.annotationEditView.currentAnnotationStartFrame = videoView.startFrame
+        self.annotationEditView.currentAnnotationEndFrame = videoView.startFrame
+
     def handleNewProject(self, event: AppEvent):
         print("New project event handled")
         # save current video if exists

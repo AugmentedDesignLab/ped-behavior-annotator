@@ -142,12 +142,13 @@ class VideoView:
     def updateEndFrameText(self, *args):
         self.endFrameText.set(f"End Frame: {self.endFrame.get()}")
 
-    def requestAnnotation(self):
-        event = AppEvent(AppEventType.requestAnnotation, data={"timestamp": 0, "frame": self.currentFrame})
-        # self.videoController.eventHandler(event)
-        self.eventManager.onEvent(event)
-        # Start the first update
-#        video_label.after(0, update)
+# Annotations aren't requested in VideoView
+#     def requestAnnotation(self):
+#         event = AppEvent(AppEventType.requestAnnotation, data={"timestamp": 0, "frame": self.currentFrame})
+#         # self.videoController.eventHandler(event)
+#         self.eventManager.onEvent(event)
+#         # Start the first update
+# #        video_label.after(0, update)
         
     def toggle_play_pause(self):
         self.playing.set(not self.playing.get())

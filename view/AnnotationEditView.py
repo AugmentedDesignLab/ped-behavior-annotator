@@ -9,7 +9,8 @@ from model.SceneTag import SceneTag
 from model.VehicleTag import VehicleTag
 from model.SingleFrameAnnotation import SingleFrameAnnotation
 from model.MultiFrameAnnotation import MultiFrameAnnotation
-from managers.ViewManager import ViewManager
+from library.AppEvent import AppEvent, AppEventType
+from managers.EventManager import EventManager
 import allwidgets
 import cv2
 from typing import Tuple
@@ -19,14 +20,15 @@ from view.View import View
 
 class AnnotationEditView(View):
 
-    def __init__(self, recordingController: RecordingController) -> None:
+    def __init__(self, recordingController: RecordingController, eventManager: EventManager) -> None:
         super().__init__()
+        self.eventManager = eventManager
         self.recordingController = recordingController
-        self.viewManager = ViewManager()
-
+        self.currentAnnotationStartFrame = tk.IntVar(value=0)
+        self.currentAnnotationEndFrame = tk.IntVar(value=0)
     
     def _renderView(self, parent: TKMT.WidgetFrame):
-        parent.Text("Frame # " + str(self.currentAnnotation.frame))
+        # parent.Text("Frame # " + str(self.currentAnnotation.frame))
         parent.setActiveCol(0)
         self.pedBehaviorFrame = parent.addLabelFrame("Pedestrian Behavior", padx=(0,1), pady=(0,1))
         self._renderPedOptions(self.pedBehaviorFrame)
@@ -38,7 +40,7 @@ class AnnotationEditView(View):
         self._renderSaveButton(parent)
 
 
-    def render(self, parent: TKMT.WidgetFrame, time: float, frame: int):
+    def render(self, parent: TKMT.WidgetFrame):
         # frame information
         self.pedTags = [PedestrianTag]
         self.egoTags = [VehicleTag]
@@ -154,23 +156,23 @@ class AnnotationEditView(View):
 
     def handleSave(self):
         print("Button clicked. Current toggle button state: ", self.togglebuttonvar.get())
-        videoView = self.viewManager.getVideoView()
-        if videoView.startFrame.get() == videoView.endFrame.get():
-            currentAnnotation = SingleFrameAnnotation()
-            currentAnnotation.frame = videoView.startFrame
-            currentAnnotation.pedTags.extend(self.pedTags)
-            currentAnnotation.egoTags.extend(self.egoTags)
-            currentAnnotation.sceneTags.extend(self.sceneTags)
-            currentAnnotation.additionalNotes = self.textinputvar.get()
+
+        self.eventManager.onEvent(AppEvent(type=AppEventType.requestAnnotation, data={}))
+
+        if self.currentAnnotationStartFrame.get() == self.currentAnnotationEndFrame.get():
+            currentAnnotation = SingleFrameAnnotation(self.currentAnnotationStartFrame.get(),
+                                                      self.pedTags,
+                                                      self.egoTags,
+                                                      self.sceneTags,
+                                                      self.textinputvar.get())
             self.recordingController.addSingleFrameAnnotation(currentAnnotation)
         else:
-            currentAnnotation = MultiFrameAnnotation()
-            currentAnnotation.frameStart = videoView.startFrame
-            currentAnnotation.frameEnd = videoView.endFrame
-            currentAnnotation.pedTags.extend(self.pedTags)
-            currentAnnotation.egoTags.extend(self.egoTags)
-            currentAnnotation.sceneTags.extend(self.sceneTags)
-            currentAnnotation.additionalNotes = self.textinputvar.get()
+            currentAnnotation = MultiFrameAnnotation(self.currentAnnotationStartFrame.get(),
+                                                     self.currentAnnotationEndFrame.get(),
+                                                     self.pedTags,
+                                                     self.egoTags,
+                                                     self.sceneTags,
+                                                     self.textinputvar.get())
             self.recordingController.addMultiFrameAnnotation(currentAnnotation)
 
         self.pedTags = []
