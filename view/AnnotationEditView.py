@@ -39,6 +39,9 @@ class AnnotationEditView(View):
         self._renderTextField(parent)
         self._renderSaveButton(parent)
 
+        # add radio button for single/multi
+        # frame # being annotated
+
 
     def render(self, parent: TKMT.WidgetFrame):
         # frame information
