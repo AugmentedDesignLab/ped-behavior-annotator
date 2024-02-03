@@ -106,16 +106,20 @@ class App(TKMT.ThemedTKinterFrame):
         self.recordingController.saveProject()
         
     def createVideoView(self, videoURL="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
-        self.destroyCurrentVideoView()
-        self.videoView = self.viewManager.getVideoView()
-        self.videoView.render(self.videoFrame, videoURL)
+        # self.destroyCurrentVideoView()
+        if not hasattr(self, 'videoView') or self.videoView is None:
+            self.videoView = self.viewManager.getVideoView()
+            self.videoView.render(self.videoFrame, videoURL)
+        else:
+            self.videoView.updateVideo(videoURL)
     
     def destroyCurrentVideoView(self):
         
-        if hasattr(self, 'videoView'):
-            if self.videoView is not None:
-                self.videoView.destroy()
-                del self.videoView
+        # if hasattr(self, 'videoView'):
+        #     if self.videoView is not None:
+        #         self.videoView.destroy()
+        #         del self.videoView
+        pass
 
 
 

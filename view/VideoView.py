@@ -39,8 +39,8 @@ class VideoView:
         self.playing = tk.BooleanVar(value=True)
         self.needReset = False
 
-    def render(self, parent: TKMT.WidgetFrame, video_url):
-        self.videoController = YoutubeController(url=video_url)
+    def render(self, parent: TKMT.WidgetFrame, videoURL):
+        self.videoController = YoutubeController(url=videoURL)
         self.currentFrame.set(0)
 
         self.videoLabel = parent.Label(text="Video")
@@ -48,22 +48,24 @@ class VideoView:
 
         self.frameList = []
 
-        # video_url = "https://www.youtube.com/watch?v=eu4QqwsfXFE"
+        # videoURL = "https://www.youtube.com/watch?v=eu4QqwsfXFE"
         self.videoThread = threading.Thread(target=self.videoController.captureFrames, args=(self.frameList,))
         self.videoThread.start()
 
-        self.videoLabel.after(0, self.update_frame)
 
         self.currentSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.currentFrame,
                   widgetkwargs={"command":self.on_slider_move}).grid(row=0, column=3, columnspan=3, padx=10, pady=10)
+        print("parent type", type(parent))
+        print("renderslider", self.currentSlider)
         
         self.startSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
                   widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=3, columnspan=3, padx=10, pady=10)
         
         self.endSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.endFrame,
                   widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=3, columnspan=3, padx=10, pady=10)
-                  
+
         self.endFrame.set(self.videoController.getNFrames())
+        
 
         parent.Button(text="<<", command=self.skip_left).grid(
             row=3, column=3, padx=10, pady=10)
@@ -86,14 +88,32 @@ class VideoView:
         endFrameLabel = parent.Label(text=self.endFrameText.get(), size=12, widgetkwargs={"textvariable":self.endFrameText})
         endFrameLabel.grid(row=2, column=6, columnspan=1, padx=10, pady=10)
         
+        self.videoLabel.after(0, self.update_frame)
+        
 
     def updateVideo(self, videoURL: str):
 
         self.destroy()
-        self.videoController = YoutubeController(url=video_url)
+        self.videoController = YoutubeController(url=videoURL)
         self.currentFrame.set(0)
         self.videoThread = threading.Thread(target=self.videoController.captureFrames, args=(self.frameList,))
         self.videoThread.start()
+
+        print("update video slider", self.currentSlider)
+        
+        self.currentSlider.upper = self.videoController.getNFrames()
+        print(f"the upper for current slider should be {self.videoController.getNFrames()}")
+        
+        # self.startSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
+        #           widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=3, columnspan=3, padx=10, pady=10)
+        
+        # self.endSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.endFrame,
+        #           widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=3, columnspan=3, padx=10, pady=10)
+                  
+        self.endFrame.set(self.videoController.getNFrames())
+
+        self.needReset = False
+        self.videoLabel.after(0, self.update_frame)
 
 
 
