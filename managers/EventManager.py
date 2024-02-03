@@ -53,5 +53,5 @@ class EventManager:
                 handler(appEvent)
 
         if appEvent.type == AppEventType.saveProject:
-            for handler in self.newProjectHandlers:
+            for handler in self.saveProjectHandlers:
                 handler(appEvent)
