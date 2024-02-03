@@ -28,6 +28,7 @@ class App(TKMT.ThemedTKinterFrame):
         self.eventManager = EventManager()
         self.viewManager = ViewManager(self.eventManager)
         self.controllerManager = ControllerManager()
+        self.recordingController = self.controllerManager.getRecordingController()
         # create two widgetframes, nav and content
         self.makeNav()
         self.makeContent()
@@ -41,15 +42,15 @@ class App(TKMT.ThemedTKinterFrame):
     
     def makeNav(self):
         #TODO: call render titleview here I think
-        self.navFrame = self.addFrame("Nav")
+        self.navFrame = self.addLabelFrame("Title View", padx=(0,0), pady=(10,0))
         # self.navFrame.Button("New Project", buttonCMD)
         # self.navFrame.nextCol()
         # self.navFrame.Button("Save", buttonCMD)
         # self.navFrame.setActiveCol(0)
-        self.navFrame.Text("Recording Name")
-        self.navFrame.Text("Annotation Path")
+        # self.navFrame.Text("Recording Name")
+        # self.navFrame.Text("Annotation Path")
 
-        titleView = TitleView(self.eventManager)
+        titleView = TitleView(self.eventManager, self.recordingController)
         titleView.render(self.navFrame)
     
     def makeContent(self):
@@ -57,28 +58,27 @@ class App(TKMT.ThemedTKinterFrame):
 
         # left and right
         self.leftFrame = self.contentFrame.addFrame("Left", padx=(0,0), pady=(0,0))
-        self.leftFrame.Label("Left Frame")
+        # self.leftFrame.Label("Left Frame")
         self.contentFrame.nextCol()
         self.rightFrame = self.contentFrame.addFrame("Right", padx=(0,0), pady=(0,0))
-        self.rightFrame.Label("Right Frame")
+        # self.rightFrame.Label("Right Frame")
 
     
     def makeEditor(self):
          # put video player and annotation edit on the left frame
          # put recording on the right
-        self.videoFrame = self.leftFrame.addLabelFrame("Video View", padx=(0,0), pady=(0,0))
+        self.videoFrame = self.leftFrame.addLabelFrame("Video View", padx=(0,0), pady=(10,0))
         self.createVideoView()
         
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
-        self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
-        self.recordingController = self.controllerManager.getRecordingController()
+        self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(10,0))
         self.annotationEditView = self.viewManager.getAnnotationEditView(self.recordingController, self.eventManager)
         #self.context["controllers"]["recording"])
         self.annotationEditView.render(self.annotationFrame)
 
 
-        self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(0,0))
+        self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(10,0))
         text = self.recordingFrame.Text("Recording")
         # text.pack(side=tk.TOP)
 
