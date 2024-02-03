@@ -1,7 +1,7 @@
 from base64 import urlsafe_b64encode
 from controller.RecordingController import RecordingController
 from controller.VideoController import VideoController
-from controller.YoutubeController import YoutubeController
+#from controller.YoutubeController import YoutubeController
 from model.RecordingRepository import RecordingRepository
 
 class ControllerManager: 
@@ -25,6 +25,6 @@ class ControllerManager:
     def getRecordingController(self) -> RecordingController:
         return self.context["controllers"]["recording"]
     
-    def getVideoController(self, url) -> VideoController:
-        youtubeController = YoutubeController(url)
-        return youtubeController
+    #def getVideoController(self, url) -> VideoController:
+        #youtubeController = YoutubeController(url)
+        #return youtubeController

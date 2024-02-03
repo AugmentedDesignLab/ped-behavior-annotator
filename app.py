@@ -6,13 +6,14 @@ import TKinterModernThemes as TKMT
 from controller.RecordingController import RecordingController
 from controller.VideoController import VideoController
 from controller.YoutubeController import YoutubeController
-from library import AppEvent
-from library.AppEvent import AppEventType
 from managers.ControllerManager import ControllerManager
+from managers.EventManager import EventManager
 from managers.ViewManager import ViewManager
+from library.AppEvent import AppEvent, AppEventType
 from model.RecordingRepository import RecordingRepository
 from view import *
 from view.AnnotationEditView import AnnotationEditView
+from view.TitleView import TitleView
 
 def buttonCMD():
         print("Button clicked!")
@@ -21,20 +22,23 @@ class App(TKMT.ThemedTKinterFrame):
     def __init__(self, theme, mode, usecommandlineargs=True, usethemeconfigfile=True):
         super().__init__("TITLE", theme, mode, usecommandlineargs, usethemeconfigfile)
         #self.initContext()
+        global firstWindow
+        firstWindow = False
 
-        ### event streams
-        self.initEventStreams()
-
-        self.viewManager = ViewManager()
+        self.eventManager = EventManager()
+        self.viewManager = ViewManager(self.eventManager)
         self.controllerManager = ControllerManager()
         # create two widgetframes, nav and content
         self.makeNav()
         self.makeContent()
         self.makeEditor()
         # self.debugPrint()
+
+        self.eventManager.subscribe(AppEventType.newProject, self.handleNewProject)
         self.run()
     
     def makeNav(self):
+        #TODO: call render titleview here I think
         self.navFrame = self.addFrame("Nav")
         self.navFrame.Button("New Project", buttonCMD)
         self.navFrame.nextCol()
@@ -42,6 +46,9 @@ class App(TKMT.ThemedTKinterFrame):
         self.navFrame.setActiveCol(0)
         self.navFrame.Text("Recording Name")
         self.navFrame.Text("Annotation Path")
+
+        titleView = TitleView()
+        titleView.render(self.navFrame)
     
     def makeContent(self):
         self.contentFrame = self.addFrame("Content", padx=(0,0), pady=(0,0))
@@ -58,9 +65,8 @@ class App(TKMT.ThemedTKinterFrame):
          # put video player and annotation edit on the left frame
          # put recording on the right
         self.videoFrame = self.leftFrame.addFrame("Video", padx=(0,0), pady=(0,0))
-        videoController = self.controllerManager.getVideoController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
-        videoView = self.viewManager.getVideoView(videoController)
-        videoView.render(self.videoFrame)
+        self.createVideoView()
+        
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
@@ -83,28 +89,17 @@ class App(TKMT.ThemedTKinterFrame):
         youtubeController = YoutubeController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
         return youtubeController
 
-
-    def initEventStreams(self):
-         self.annotateFrameHandlers = [] # kust if functions to be called when a annotation is requested
-
-         
-    def unsubscribe(self, appEvent: AppEventType, handler: Callable):
-        if appEvent == AppEventType.requestAnnotation:
-            self.annotateFrameHandlers.remove(handler)
-
     
-    def subscribe(self, appEvent: AppEventType, handler: Callable):
-        if appEvent == AppEventType.requestAnnotation:
-            self.annotateFrameHandlers.append(handler)
-    
-    def onEvent(self, appEvent: AppEvent):
-        if appEvent.type == AppEventType.requestAnnotation:
-            self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(0,0))
-            annotationView = AnnotationEditView(self.context["controllers"]["recording"])
-            annotationView.render(self.annotationFrame, 5, 100)
-             
-            # for handler in self.annotateFrameHandlers:
-            #     handler(appEvent.data["timestamp"], appEvent.data["frame"])
+    def handleNewProject(self, event: AppEvent):
+        print("New project event handled")
+        self.createVideoView(event.data["videoURL"])
+
+        
+    def createVideoView(self, videoURL="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
+        videoView = self.viewManager.getVideoView()
+        videoView.render(self.videoFrame, videoURL)
+
+
 
     
 

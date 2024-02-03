@@ -3,7 +3,7 @@ from tkinter import ttk
 from TKinterModernThemes.WidgetFrame import Widget
 import TKinterModernThemes as TKMT
 
-def buttonCMD():
+def buttognCMD():
         print("Button clicked!")
 
 class SampleView:

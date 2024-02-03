@@ -3,6 +3,7 @@ from enum import IntEnum, auto
 
 class AppEventType(IntEnum):
     requestAnnotation = auto()
+    newProject = auto()
 
 @dataclass
 class AppEvent():

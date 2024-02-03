@@ -1,5 +1,6 @@
+from typing import List
 import cv2
-
+import queue
 class VideoController:
     
     def __init__(self, capture: cv2.VideoCapture) -> None:
@@ -10,9 +11,9 @@ class VideoController:
         #Total number of frames in the video
         return int(self.capture.get(cv2.CAP_PROP_FRAME_COUNT))
 
-    def getFPS(self) -> float:
+    def getFPS(self) -> int:
         #FPS of the video
-        return self.capture.get(cv2.CAP_PROP_FPS)
+        return int(self.capture.get(cv2.CAP_PROP_FPS))
 
     def getDuration(self) -> float:
         #Duration of the video in seconds
@@ -33,3 +34,15 @@ class VideoController:
         fps = self.getFPS()
         frame_diff = int(duration * fps)
         return max(currentFrame - frame_diff, 0)
+    
+
+    def captureFrames(self, frameList: List[cv2.UMat]):
+        while True:
+            ret, frame = self.capture.read()
+            if not ret:
+                break
+            # frameQueue.put(frame)
+            frameList.append(frame)
+        self.capture.release()
+        pass
+

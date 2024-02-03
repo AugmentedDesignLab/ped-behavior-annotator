@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 from typing import Callable
-from TKinterModernThemes.WidgetFrame import Widget
 import TKinterModernThemes as TKMT
 import cv2
 from PIL import Image, ImageTk
@@ -9,91 +8,135 @@ from pytube import YouTube
 import threading
 import queue
 from controller.VideoController import VideoController
+from controller.YoutubeController import YoutubeController
 from library.AppEvent import AppEvent, AppEventType
+from managers.EventManager import EventManager
 
 from view.View import View
+import time
 
-class VideoView(View):
+class VideoView:
 
-    def __init__(self, videoController: VideoController) -> None:
-        self.videoController = videoController
+    def __init__(self, eventManager: EventManager) -> None:
+        self.eventManager = eventManager
+        self.currentFrame = tk.IntVar(value=0)
+        self.frameNumberText = tk.StringVar()
+        self.currentFrame.trace_add('write', self.update_frame_number_text)
+        self.startFrame = tk.IntVar(value=0)
+        self.endFrame = tk.IntVar(value=0)
+        self.fps = 0
+        self.playing = tk.BooleanVar(value=True)
+        self.needReset = False
 
-    def render(self, parent: TKMT.WidgetFrame):
-        parent.Label("This is our video", size=12)
-        return 
+    def render(self, parent: TKMT.WidgetFrame, video_url):
+        self.videoController = YoutubeController(url=video_url)
+        self.currentFrame.set(0)
 
-        # Create a label to display the video stream
-        video = ttk.Label(master=parent)
-        video.grid(row=0, column=0, padx=10, pady=10)
+        video_label = parent.Label(text="Video view")
+        video_label.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
 
-        # Create a queue to pass frames between threads
-        frame_queue = queue.Queue()
+        frameList = []
 
-        # Start video streaming in a separate thread
-        video_url = "https://www.youtube.com/watch?v=eu4QqwsfXFE"
-        video_thread = threading.Thread(target=start_video_stream, args=(video_url, frame_queue))
+        # video_url = "https://www.youtube.com/watch?v=eu4QqwsfXFE"
+        video_thread = threading.Thread(target=self.videoController.captureFrames, args=(frameList,))
         video_thread.start()
 
-        # Start updating frames in the GUI thread
-        update_thread = threading.Thread(target=update_frame, args=(video, frame_queue))
-        update_thread.start()
+        video_label.after(0, lambda: self.update_frame(video_label, frameList))
 
-        # Create a Scale widget
-        slider = ttk.Scale(master=parent, from_=0, to=100, orient=tk.HORIZONTAL, command=on_slider_move)
-        slider.grid(row=1, column=0, padx=20, pady=10)
-
-def on_slider_move(value):
-    # This function will be called when the slider is moved
-    print("Slider moved to:", value)
-
-def start_video_stream(video_url, frame_queue):
-    # Download the YouTube video
-    yt = YouTube(video_url)
-    stream = yt.streams.filter(file_extension='mp4').first()
-
-    # Open the video stream
-    cap = cv2.VideoCapture(stream.url)
-
-    while True:
-        # Read a frame from the video
-        ret, frame = cap.read()
+        parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.currentFrame,
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=0, columnspan=3, padx=10, pady=10)
         
-        if not ret:
-            break
+        parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=0, columnspan=3, padx=10, pady=10)
+        
+        parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.endFrame,
+                  widgetkwargs={"command":self.on_slider_move}).grid(row=3, column=0, columnspan=3, padx=10, pady=10)
+        self.endFrame.set(self.videoController.getNFrames())
 
-        # Put the frame into the queue
-        frame_queue.put(frame)
+        parent.Button(text="<<", command=self.skip_left).grid(
+            row=4, column=0, padx=10, pady=10)
+        parent.Button(text="Pause" if self.playing.get() else "Play", command=self.toggle_play_pause).grid(
+            row=4, column=1, padx=10, pady=10)
+        parent.Button(text=">>", command=self.skip_right).grid(
+            row=4, column=2, padx=10, pady=10)
+        
+        parent.Button(text="Match Frame", command=self.match_frame).grid(row=5, column=0, columnspan=2, padx=10, pady=10)
+        parent.Button(text="Replay Segment", command=self.replay_segment).grid(row=5, column=2, columnspan=1, padx=10, pady=10)
 
-    # Release the video stream
-    cap.release()
+        frame_number_label = parent.Label(text=self.frameNumberText.get(), size=12, widgetkwargs={"textvariable":self.frameNumberText})
+        frame_number_label.grid(row=6, column=0, columnspan=3, padx=10, pady=10)
 
-def update_frame(video_label, frame_queue):
-    # Get the frame from the queue (if available)
-    try:
-        frame = frame_queue.get_nowait()
+    def destroy(self, newVideoURL):
+        # 1. Clean up old update loop
+        self.needReset = True
+        time.sleep(2)
+        # 2. load the new one
 
-        # Resize the frame to the desired size
-        frame = cv2.resize(frame, (960, 540))  # Change the size here as needed
 
-        # Convert frame to PIL Image
-        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        pil_image = Image.fromarray(frame_rgb)
+    
 
-        # Convert PIL Image to Tkinter PhotoImage
-        photo = ImageTk.PhotoImage(image=pil_image)
+    def on_slider_move(self, value):
+        print("Slider moved to frame:", value)
 
-        # Update the Tkinter Label with the new frame
-        video_label.config(image=photo)
-        video_label.image = photo
+    def update_frame(self, video_label, frameList):
+        def update():
+            if self.needReset:
+                return
+            # if self.playing.get() and len(frameList) - 1 > self.currentFrame.get():
+            if self.currentFrame.get() < self.startFrame.get():
+                self.currentFrame.set(self.startFrame.get())
+            if self.currentFrame.get() > self.endFrame.get():
+                self.currentFrame.set(self.endFrame.get())
 
-    except queue.Empty:
-        # If the queue is empty, there's no new frame yet, so do nothing
-        pass
+            frame = frameList[self.currentFrame.get()]
+            frame = cv2.resize(frame, (480, 270))
 
-    # Call this function again after a delay to update frames continuously
-    video_label.after(10, update_frame, video_label, frame_queue)
+            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            pil_image = Image.fromarray(frame_rgb)
 
-    # events
-    def requestAnnotation(eventHandler: Callable):
-        event = AppEvent(AppEventType.requestAnnotation, data={"timestamp": 0, "frame": None})
-        eventHandler(event) # 
+            photo = ImageTk.PhotoImage(image=pil_image)
+            video_label.config(image=photo)
+            video_label.image = photo
+
+            if self.playing.get():
+                self.currentFrame.set(self.currentFrame.get() + 1)
+
+                if self.fps == 0:
+                    self.fps = self.videoController.getFPS()
+                interval = int(1000 / self.fps)  # ms
+                # Use 'after' to schedule the next update
+                video_label.after(interval, update)
+            else:
+                video_label.after(1000, update)
+        
+        # Start the first update
+        video_label.after(0, update)
+
+    def update_frame_number_text(self, *args):
+        self.frameNumberText.set(f"Current Frame: {self.currentFrame.get()}")
+
+    def requestAnnotation(self):
+        event = AppEvent(AppEventType.requestAnnotation, data={"timestamp": 0, "frame": self.currentFrame})
+        # self.videoController.eventHandler(event)
+        self.eventManager.onEvent(event)
+        # Start the first update
+#        video_label.after(0, update)
+        
+    def toggle_play_pause(self):
+        self.playing.set(not self.playing.get())
+        print("Paused" if not self.playing.get() else "Playing")
+
+    def skip_left(self):
+        self.currentFrame.set(self.currentFrame.get()-30)
+
+    def skip_right(self):
+        self.currentFrame.set(self.currentFrame.get()+30)
+
+    def match_frame(self):
+        matching_frame = self.startFrame.get()
+        self.endFrame.set(matching_frame)
+        self.currentFrame.set(matching_frame)
+        self.playing.set(True)
+    
+    def replay_segment(self):
+        self.currentFrame.set(self.startFrame.get())
