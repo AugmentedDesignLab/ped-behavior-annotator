@@ -8,8 +8,8 @@ from model.SceneTag import SceneTag
 
 @dataclass
 class MultiFrameAnnotation:
-    timeStart: float
-    timeEnd: float
+    # timeStart: float
+    # timeEnd: float
     frameStart: int
     frameEnd: int
     pedTags: List[PedestrianTag] = field(default_factory=list)
@@ -18,8 +18,8 @@ class MultiFrameAnnotation:
     additionalNotes: str
 
     def __str__(self) -> str:
-        return f"MultiFrameAnnotations(timeStart={self.timeStart}, timeEnd={self.timeEnd}, frameStart={self.frameStart}, frameEnd={self.frameEnd}, pedTags={self.pedTags}, egoTags={self.egoTags}, sceneTags={self.sceneTags}, additionalNotes={self.additionalNotes})"
-
+        # return f"MultiFrameAnnotations(timeStart={self.timeStart}, timeEnd={self.timeEnd}, frameStart={self.frameStart}, frameEnd={self.frameEnd}, pedTags={self.pedTags}, egoTags={self.egoTags}, sceneTags={self.sceneTags}, additionalNotes={self.additionalNotes})"
+        return f"MultiFrameAnnotations(frameStart={self.frameStart}, frameEnd={self.frameEnd}, pedTags={self.pedTags}, egoTags={self.egoTags}, sceneTags={self.sceneTags}, additionalNotes={self.additionalNotes})"
     def toJSON(self) -> str:
         """A valid JSON representation of the object
         Returns:

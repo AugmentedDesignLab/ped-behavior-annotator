@@ -8,7 +8,7 @@ from model.SceneTag import SceneTag
 
 @dataclass
 class SingleFrameAnnotation:
-    time: float
+    # time: float
     frame: int
     pedTags: List[PedestrianTag] = field(default_factory=list)
     egoTags: List[VehicleTag] = field(default_factory=list)
@@ -16,7 +16,8 @@ class SingleFrameAnnotation:
     additionalNotes: str
 
     def __str__(self) -> str:
-        return f"SingleFrameAnnotation(time={self.time}, frame={self.frame}, pedTags={self.pedTags}, egoTags={self.egoTags}, sceneTags={self.sceneTags}, additionalNotes={self.additionalNotes})"
+        # return f"SingleFrameAnnotation(time={self.time}, frame={self.frame}, pedTags={self.pedTags}, egoTags={self.egoTags}, sceneTags={self.sceneTags}, additionalNotes={self.additionalNotes})"
+        return f"SingleFrameAnnotation(frame={self.frame}, pedTags={self.pedTags}, egoTags={self.egoTags}, sceneTags={self.sceneTags}, additionalNotes={self.additionalNotes})"
     def toJSON(self) -> str:
         """A valid JSON representation of the object
         Returns:
