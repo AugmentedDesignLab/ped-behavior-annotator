@@ -1,0 +1,31 @@
+{
+    "name": "Test Recording",
+    "annotation_path": "recording",
+    "video_path": "test_recording",
+    "multiFrameAnnotations": [],
+    "singleFrameAnnotation": [
+        {
+            "frame": 100,
+            "pedTags": [
+                "Flinch",
+                "Crash"
+            ],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": ""
+        },
+        {
+            "frame": 101,
+            "pedTags": [
+                "Crash"
+            ],
+            "egoTags": [
+                "Brake"
+            ],
+            "sceneTags": [
+                "Red Light"
+            ],
+            "additionalNotes": "This is a note"
+        }
+    ]
+}

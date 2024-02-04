@@ -96,7 +96,6 @@ class App(TKMT.ThemedTKinterFrame):
         print("Save project event handled")
         self.recordingController.saveProject()
         
-    # def createVideoView(self, videoURL="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
     def createVideoView(self, videoURL:str, videoTitle:str, annotationPath: str):
         print(f"Creating video view with url {videoURL} and title {videoTitle} and annotation path {annotationPath}")
         if not hasattr(self, 'videoView') or self.videoView is None:
@@ -104,7 +103,7 @@ class App(TKMT.ThemedTKinterFrame):
             self.videoView.render(self.videoFrame, videoURL)
         else:
             self.videoView.updateVideo(videoURL)
-            
+
         self.recordingController.initNewRecording(videoTitle, annotationPath, videoURL)
     
 

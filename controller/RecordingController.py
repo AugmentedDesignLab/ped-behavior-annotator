@@ -10,7 +10,7 @@ class RecordingController:
     def __init__(self, repository: RecordingRepository, recording: Recording = None):
         self.repository = repository
         self._recording = recording
-        self.initNewRecording("Test Recording", self.repository.location, "https://www.youtube.com/watch?v=eu4QqwsfXFE")
+        # self.initNewRecording("Test Recording", self.repository.location, "https://www.youtube.com/watch?v=eu4QqwsfXFE")
 
     @property
     def recording(self) -> Recording:

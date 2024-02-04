@@ -1,6 +1,6 @@
 from enum import Enum
 
-class PedestrianTag(Enum):
+class PedestrianTag(str, Enum):
     Flinch = "Flinch"
     Crash = "Crash"
     Jaywalking = "Jaywalking"
