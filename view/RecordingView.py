@@ -39,6 +39,7 @@ class RecordingView(View):
 
         # Create a frame to hold widgets
         self.inner_frame = ttk.Frame(self.canvas)
+        self.recordingFrame = TKMT.WidgetFrame(self.inner_frame, "Recording View")
         inner_frame_id = self.canvas.create_window((0, 0), window=self.inner_frame, anchor="nw")
 
         # Create a vertical scrollbar
@@ -67,6 +68,30 @@ class RecordingView(View):
     # Function to update the canvas scrolling region
     def on_configure(self, event):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+
+    def createSingleAnnotationCard(self, annotation: SingleFrameAnnotation) -> ttk.Frame:
+        cardFrame = self.recordingFrame.addLabelFrame(str(annotation.frame), padx=(5,5), pady=(10,0))
+        # print("createSingleAnnotationCard", pedTags)
+
+        cardFrame.setActiveCol(0)
+        cardFrame.Text("Ped Tags:")
+        pedTags = ', '.join(map(lambda tag: tag.value, annotation.pedTags))
+        cardFrame.nextCol()
+        cardFrame.Text(pedTags)
+
+        cardFrame.setActiveCol(0)
+        cardFrame.Text("Ego Tags:")
+        egoTags = ', '.join(map(lambda tag: tag.value, annotation.egoTags))
+        cardFrame.nextCol()
+        cardFrame.Text(egoTags)
+
+        cardFrame.setActiveCol(0)
+        cardFrame.Text("Scene Tags:")
+        sceneTags = ', '.join(map(lambda tag: tag.value, annotation.sceneTags))
+        cardFrame.nextCol()
+        cardFrame.Text(sceneTags)
+
+        return cardFrame
 
     def create_singleFrame_annotation_card(self, parent: ttk.Frame, annotation: SingleFrameAnnotation) -> ttk.Frame:
         card_frame = ttk.Frame(parent, borderwidth=2, relief="solid")
@@ -117,11 +142,12 @@ class RecordingView(View):
 
         # Create and pack a new annotation card
         if type(new_annotation) == SingleFrameAnnotation:
-            card_frame = self.create_singleFrame_annotation_card(self.inner_frame, new_annotation)
+            # card_frame = self.create_singleFrame_annotation_card(self.inner_frame, new_annotation)
+            cardFrame = self.createSingleAnnotationCard(new_annotation)
+
         else: # otherwise, it's a multi frame annotation
             card_frame = self.create_multiFrame_annotation_card(self.inner_frame, new_annotation)
-            
-        card_frame.pack(pady=5, padx=10, fill="both")
+            card_frame.pack(pady=5, padx=10, fill="both")
 
         # Call on_configure to update the canvas scrolling region
         self.on_configure(None)
