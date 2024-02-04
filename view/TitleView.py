@@ -51,7 +51,6 @@ class TitleView(tk.Frame):
 
     def renderNewProjectView(self):
         window = NewProjectWindow(self, "park", "dark")
-        window.run()
     
     def initiateNewProject(self, videoURL: str, videoTitle: str, annotationPath: str):
         self.videoURL.set(videoURL)
@@ -92,6 +91,7 @@ class NewProjectWindow(TKMT.ThemedTKinterFrame):
         self.annotationPathFrame.Entry(self.newVideoAnnotationPath, widgetkwargs={"width": 80})
         self.Button("Save", self.save)
         self.Button("Cancel", self.cancel)
+        self.run()
 
     
     def save(self):
