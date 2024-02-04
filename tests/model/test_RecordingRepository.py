@@ -26,5 +26,7 @@ def test_Save():
     sAnnotation2.additionalNotes = "This is a note"
 
     recording.singleFrameAnnotation.extend([sAnnotation1, sAnnotation2])
+
     status, message = repository.save(recording)
+    print(message)
     assert status == True

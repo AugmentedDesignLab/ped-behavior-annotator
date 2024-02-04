@@ -5,7 +5,6 @@ __pycache__/
 behaviorannotator/
 
 *.mp4
-data/exports
 
 # C extensions
 *.so

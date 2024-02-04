@@ -1,7 +1,9 @@
-from model.Recording import Recording, RecordingEncoder
+from model.Recording import Recording
+from library import EnumEncoder
 from typing import *
 import json
 import os
+import logging
 
 class RecordingRepository:
     """A repository is a collection.
@@ -30,9 +32,10 @@ class RecordingRepository:
             #     os.makedirs(path)
             with open(path, 'w') as f:
                 # f.write(recording.toJSON())
-                json.dump(recording, f, default=RecordingEncoder, indent=4)
+                json.dump(recording, f, cls=EnumEncoder, indent=4, skipkeys=True)
                 return True, f"saved recording to {path}"
         except Exception as e:
+            logging.exception(e)
             return False,  f"failed to recording to {path} due to {e}"
         
 

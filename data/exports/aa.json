@@ -1,0 +1,75 @@
+{
+    "name": "aa",
+    "annotation_path": "aa",
+    "video_path": "https://www.youtube.com/watch?v=4SyuRP86K1Q",
+    "multiFrameAnnotations": [
+        {
+            "frameStart": 0,
+            "frameEnd": 20469,
+            "pedTags": [
+                null,
+                "PedestrianTag.Jaywalking",
+                "PedestrianTag.Crash"
+            ],
+            "egoTags": [
+                null
+            ],
+            "sceneTags": [
+                null
+            ],
+            "additionalNotes": ""
+        },
+        {
+            "frameStart": 0,
+            "frameEnd": 20469,
+            "pedTags": [
+                "PedestrianTag.Flinch",
+                "PedestrianTag.Crash"
+            ],
+            "egoTags": [
+                "VehicleTag.Brake",
+                "VehicleTag.Speeding"
+            ],
+            "sceneTags": [
+                "SceneTag.NoSigns",
+                "SceneTag.ChangingLight",
+                "SceneTag.RedLight"
+            ],
+            "additionalNotes": ""
+        }
+    ],
+    "singleFrameAnnotation": [
+        {
+            "frame": 5329,
+            "pedTags": [
+                "PedestrianTag.Jaywalking",
+                "PedestrianTag.Crash",
+                "PedestrianTag.Flinch"
+            ],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": ""
+        },
+        {
+            "frame": 5329,
+            "pedTags": [
+                "PedestrianTag.Jaywalking",
+                "PedestrianTag.Distracted"
+            ],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": ""
+        },
+        {
+            "frame": 5329,
+            "pedTags": [],
+            "egoTags": [
+                "VehicleTag.RunRed"
+            ],
+            "sceneTags": [
+                "SceneTag.NoSigns"
+            ],
+            "additionalNotes": ""
+        }
+    ]
+}

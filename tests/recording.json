@@ -7,8 +7,8 @@
         {
             "frame": 100,
             "pedTags": [
-                "Flinch",
-                "Crash"
+                "PedestrianTag.Flinch",
+                "PedestrianTag.Crash"
             ],
             "egoTags": [],
             "sceneTags": [],
@@ -18,10 +18,10 @@
             "frame": 101,
             "pedTags": [],
             "egoTags": [
-                "Brake"
+                "VehicleTag.Brake"
             ],
             "sceneTags": [
-                "Red Light"
+                "SceneTag.RedLight"
             ],
             "additionalNotes": "This is a note"
         }
