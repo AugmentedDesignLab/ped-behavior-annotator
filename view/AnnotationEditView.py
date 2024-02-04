@@ -11,6 +11,7 @@ from model.SingleFrameAnnotation import SingleFrameAnnotation
 from model.MultiFrameAnnotation import MultiFrameAnnotation
 from library.AppEvent import AppEvent, AppEventType
 from managers.EventManager import EventManager
+from managers.ViewEventManager import ViewEventManager
 import allwidgets
 import cv2
 from typing import *
@@ -20,9 +21,10 @@ from view.View import View
 
 class AnnotationEditView(View):
 
-    def __init__(self, recordingController: RecordingController, eventManager: EventManager) -> None:
+    def __init__(self, recordingController: RecordingController, eventManager: EventManager, viewEventManager: ViewEventManager) -> None:
         super().__init__()
         self.eventManager = eventManager
+        self.viewEventManager = viewEventManager
         self.recordingController = recordingController
         self.currentAnnotationStartFrame = tk.IntVar(value=0)
         self.currentAnnotationEndFrame = tk.IntVar(value=0)
@@ -30,6 +32,11 @@ class AnnotationEditView(View):
     def _renderView(self, parent: TKMT.WidgetFrame):
         # parent.Text("Frame # " + str(self.currentAnnotation.frame))
         parent.setActiveCol(0)
+        parent.Text("Start Frame:")
+        parent.nextCol()
+        parent.Text("", widgetkwargs={"textvariable":self.currentAnnotationStartFrame})
+        parent.setActiveCol(0)
+
         self.pedBehaviorFrame = parent.addLabelFrame("Pedestrian Behavior", padx=(0,0), pady=(10,0))
         self._renderPedOptions(self.pedBehaviorFrame)
         self.vehBehaviorFrame = parent.addLabelFrame("Vehicle Behavior", padx=(0,0), pady=(5,0))
@@ -42,6 +49,13 @@ class AnnotationEditView(View):
         # add radio button for single/multi
         # frame # being annotated
 
+    def handleEvent(self, appEvent: AppEvent):
+        if "updateStartFrame" in appEvent.data:
+            self.currentAnnotationStartFrame.set(appEvent.data["updateStartFrame"])
+            print(f"updated start frame in the edit view with {appEvent.data['updateStartFrame']}")
+        if "updateEndFrame" in appEvent.data:
+            self.currentAnnotationEndFrame.set(appEvent.data["updateEndFrame"])
+            print("updated end frame in the edit view")
 
     def render(self, parent: TKMT.WidgetFrame):
         # frame information

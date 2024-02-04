@@ -6,41 +6,47 @@ import cv2
 from PIL import Image, ImageTk
 from pytube import YouTube
 import threading
+import logging
 import queue
 from controller.VideoController import VideoController
 from controller.YoutubeController import YoutubeController
 from library.AppEvent import AppEvent, AppEventType
 from managers.EventManager import EventManager
+from managers.ViewEventManager import ViewEventManager
 
 from view.View import View
 import time
 
 class VideoView:
 
-    def __init__(self, eventManager: EventManager) -> None:
+    def __init__(self, eventManager: EventManager, viewEventManager: ViewEventManager) -> None:
         self.name = f"VideoView"
         self.eventManager = eventManager
+        self.viewEventManager = viewEventManager
 
         self.videoScreenSize = (480, 270)
         
         self.currentFrame = tk.IntVar(value=0)
         self.currentFrameText = tk.StringVar()
-        self.currentFrame.trace_add('write', self.updateCurrentFrameText)
+        self.currentFrame.trace_add('write', self.updateCurrentFrameFromSlider)
 
         self.startFrame = tk.IntVar(value=0)
         self.startFrameText = tk.StringVar()
         self.startFrameText.set("Start Frame: 0")
-        self.startFrame.trace_add('write', self.updateStartFrameText)
+        self.startFrame.trace_add('write', self.updateStartFrameFromSlider)
 
         self.endFrame = tk.IntVar(value=0)
         self.endFrameText = tk.StringVar()
-        self.endFrame.trace_add('write', self.updateEndFrameText)
+        self.endFrame.trace_add('write', self.updateEndFrameFromSlider)
 
         self.segmentProgress = tk.IntVar(value=0)
 
         self.fps = 0
         self.playing = tk.BooleanVar(value=True)
         self.needReset = False
+
+    def handleEvent(self, appEvent: AppEvent):
+        raise Exception("handleEvent not implemented")
 
     def render(self, parent: TKMT.WidgetFrame, videoURL):
         self.videoController = YoutubeController(url=videoURL, eventManager=self.eventManager)
@@ -58,15 +64,15 @@ class VideoView:
 
 
         self.currentSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.currentFrame,
-                  widgetkwargs={"command":self.on_slider_move})
+                  widgetkwargs={"command":self.updateCurrentFrameFromSlider})
         self.currentSlider.grid(row=0, column=3, columnspan=3, padx=10, pady=10)
         
         self.startSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
-                  widgetkwargs={"command":self.on_slider_move})
+                  widgetkwargs={"command":self.updateStartFrameFromSlider})
         self.startSlider.grid(row=1, column=3, columnspan=3, padx=10, pady=10)
         
         self.endSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.endFrame,
-                  widgetkwargs={"command":self.on_slider_move})
+                  widgetkwargs={"command":self.updateEndFrameFromSlider})
         self.endSlider.grid(row=2, column=3, columnspan=3, padx=10, pady=10)
 
         self.endFrame.set(self.videoController.getNFrames())
@@ -170,11 +176,6 @@ class VideoView:
         # 2. load the new one
 
 
-    
-
-    def on_slider_move(self, value):
-        print("Slider moved to frame:", value)
-
     def update_frame(self):
 
         if self.needReset:
@@ -221,14 +222,20 @@ class VideoView:
     
         # Start the first update
 
-    def updateCurrentFrameText(self, *args):
+    def updateCurrentFrameFromSlider(self, *args):
+        # self.currentFrame.set(newVal)
         self.currentFrameText.set(f"Current Frame: {self.currentFrame.get()}")
+        self.viewEventManager.publishCurrentFrameChange(self.currentFrame.get())
 
-    def updateStartFrameText(self, *args):
+    def updateStartFrameFromSlider(self, *args):
+        # self.startFrame.set(newVal)
         self.startFrameText.set(f"Start Frame: {self.startFrame.get()}")
+        self.viewEventManager.publishStartFrameChange(self.startFrame.get())
     
-    def updateEndFrameText(self, *args):
+    def updateEndFrameFromSlider(self, *args):
+        # self.endFrame.set(newVal)
         self.endFrameText.set(f"End Frame: {self.endFrame.get()}")
+        self.viewEventManager.publishEndFrameChange(self.endFrame.get())
 
 # Annotations aren't requested in VideoView
 #     def requestAnnotation(self):

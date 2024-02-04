@@ -6,13 +6,16 @@ from tkinter import ttk
 import TKinterModernThemes as TKMT
 from library.AppEvent import AppEvent, AppEventType
 from managers.EventManager import EventManager
+from managers.ViewEventManager import ViewEventManager
 from controller.RecordingController import RecordingController
+from view.View import View
 
-class TitleView(tk.Frame):
+class TitleView(View):
    
-    def __init__(self, eventManager: EventManager, recordingController: RecordingController, *args, **kwargs):
+    def __init__(self, recordingController: RecordingController,  eventManager: EventManager, viewEventManager: ViewEventManager, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.eventManager = eventManager
+        self.viewEventManager = viewEventManager
         self.recordingController = recordingController
 
         self.videoTitle = tk.StringVar(value="")
@@ -24,6 +27,9 @@ class TitleView(tk.Frame):
         # self.videoTitle.trace_add('write', self.videoURLUpdated)
         self.parent = None
     
+    def handleEvent(self, appEvent: AppEvent):
+        raise Exception("handleEvent not implemented")
+
     def render(self, parent: TKMT.WidgetFrame):
         self.parent= parent
         # self.parent.Text("Title View")
@@ -61,7 +67,7 @@ class TitleView(tk.Frame):
         self.annotationPath.set(annotationPath)
 
         # delay so that the new project window can close.
-        self.after(1000, self.loadNewProject)
+        self.parent.master.after(1000, self.loadNewProject)
     
     def loadNewProject(self):
         

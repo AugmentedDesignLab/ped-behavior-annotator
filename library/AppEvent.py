@@ -8,6 +8,10 @@ class AppEventType(IntEnum):
     updateRecordingView = auto()
     exceptions = auto()
     recording = auto()
+    videoView = auto()
+    annotationEditView = auto()
+    titleView = auto()
+    
 
 @dataclass
 class AppEvent():

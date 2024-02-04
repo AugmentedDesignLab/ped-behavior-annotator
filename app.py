@@ -9,6 +9,7 @@ from controller.YoutubeController import YoutubeController
 from managers.ControllerManager import ControllerManager
 from managers.EventManager import EventManager
 from managers.ViewManager import ViewManager
+from managers.ViewEventManager import ViewEventManager
 from library.AppEvent import AppEvent, AppEventType
 from model.RecordingRepository import RecordingRepository
 from view import *
@@ -26,7 +27,8 @@ class App(TKMT.ThemedTKinterFrame):
         firstWindow = False # super important for popups
 
         self.eventManager = EventManager()
-        self.viewManager = ViewManager(self.eventManager)
+        self.viewEventManager = ViewEventManager(self.eventManager)
+        self.viewManager = ViewManager(self.eventManager, self.viewEventManager)
         self.controllerManager = ControllerManager(self.eventManager)
         self.recordingController = self.controllerManager.getRecordingController()
         # create two widgetframes, nav and content
@@ -53,7 +55,8 @@ class App(TKMT.ThemedTKinterFrame):
         # self.navFrame.Text("Recording Name")
         # self.navFrame.Text("Annotation Path")
 
-        titleView = TitleView(self.eventManager, self.recordingController)
+        # titleView = TitleView(self.eventManager, self.recordingController)
+        titleView = self.viewManager.getTitleView(self.recordingController)
         titleView.render(self.navFrame)
     
     def makeContent(self):
@@ -76,12 +79,12 @@ class App(TKMT.ThemedTKinterFrame):
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
         self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(10,0))
-        self.annotationEditView = self.viewManager.getAnnotationEditView(self.recordingController, self.eventManager)
+        self.annotationEditView = self.viewManager.getAnnotationEditView(self.recordingController)
         #self.context["controllers"]["recording"])
         self.annotationEditView.render(self.annotationFrame)
 
         self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(10,0))
-        self.recordingView = self.viewManager.getRecordingView(self.recordingController, self.eventManager)
+        self.recordingView = self.viewManager.getRecordingView(self.recordingController)
         self.recordingView.render(self.recordingFrame)
         # text = self.recordingFrame.Text("Recording")
         # text.pack(side=tk.TOP)
