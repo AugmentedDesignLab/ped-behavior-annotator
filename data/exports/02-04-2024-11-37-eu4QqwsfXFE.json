@@ -1,0 +1,44 @@
+{
+    "name": "02-04-2024-11-37-eu4QqwsfXFE",
+    "fps": 30,
+    "annotation_path": "02-04-2024-11-37-eu4QqwsfXFE.json",
+    "video_path": "https://www.youtube.com/watch?v=eu4QqwsfXFE",
+    "multiFrameAnnotations": [],
+    "singleFrameAnnotation": [
+        {
+            "frame": 0,
+            "pedTags": [
+                "Crash"
+            ],
+            "egoTags": [
+                "Speeding"
+            ],
+            "sceneTags": [],
+            "additionalNotes": ""
+        },
+        {
+            "frame": 0,
+            "pedTags": [
+                "Distracted"
+            ],
+            "egoTags": [
+                "Distracted driving"
+            ],
+            "sceneTags": [],
+            "additionalNotes": ""
+        },
+        {
+            "frame": 0,
+            "pedTags": [
+                "Jaywalking"
+            ],
+            "egoTags": [
+                "Run a red light"
+            ],
+            "sceneTags": [
+                "No stop signs"
+            ],
+            "additionalNotes": ""
+        }
+    ]
+}
