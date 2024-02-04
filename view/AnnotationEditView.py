@@ -178,6 +178,8 @@ class AnnotationEditView(View):
                                                      self.textinputvar.get())
             self.recordingController.addMultiFrameAnnotation(currentAnnotation)
 
+        self.eventManager.onEvent(AppEvent(type=AppEventType.updateRecordingView, data={}))
+
         self.pedTags = []
         self.egoTags = []
         self.sceneTags = []

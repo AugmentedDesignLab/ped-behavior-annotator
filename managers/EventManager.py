@@ -61,5 +61,5 @@ class EventManager:
                 handler(appEvent)
 
         if appEvent.type == AppEventType.updateRecordingView:
-            for handler in self.saveProjectHandlers:
+            for handler in self.updateRecordingViewHandlers:
                 handler(appEvent)
