@@ -13,7 +13,7 @@ from library.AppEvent import AppEvent, AppEventType
 from managers.EventManager import EventManager
 import allwidgets
 import cv2
-from typing import Tuple
+from typing import *
 
 from view.View import View
 
@@ -45,9 +45,9 @@ class AnnotationEditView(View):
 
     def render(self, parent: TKMT.WidgetFrame):
         # frame information
-        self.pedTags = [PedestrianTag]
-        self.egoTags = [VehicleTag]
-        self.sceneTags = [SceneTag]
+        self.pedTags: List[PedestrianTag] = []
+        self.egoTags: List[VehicleTag] = []
+        self.sceneTags: List[SceneTag] = []
         self._renderView(parent)
 
     def renderSingleEdit(self, parent: TKMT.WidgetFrame, existingAnnotation: SingleFrameAnnotation):
@@ -160,7 +160,7 @@ class AnnotationEditView(View):
     def handleSave(self):
         print("Button clicked. Current toggle button state: ", self.togglebuttonvar.get())
 
-        self.eventManager.onEvent(AppEvent(type=AppEventType.requestAnnotation, data={}))
+        # self.eventManager.onEvent(AppEvent(type=AppEventType.requestAnnotation, data={}))
 
         if self.currentAnnotationStartFrame.get() == self.currentAnnotationEndFrame.get():
             currentAnnotation = SingleFrameAnnotation(self.currentAnnotationStartFrame.get(),

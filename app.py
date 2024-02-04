@@ -23,7 +23,7 @@ class App(TKMT.ThemedTKinterFrame):
         super().__init__("PedAnalyze: Pedestrian Behavior Annotator", theme, mode, usecommandlineargs, usethemeconfigfile)
         #self.initContext()
         global firstWindow
-        firstWindow = False
+        firstWindow = False # super important for popups
 
         self.eventManager = EventManager()
         self.viewManager = ViewManager(self.eventManager)
@@ -39,6 +39,7 @@ class App(TKMT.ThemedTKinterFrame):
         self.eventManager.subscribe(AppEventType.requestAnnotation, self.handleNewAnnotation)
         self.eventManager.subscribe(AppEventType.saveProject, self.handleSaveProject)
         self.eventManager.subscribe(AppEventType.updateRecordingView, self.handleUpdateRecordingView)
+        self.eventManager.subscribe(AppEventType.exceptions, self.handleException)
         self.run()
     
     def makeNav(self):
@@ -96,13 +97,20 @@ class App(TKMT.ThemedTKinterFrame):
 
     def handleSaveProject(self, event: AppEvent):
         print("Save project event handled")
-        self.recordingController.saveProject()
+        status, message = self.recordingController.saveProject()
+        PopupView(message, "park", "dark")
 
     def handleUpdateRecordingView(self, event: AppEvent):
         print("Update recording view event handled")
         self.recordingView.updateAnnotations(event.data["annotation"])
+    
+    def handleException(self, event: AppEvent):
+        print("Exception event handled")
+        if isinstance(event.data, Exception):
+            PopupView(str(event.data), "park", "dark")
+        else:
+            PopupView(event.data["message"], "park", "dark")
         
-    # def createVideoView(self, videoURL="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
     def createVideoView(self, videoURL:str, videoTitle:str, annotationPath: str):
         print(f"Creating video view with url {videoURL} and title {videoTitle} and annotation path {annotationPath}")
         if not hasattr(self, 'videoView') or self.videoView is None:
@@ -110,8 +118,10 @@ class App(TKMT.ThemedTKinterFrame):
             self.videoView.render(self.videoFrame, videoURL)
         else:
             self.videoView.updateVideo(videoURL)
-            
+
         self.recordingController.initNewRecording(videoTitle, annotationPath, videoURL)
+    
+
     
 
 

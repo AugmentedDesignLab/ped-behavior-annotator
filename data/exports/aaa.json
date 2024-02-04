@@ -1,0 +1,18 @@
+{
+    "name": "aaa",
+    "annotation_path": "aaa",
+    "video_path": "https://www.youtube.com/watch?v=4SyuRP86K1Q",
+    "multiFrameAnnotations": [],
+    "singleFrameAnnotation": [
+        {
+            "frame": 0,
+            "pedTags": [
+                "PedestrianTag.Crash",
+                "PedestrianTag.Jaywalking"
+            ],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": ""
+        }
+    ]
+}
