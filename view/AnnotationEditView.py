@@ -28,26 +28,7 @@ class AnnotationEditView(View):
         self.recordingController = recordingController
         self.currentAnnotationStartFrame = tk.IntVar(value=0)
         self.currentAnnotationEndFrame = tk.IntVar(value=0)
-    
-    def _renderView(self, parent: TKMT.WidgetFrame):
-        # parent.Text("Frame # " + str(self.currentAnnotation.frame))
-        parent.setActiveCol(0)
-        parent.Text("Start Frame:")
-        parent.nextCol()
-        parent.Text(text="0", widgetkwargs={"textvariable":self.currentAnnotationStartFrame})
-
-        parent.setActiveCol(0)
-        self.pedBehaviorFrame = parent.addLabelFrame("Pedestrian Behavior", padx=(0,0), pady=(10,0))
-        self._renderPedOptions(self.pedBehaviorFrame)
-        self.vehBehaviorFrame = parent.addLabelFrame("Vehicle Behavior", padx=(0,0), pady=(5,0))
-        self._renderVehicleOptions(self.vehBehaviorFrame)
-        self.envBehaviorFrame = parent.addLabelFrame("Environment Behavior", padx=(0,0), pady=(5,0))
-        self._renderSceneOptions(self.envBehaviorFrame)
-        self._renderTextField(parent)
-        self._renderSaveButton(parent)
-
-        # add radio button for single/multi
-        # frame # being annotated
+        self.annotationTypeRadioVar = tk.StringVar(value='Multi')
 
     def handleEvent(self, appEvent: AppEvent):
         if "updateStartFrame" in appEvent.data:
@@ -59,15 +40,51 @@ class AnnotationEditView(View):
 
     def render(self, parent: TKMT.WidgetFrame):
         # frame information
-        self.pedTags: List[PedestrianTag] = []
-        self.egoTags: List[VehicleTag] = []
-        self.sceneTags: List[SceneTag] = []
+        # self.pedTags: List[PedestrianTag] = []
+        # self.egoTags: List[VehicleTag] = []
+        # self.sceneTags: List[SceneTag] = []
         self._renderView(parent)
+        self.resetAnnotation()
 
     def renderSingleEdit(self, parent: TKMT.WidgetFrame, existingAnnotation: SingleFrameAnnotation):
         # you do the same thing, but read information from the existingAnnotation object
         self.currentAnnotation = existingAnnotation
         self._renderView(parent)
+    
+    def _renderView(self, parent: TKMT.WidgetFrame):
+        # parent.Text("Frame # " + str(self.currentAnnotation.frame))
+        parent.setActiveCol(0)
+        parent.Text("Start Frame:")
+        parent.nextCol()
+        parent.Text(text="0", widgetkwargs={"textvariable":self.currentAnnotationStartFrame})
+        
+        parent.setActiveCol(0)
+        self._renderAnnotationTypeSelector(parent)
+
+        parent.setActiveCol(0)
+        self.pedBehaviorFrame = parent.addLabelFrame("Pedestrian Behavior", padx=(10,10), pady=(10, 0))
+        self._renderPedOptions(self.pedBehaviorFrame)
+
+        parent.setActiveCol(0)
+        self.vehBehaviorFrame = parent.addLabelFrame("Vehicle Behavior", padx=(10,10), pady=(10, 0))
+        self._renderVehicleOptions(self.vehBehaviorFrame)
+
+        parent.setActiveCol(0)
+        self.envBehaviorFrame = parent.addLabelFrame("Environment Behavior", padx=(10,10), pady=(10, 0))
+        self._renderSceneOptions(self.envBehaviorFrame)
+
+        parent.setActiveCol(0)
+        self._renderNotesField(parent)
+        self._renderSaveButton(parent)
+
+        # add radio button for single/multi
+        # frame # being annotated
+        
+
+    def _renderAnnotationTypeSelector(self, parent: TKMT.WidgetFrame):
+        self.annotationTypeFrame = parent.addLabelFrame("Annotation Type", padx=(10,10), pady=(10, 0))
+        self.annotationTypeFrame.Radiobutton("Multi", self.annotationTypeRadioVar, value="Multi", row=0, col=0)
+        self.annotationTypeFrame.Radiobutton("Single", self.annotationTypeRadioVar, value="Single", row=0, col=1)
 
     
     def _renderPedOptions(self, parent: TKMT.WidgetFrame):
@@ -120,17 +137,14 @@ class AnnotationEditView(View):
             self.sceneCheckbuttons.append(var)
             col += 1
 
-    def _renderTextField(self, parent: TKMT.WidgetFrame):
+    def _renderNotesField(self, parent: TKMT.WidgetFrame):
 
         parent.Text("Additional Notes:", col=1, row=0)
         # parent.nextCol()
 
-        self.textinputvar = tk.StringVar()
-        self.textinputvar.trace_add('write', self.textupdate)
+        self.notesVar = tk.StringVar()
         parent.Entry(
-            self.textinputvar,
-            validatecommand=self.validateText, 
-            validatecommandargs=(self.textinputvar,),
+            self.notesVar,
             col=1,
             row=1,
             rowspan=3
@@ -139,10 +153,11 @@ class AnnotationEditView(View):
     def _renderSaveButton(self, parent: TKMT.WidgetFrame):
         self.togglebuttonvar = tk.BooleanVar()
         parent.Button("Save Annotation", self.handleSave)
+    
 
     def behaviorChangeHandler(self, option: PedestrianTag, var: tk.BooleanVar):
-        print("Checkbox number:", option, "was pressed")
-        print("Checkboxes: ", var.get())
+        # print("Checkbox number:", option, "was pressed")
+        # print("Checkboxes: ", var.get())
         if var.get():
             self.pedTags.append(option)
         #update the currentAnnotation object's tags
@@ -150,50 +165,46 @@ class AnnotationEditView(View):
             self.pedTags.remove(option)
 
     def egoBehaviorChangeHandler(self, option: VehicleTag, var: tk.BooleanVar):
-        print("Checkbox number:", option, "was pressed")
-        print("Checkboxes: ", var.get())
+        # print("Checkbox number:", option, "was pressed")
+        # print("Checkboxes: ", var.get())
         if var.get():
             self.egoTags.append(option)
         else:
             self.egoTags.remove(option)
 
     def envBehaviorChangeHandler(self, option: SceneTag, var: tk.BooleanVar):
-        print("Checkbox number:", option, "was pressed")
-        print("Checkboxes: ", var.get())
+        # print("Checkbox number:", option, "was pressed")
+        # print("Checkboxes: ", var.get())
         if var.get():
             self.sceneTags.append(option)
         else:
             self.sceneTags.remove(option)
-
-    def validateText(self, inputVar):
-        print("Current text status:", inputVar.get())
-        
-    def textupdate(self, _var, _indx, _mode):
-        print("Current text status:", self.textinputvar.get())
 
     def handleSave(self):
         print("Button clicked. Current toggle button state: ", self.togglebuttonvar.get())
 
         # self.eventManager.onEvent(AppEvent(type=AppEventType.requestAnnotation, data={}))
 
-        if self.currentAnnotationStartFrame.get() == self.currentAnnotationEndFrame.get():
+        if self.annotationTypeRadioVar.get() == "Single":
             currentAnnotation = SingleFrameAnnotation(self.currentAnnotationStartFrame.get(),
                                                       self.pedTags,
                                                       self.egoTags,
                                                       self.sceneTags,
-                                                      self.textinputvar.get())
-            self.recordingController.addSingleFrameAnnotation(currentAnnotation)
+                                                      self.notesVar.get())
+            self.recordingController.addSingleFrameAnnotation(currentAnnotation) # must be an event
         else:
             currentAnnotation = MultiFrameAnnotation(self.currentAnnotationStartFrame.get(),
                                                      self.currentAnnotationEndFrame.get(),
                                                      self.pedTags,
                                                      self.egoTags,
                                                      self.sceneTags,
-                                                     self.textinputvar.get())
+                                                     self.notesVar.get())
             self.recordingController.addMultiFrameAnnotation(currentAnnotation)
 
         self.eventManager.onEvent(AppEvent(type=AppEventType.updateRecordingView, data={"annotation": currentAnnotation}))
+        self.resetAnnotation()
 
+    def resetAnnotation(self):
         self.pedTags = []
         self.egoTags = []
         self.sceneTags = []
@@ -205,7 +216,7 @@ class AnnotationEditView(View):
         for var in self.sceneCheckbuttons:
             var.set(False)
 
-        self.textinputvar.set("")
+        self.notesVar.set("")
             
-        print("frame created")
+        print("annotation reset")
 
