@@ -39,7 +39,8 @@ class RecordingController:
 
     def addSingleFrameAnnotation(self, singleFrameAnnotation: SingleFrameAnnotation):
         print(f"Saving frame {singleFrameAnnotation}")
-        self._recording.singleFrameAnnotation.append(singleFrameAnnotation) # this is still in memory
+        self._recording.singleFrameAnnotations.add(singleFrameAnnotation) # this is still in memory
+        self.saveProject() # saves the current project if not None
         # self.repository.save(self._recording)
         # TODO:
         # call the repository to persist changes to the recording.
@@ -48,7 +49,8 @@ class RecordingController:
 
     def addMultiFrameAnnotation(self, multiFrameAnnotation: MultiFrameAnnotation):
         print(f"Saving frame {multiFrameAnnotation}")
-        self._recording.multiFrameAnnotations.append(multiFrameAnnotation)
+        self._recording.multiFrameAnnotations.add(multiFrameAnnotation)
+        self.saveProject() # saves the current project if not None
         # self.repository.save(self._recording)
         pass
 
@@ -67,3 +69,7 @@ class RecordingController:
         if "updateFPS" in event.data:
             self._recording.fps = event.data["updateFPS"]
         pass
+
+    def getSortedAnnotationsByStartFrame(self, recording: Recording) -> List[Union[SingleFrameAnnotation, MultiFrameAnnotation]]:
+        return sorted(list(recording.singleFrameAnnotations) + list(recording.multiFrameAnnotations), 
+                        key=lambda x: x.frame if isinstance(x, SingleFrameAnnotation) else x.startFrame)

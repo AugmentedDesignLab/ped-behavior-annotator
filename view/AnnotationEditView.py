@@ -194,22 +194,22 @@ class AnnotationEditView(View):
         # self.eventManager.onEvent(AppEvent(type=AppEventType.requestAnnotation, data={}))
 
         if self.annotationTypeRadioVar.get() == "Single":
-            currentAnnotation = SingleFrameAnnotation(self.currentAnnotationStartFrame.get(),
+            newAnnotation = SingleFrameAnnotation(self.currentAnnotationStartFrame.get(),
                                                       self.pedTags,
                                                       self.egoTags,
                                                       self.sceneTags,
                                                       self.notesVar.get())
-            self.recordingController.addSingleFrameAnnotation(currentAnnotation) # must be an event
+            self.recordingController.addSingleFrameAnnotation(newAnnotation) # must be an event
         else:
-            currentAnnotation = MultiFrameAnnotation(self.currentAnnotationStartFrame.get(),
+            newAnnotation = MultiFrameAnnotation(self.currentAnnotationStartFrame.get(),
                                                      self.currentAnnotationEndFrame.get(),
                                                      self.pedTags,
                                                      self.egoTags,
                                                      self.sceneTags,
                                                      self.notesVar.get())
-            self.recordingController.addMultiFrameAnnotation(currentAnnotation)
+            self.recordingController.addMultiFrameAnnotation(newAnnotation)
 
-        self.eventManager.onEvent(AppEvent(type=AppEventType.updateRecordingView, data={"annotation": currentAnnotation}))
+        self.viewEventManager.publishNewAnnotation(newAnnotation)
         self.resetAnnotation()
 
     def resetAnnotation(self):

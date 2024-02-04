@@ -10,10 +10,19 @@ from model.SceneTag import SceneTag
 class SingleFrameAnnotation:
     # time: float
     frame: int
-    pedTags: List[PedestrianTag] = field(default_factory=list)
-    egoTags: List[VehicleTag] = field(default_factory=list)
-    sceneTags: List[SceneTag] = field(default_factory=list)
+    pedTags: Set[PedestrianTag] = field(default_factory = set)
+    egoTags: Set[VehicleTag] = field(default_factory = set)
+    sceneTags: Set[SceneTag] = field(default_factory = set)
     additionalNotes: str = ""
+
+    def __eq__(self, other):
+        return (other and self.frame == other.frame)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __hash__(self):
+        return hash(self.frame)
 
     def __str__(self) -> str:
         # return f"SingleFrameAnnotation(time={self.time}, frame={self.frame}, pedTags={self.pedTags}, egoTags={self.egoTags}, sceneTags={self.sceneTags}, additionalNotes={self.additionalNotes})"

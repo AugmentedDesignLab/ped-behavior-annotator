@@ -32,6 +32,9 @@ class RecordingView(View):
         self.recordingController = recordingController
 
     def handleEvent(self, appEvent: AppEvent):
+        if appEvent.type == AppEventType.recording:
+            if "newAnnotation" in appEvent.data:
+                self.updateAnnotations(appEvent.data["newAnnotation"])
         pass
 
         
@@ -140,7 +143,7 @@ class RecordingView(View):
 
         return card_frame
     
-    def add_annotation_card(self, new_annotation):
+    def addAnnotationCard(self, new_annotation):
 
         # Create and pack a new annotation card
         if type(new_annotation) == SingleFrameAnnotation:
@@ -156,5 +159,10 @@ class RecordingView(View):
         self.on_configure(None)
 
     def updateAnnotations(self, annotation):
-
-        self.add_annotation_card(annotation)
+        # self.add_annotation_card(annotation)
+        # We need to reload the whole thing
+        recording = self.recordingController.recording
+        # order annotations by start frame
+        allAnnotations = self.recordingController.getSortedAnnotationsByStartFrame(recording)
+        for annotation in allAnnotations:
+            self.addAnnotationCard(annotation)

@@ -8,24 +8,24 @@ from model.VehicleTag import VehicleTag
 from model.SceneTag import SceneTag
 
 def test_Save():
-
+    pass
     repository = RecordingRepository("tests")
-    recording = Recording(name="Test Recording", annotation_path="recording", video_path="test_recording")
+    recording = Recording(name="Test Recording", fps=30, annotation_path="recording", video_path="test_recording")
     
     sAnnotation1 = SingleFrameAnnotation(
             frame=100
         )
-    sAnnotation1.pedTags.append(PedestrianTag.Flinch)
-    sAnnotation1.pedTags.append(PedestrianTag.Crash)
+    sAnnotation1.pedTags.add(PedestrianTag.Flinch)
+    sAnnotation1.pedTags.add(PedestrianTag.Crash)
 
     sAnnotation2 = SingleFrameAnnotation(
             frame=101
         )
-    sAnnotation2.egoTags.append(VehicleTag.Brake)
-    sAnnotation2.sceneTags.append(SceneTag.RedLight)
+    sAnnotation2.egoTags.add(VehicleTag.Brake)
+    sAnnotation2.sceneTags.add(SceneTag.RedLight)
     sAnnotation2.additionalNotes = "This is a note"
 
-    recording.singleFrameAnnotation.extend([sAnnotation1, sAnnotation2])
+    recording.singleFrameAnnotations.update([sAnnotation1, sAnnotation2])
 
     status, message = repository.save(recording)
     print(message)

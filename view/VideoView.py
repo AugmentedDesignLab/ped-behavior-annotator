@@ -78,7 +78,7 @@ class VideoView:
         
 
         parent.Button(text="<<", command=self.skip_left, row=3, col=3, padx=10, pady=10)
-        self.playBtn = parent.Button(text="Play", command=self.toggle_play_pause, row=3, col=4, padx=10, pady=10)
+        self.playBtn = parent.Button(text="Pause" if self.playing.get() else "Pause", command=self.toggle_play_pause, row=3, col=4, padx=10, pady=10)
         parent.Button(text=">>", command=self.skip_right, row=3, col=5, padx=10, pady=10)
         
         parent.Button(text="Snap Start", command=self.snapStart, row=4, col=3, padx=10, pady=10)

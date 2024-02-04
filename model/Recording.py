@@ -13,8 +13,8 @@ class Recording:
     annotation_path: str # ./annotations/recording0001.json
     video_path: str # https://www.youtube.com/watch?v=kljhas3
     
-    multiFrameAnnotations: List[MultiFrameAnnotation] = field(default_factory=list)
-    singleFrameAnnotation: List[SingleFrameAnnotation] = field(default_factory=list)
+    multiFrameAnnotations: Set[MultiFrameAnnotation] = field(default_factory = set)
+    singleFrameAnnotations: Set[SingleFrameAnnotation] = field(default_factory = set)
 
     def toJSON(self) -> str:
         """A valid JSON representation of the object

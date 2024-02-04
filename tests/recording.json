@@ -1,9 +1,10 @@
 {
     "name": "Test Recording",
+    "fps": 30,
     "annotation_path": "recording",
     "video_path": "test_recording",
     "multiFrameAnnotations": [],
-    "singleFrameAnnotation": [
+    "singleFrameAnnotations": [
         {
             "frame": 100,
             "pedTags": [

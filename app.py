@@ -40,7 +40,6 @@ class App(TKMT.ThemedTKinterFrame):
         self.eventManager.subscribe(AppEventType.newProject, self.handleNewProject)
         self.eventManager.subscribe(AppEventType.requestAnnotation, self.handleNewAnnotation)
         self.eventManager.subscribe(AppEventType.saveProject, self.handleSaveProject)
-        self.eventManager.subscribe(AppEventType.updateRecordingView, self.handleUpdateRecordingView)
         self.eventManager.subscribe(AppEventType.exceptions, self.handleException)
         
         self.run()
@@ -103,10 +102,6 @@ class App(TKMT.ThemedTKinterFrame):
         print("Save project event handled")
         status, message = self.recordingController.saveProject()
         PopupView(message, "park", "dark")
-
-    def handleUpdateRecordingView(self, event: AppEvent):
-        print("Update recording view event handled")
-        self.recordingView.updateAnnotations(event.data["annotation"])
     
     def handleException(self, event: AppEvent):
         print("Exception event handled")
