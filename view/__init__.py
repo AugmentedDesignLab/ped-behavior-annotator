@@ -3,3 +3,4 @@
 from .SampleView import SampleView
 from .TitleView import TitleView
 from .VideoView import VideoView
+from .PopupView import PopupView

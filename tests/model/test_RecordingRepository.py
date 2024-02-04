@@ -21,10 +21,10 @@ def test_Save():
     sAnnotation2 = SingleFrameAnnotation(
             frame=101
         )
-    sAnnotation2.pedTags.append(PedestrianTag.Crash)
     sAnnotation2.egoTags.append(VehicleTag.Brake)
     sAnnotation2.sceneTags.append(SceneTag.RedLight)
     sAnnotation2.additionalNotes = "This is a note"
 
     recording.singleFrameAnnotation.extend([sAnnotation1, sAnnotation2])
-    assert repository.save(recording) == True
+    status, message = repository.save(recording)
+    assert status == True

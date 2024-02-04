@@ -16,9 +16,7 @@
         },
         {
             "frame": 101,
-            "pedTags": [
-                "Crash"
-            ],
+            "pedTags": [],
             "egoTags": [
                 "Brake"
             ],

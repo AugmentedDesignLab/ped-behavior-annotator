@@ -23,7 +23,7 @@ class App(TKMT.ThemedTKinterFrame):
         super().__init__("PedAnalyze: Pedestrian Behavior Annotator", theme, mode, usecommandlineargs, usethemeconfigfile)
         #self.initContext()
         global firstWindow
-        firstWindow = False
+        firstWindow = False # super important for popups
 
         self.eventManager = EventManager()
         self.viewManager = ViewManager(self.eventManager)
@@ -94,7 +94,8 @@ class App(TKMT.ThemedTKinterFrame):
 
     def handleSaveProject(self, event: AppEvent):
         print("Save project event handled")
-        self.recordingController.saveProject()
+        status, message = self.recordingController.saveProject()
+        PopupView(message, "park", "dark")
         
     def createVideoView(self, videoURL:str, videoTitle:str, annotationPath: str):
         print(f"Creating video view with url {videoURL} and title {videoTitle} and annotation path {annotationPath}")

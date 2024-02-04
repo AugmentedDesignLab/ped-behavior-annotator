@@ -13,24 +13,28 @@ class RecordingRepository:
 
         pass
 
-    def save(self, recording: Recording) -> bool:
+    def save(self, recording: Recording) -> Tuple[bool, str]:
         # save meta
         # save annotations
         # save the JSON format.
 
         path = recording.annotation_path
-        if not path.endswith('.json') and not path.endswith('.JSON'):
-            path += '.json'
-        if not os.path.isabs(path):
-            path = os.path.join(self.dir, path)
+        try:
+            if not path.endswith('.json') and not path.endswith('.JSON'):
+                path += '.json'
+            if not os.path.isabs(path):
+                path = os.path.join(self.dir, path)
+            
+            # print(f"saving recording to {path}")
+            # if not os.path.exists(path):
+            #     os.makedirs(path)
+            with open(path, 'w') as f:
+                # f.write(recording.toJSON())
+                json.dump(recording, f, default=RecordingEncoder, indent=4)
+                return True, f"saved recording to {path}"
+        except Exception as e:
+            return False,  f"failed to recording to {path} due to {e}"
         
-        print(f"saving recording to {path}")
-        with open(path, 'w') as f:
-            # f.write(recording.toJSON())
-            json.dump(recording, f, default=RecordingEncoder, indent=4)
-            return True
-        
-        return False
 
 
     def load() -> None:
