@@ -1,10 +1,14 @@
 from typing import List
 import cv2
 import queue
+from managers.EventManager import EventManager
+import logging
 class VideoController:
     
-    def __init__(self, capture: cv2.VideoCapture) -> None:
+    def __init__(self, capture: cv2.VideoCapture, eventManager: EventManager) -> None:
         self.capture = capture
+        self.eventManager = eventManager
+
         self._readingFrames = False
         pass
 
@@ -14,7 +18,12 @@ class VideoController:
 
     def getFPS(self) -> int:
         #FPS of the video
-        return int(self.capture.get(cv2.CAP_PROP_FPS))
+        fps = int(self.capture.get(cv2.CAP_PROP_FPS))
+        if fps is None or fps < 1:
+            logging.warn(f"Unknown FPS, setting to 30")
+            self.eventManager.publishExceptionMessage(f"Unknown FPS, setting to 30")
+            fps = 30
+        return fps
 
     def getDuration(self) -> float:
         #Duration of the video in seconds

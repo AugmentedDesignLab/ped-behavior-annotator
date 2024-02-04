@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+import enum
 from typing import *
 import json
 
@@ -19,8 +20,26 @@ class Recording:
         Returns:
             str: _description_
         """
-        return (f"Recording(name: {self.name},'annotation_path': {self.annotation_path}, 'video_path': {self.video_path}, 'multiFrameAnnotations': {self.multiFrameAnnotations},'singleFrameAnnotation':{self.singleFrameAnnotation}")
+        return (
+        "{" + \
+        f'"name": "{self.name}",' + \
+        f'"annotation_path": "{self.annotation_path}",' + \
+        f'"video_path": "{self.video_path}",' + \
+        f'"multiFrameAnnotations": "{self.multiFrameAnnotations}",' + \
+        f'"singleFrameAnnotation":"{self.singleFrameAnnotation}"' + \
+        "}")
 
     def fromJSON(self, json: str) -> 'Recording':
         # read the json string and convert it to a Recording object
         return None
+
+
+    
+# def _sanitizeForJson(o):
+#     if isinstance(o, dict):
+#         return {_sanitizeForJson(k): _sanitizeForJson(v) for k, v in o.items()}
+#     elif isinstance(o, (set, tuple, list)):
+#         return type(o)(_sanitizeForJson(x) for x in o)
+#     elif isinstance(o, enum.Enum):
+#         return o.value
+#     return o

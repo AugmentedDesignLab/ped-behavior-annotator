@@ -3,6 +3,7 @@ from typing import *
 from model import MultiFrameAnnotation, SingleFrameAnnotation
 from model.Recording import Recording
 from model.RecordingRepository import RecordingRepository
+from typing import *
 
 # A controller sits between the repositories and views.
 
@@ -10,7 +11,7 @@ class RecordingController:
     def __init__(self, repository: RecordingRepository, recording: Recording = None):
         self.repository = repository
         self._recording = recording
-        self.initNewRecording("Test Recording", self.repository.location, "https://www.youtube.com/watch?v=eu4QqwsfXFE")
+        # self.initNewRecording("Test Recording", self.repository.location, "https://www.youtube.com/watch?v=eu4QqwsfXFE")
 
     @property
     def recording(self) -> Recording:
@@ -43,8 +44,11 @@ class RecordingController:
         # self.repository.save(self._recording)
         pass
 
-    def saveProject(self):
-        self.repository.save(self._recording)
+    def saveProject(self) -> Tuple[bool, str]:
+
+        if self._recording is None:
+            return False, "No recording to save"
+        return self.repository.save(self._recording)
 
     def getRecordingByVideoPath(self, videoPath: str):
         self._recording = self.repository.getByVideoPath(videoPath)

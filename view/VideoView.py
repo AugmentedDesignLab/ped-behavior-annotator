@@ -42,7 +42,7 @@ class VideoView:
         self.needReset = False
 
     def render(self, parent: TKMT.WidgetFrame, videoURL):
-        self.videoController = YoutubeController(url=videoURL)
+        self.videoController = YoutubeController(url=videoURL, eventManager=self.eventManager)
         self.currentFrame.set(0)
 
         self.videoLabel = parent.Label(text="Video")
@@ -105,7 +105,7 @@ class VideoView:
 
     
     def updateAfterDestroy(self):
-        self.videoController = YoutubeController(url=self.videoURL)
+        self.videoController = YoutubeController(url=self.videoURL, eventManager=self.eventManager)
         # self.currentFrame.set(0)
         self.frameList.clear()
         self.videoThread = threading.Thread(target=self.videoController.captureFrames, args=(self.frameList,))
@@ -166,6 +166,7 @@ class VideoView:
         print("Slider moved to frame:", value)
 
     def update_frame(self):
+        self.fps = self.videoController.getFPS()
         if self.needReset:
             print("Cleaning up the old video loop")
             return
@@ -195,8 +196,6 @@ class VideoView:
             if self.playing.get():
                 self.currentFrame.set(self.currentFrame.get() + 1)
 
-                if self.fps == 0:
-                    self.fps = self.videoController.getFPS()
                 interval = int(1000 / self.fps)  # ms
                 # Use 'after' to schedule the next update
                 self.videoLabel.after(interval, self.update_frame)
