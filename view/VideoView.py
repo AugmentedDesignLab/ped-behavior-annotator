@@ -19,6 +19,8 @@ class VideoView:
 
     def __init__(self, eventManager: EventManager) -> None:
         self.eventManager = eventManager
+
+        self.videoScreenSize = (480, 270)
         
         self.currentFrame = tk.IntVar(value=0)
         self.currentFrameText = tk.StringVar()
@@ -88,6 +90,9 @@ class VideoView:
 
         endFrameLabel = parent.Label(text=self.endFrameText.get(), size=12, widgetkwargs={"textvariable":self.endFrameText})
         endFrameLabel.grid(row=2, column=6, columnspan=1, padx=10, pady=10)
+
+        # loadingLabel = parent.Label(text=self.currentFrameText.get(), size=12, widgetkwargs={"textvariable":self.currentFrameText})
+
         
         self.videoLabel.after(0, self.update_frame)
         
@@ -108,9 +113,9 @@ class VideoView:
 
         print("update video slider", self.currentSlider)
         
-        self.currentSlider.upper = self.videoController.getNFrames()
-        self.startSlider.upper = self.videoController.getNFrames()
-        self.endSlider.upper = self.videoController.getNFrames()
+        self.currentSlider.configure(to=self.videoController.getNFrames())
+        self.startSlider.configure(to=self.videoController.getNFrames())
+        self.endSlider.configure(to=self.videoController.getNFrames())
         print(f"the upper for current slider should be {self.videoController.getNFrames()}")
         
         # self.startSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
@@ -130,12 +135,27 @@ class VideoView:
 
     def destroy(self):
         # 1. Clean up old update loop
+        self.videoController.stop()
         self.needReset = True
         self.currentFrame.set(0)
         self.frameList.clear()
-        time.sleep(2)
 
-        assert self.videoThread.is_alive() == False
+        # TODO loading later
+        # loadingImage = cv2.imread("assets/images/video_loading.png")
+        # loadingImage = cv2.resize(loadingImage, self.videoScreenSize)
+        # loadingImage = cv2.cvtColor(loadingImage, cv2.COLOR_BGR2RGB)
+        # loadingImage = Image.fromarray(loadingImage)
+        # photo = ImageTk.PhotoImage(image=loadingImage)
+        # self.videoLabel.config(image=photo)
+        # self.videoLabel.image = photo
+
+        # self.loadingBar = self.videoLabel.Progressbar(tk.IntVar(value=0), mode = 'indeterminate',row=2, col=3)
+        # self.loadingBar.start()
+        # time.sleep(2)
+
+        while self.videoThread.is_alive():
+            print(f"waiting for video thread to die...")
+            time.sleep(1)
         # self.videoThread.term
         # 2. load the new one
 
@@ -151,6 +171,7 @@ class VideoView:
             return
         if len(self.frameList) == 0:
             print("waiting 1 second for the frames.")
+            # self.videoLabel.after(100, self.loadingBar.start)
             self.videoLabel.after(1000, self.update_frame)
         else:
             # if self.playing.get() and len(self.frameList) - 1 > self.currentFrame.get():
@@ -162,7 +183,7 @@ class VideoView:
             self.segmentProgress.set(int((self.currentFrame.get()-self.startFrame.get())/(self.endFrame.get()-self.startFrame.get()) * 100))
 
             frame = self.frameList[self.currentFrame.get()]
-            frame = cv2.resize(frame, (480, 270))
+            frame = cv2.resize(frame, self.videoScreenSize)
 
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             pil_image = Image.fromarray(frame_rgb)

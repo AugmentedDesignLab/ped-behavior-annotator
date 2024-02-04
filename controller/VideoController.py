@@ -5,6 +5,7 @@ class VideoController:
     
     def __init__(self, capture: cv2.VideoCapture) -> None:
         self.capture = capture
+        self._readingFrames = False
         pass
 
     def getNFrames(self) -> int:
@@ -37,12 +38,29 @@ class VideoController:
     
 
     def captureFrames(self, frameList: List[cv2.UMat]):
+        self._readingFrames = True
         while True:
+            if self._readingFrames is False:
+                print(f"VideoController is shutting down early...")
+                break # while capturing, external signal may want to stop it (for big videos)
+
             ret, frame = self.capture.read()
             if not ret:
                 break
             # frameQueue.put(frame)
             frameList.append(frame)
         self.capture.release()
+        self._readingFrames = False
         pass
+
+    def stop(self):
+        self._readingFrames = False
+    
+    @property
+    def isDownloading(self):
+        return self._readingFrames
+
+
+
+
 

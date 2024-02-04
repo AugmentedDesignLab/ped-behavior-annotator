@@ -68,7 +68,7 @@ class App(TKMT.ThemedTKinterFrame):
          # put video player and annotation edit on the left frame
          # put recording on the right
         self.videoFrame = self.leftFrame.addLabelFrame("Video View", padx=(0,0), pady=(10,0))
-        self.createVideoView()
+        # self.createVideoView()
         
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
@@ -82,15 +82,6 @@ class App(TKMT.ThemedTKinterFrame):
         text = self.recordingFrame.Text("Recording")
         # text.pack(side=tk.TOP)
 
-
-        # sampleView = SampleView()
-        # sampleView.render(self.videoFrame)
-
-
-    def makeVideoController(self) -> VideoController:
-        youtubeController = YoutubeController("https://www.youtube.com/watch?v=eu4QqwsfXFE")
-        return youtubeController
-
     def handleNewAnnotation(self, event: AppEvent):
         print("Annotation event handled")
         self.annotationEditView.currentAnnotationStartFrame.set(self.videoView.startFrame.get())
@@ -99,28 +90,21 @@ class App(TKMT.ThemedTKinterFrame):
     def handleNewProject(self, event: AppEvent):
         print("New project event handled")
         # save current video if exists
-        self.createVideoView(event.data["videoURL"])
+        self.createVideoView(**event.data)
 
     def handleSaveProject(self, event: AppEvent):
         print("Save project event handled")
         self.recordingController.saveProject()
         
-    def createVideoView(self, videoURL="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
-        # self.destroyCurrentVideoView()
+    # def createVideoView(self, videoURL="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
+    def createVideoView(self, videoURL:str, videoTitle:str, annotationPath: str):
+        print(f"Creating video view with url {videoURL} and title {videoTitle} and annotation path {annotationPath}")
         if not hasattr(self, 'videoView') or self.videoView is None:
             self.videoView = self.viewManager.getVideoView()
             self.videoView.render(self.videoFrame, videoURL)
         else:
             self.videoView.updateVideo(videoURL)
     
-    def destroyCurrentVideoView(self):
-        
-        # if hasattr(self, 'videoView'):
-        #     if self.videoView is not None:
-        #         self.videoView.destroy()
-        #         del self.videoView
-        pass
-
 
 
     
