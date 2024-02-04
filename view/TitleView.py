@@ -1,3 +1,6 @@
+from datetime import datetime
+from urllib.parse import urlparse, parse_qs
+
 import tkinter as tk
 from tkinter import ttk
 import TKinterModernThemes as TKMT
@@ -61,6 +64,22 @@ class TitleView(tk.Frame):
         self.after(1000, self.loadNewProject)
     
     def loadNewProject(self):
+        
+        name = self.videoTitle.get()
+        if name is None or name == "":
+            name = datetime.now().strftime("%m-%d-%Y-%H-%M")
+            parsed_url = urlparse(self.videoURL.get())
+            queryArgs = parse_qs(parsed_url.query)
+            if "v" in queryArgs:
+                name += "-" + queryArgs['v'][0]
+            self.videoTitle.set(name)
+
+        annotationPath = self.annotationPath.get()
+        if annotationPath is None or annotationPath == "":
+            annotationPath = name +".json"
+            self.annotationPath.set(annotationPath)
+            # assumes
+
         self.eventManager.onEvent(AppEvent(
             type=AppEventType.newProject, 
             data={

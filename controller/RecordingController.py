@@ -22,13 +22,14 @@ class RecordingController:
     def recording(self) -> Recording:
         return self._recording
 
-    def initNewRecording(self, name: str, fps: Optional[float], annotationPath: str, videopath: str) -> Recording:
+    def initNewRecording(self, name: str, fps: Optional[float], annotationPath: str, videoPath: str) -> Recording:
         self.saveProject() # saves the current project if not None
+
         self._recording = Recording(
             name=name,
             fps=fps,
             annotation_path=annotationPath,
-            video_path=videopath
+            video_path=videoPath
         ) 
     
 
