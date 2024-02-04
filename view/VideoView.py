@@ -87,13 +87,12 @@ class VideoView:
 
         parent.Progressbar(variable=self.segmentProgress, mode="determinate", lower=0, upper=100, row=5, col=3, colspan=3)
 
-        currentFrameLabel = parent.Label(text=self.currentFrameText.get(), size=12, widgetkwargs={"textvariable":self.currentFrameText}, row=0, col=6, padx=10, pady=10)
+        currentFrameLabel = parent.Text(text=self.currentFrameText.get(), widgetkwargs={"textvariable":self.currentFrameText}, row=0, col=6, padx=10, pady=10, sticky=tk.N+tk.S+tk.W)
 
-        startFrameLabel = parent.Label(text=self.startFrameText.get(), size=12, widgetkwargs={"textvariable":self.startFrameText}, row=1, col=6, padx=10, pady=10)
+        startFrameLabel = parent.Text(text=self.startFrameText.get(), widgetkwargs={"textvariable":self.startFrameText}, row=1, col=6, padx=10, pady=10, sticky=tk.N+tk.S+tk.W)
 
-        endFrameLabel = parent.Label(text=self.endFrameText.get(), size=12, widgetkwargs={"textvariable":self.endFrameText}, row=2, col=6, padx=10, pady=10)
+        endFrameLabel = parent.Text(text=self.endFrameText.get(), widgetkwargs={"textvariable":self.endFrameText}, row=2, col=6, padx=10, pady=10, sticky=tk.N+tk.S+tk.W)
 
-        # loadingLabel = parent.Label(text=self.currentFrameText.get(), size=12, widgetkwargs={"textvariable":self.currentFrameText})
 
         
         self.videoLabel.after(0, self.update_frame)
@@ -230,12 +229,14 @@ class VideoView:
         self.viewEventManager.publishEndFrameChange(self.endFrame.get())
 
     def pause(self):
-        self.playing.set(False)
-        self.playBtn.config(text="Play")
+        if hasattr(self, 'playBtn'):
+            self.playing.set(False)
+            self.playBtn.config(text="Play")
     
     def play(self):
-        self.playing.set(True)
-        self.playBtn.config(text="Pause")
+        if hasattr(self, 'playBtn'):
+            self.playing.set(True)
+            self.playBtn.config(text="Pause")
 
 
     def toggle_play_pause(self):
