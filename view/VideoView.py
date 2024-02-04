@@ -85,7 +85,8 @@ class VideoView:
         parent.Button(text=">>", command=self.skip_right).grid(
             row=3, column=5, padx=10, pady=10)
         
-        parent.Button(text="Match Frame", command=self.match_frame).grid(row=4, column=3, columnspan=2, padx=10, pady=10)
+        parent.Button(text="Snap Start", command=self.snapStart).grid(row=4, column=3, columnspan=1, padx=10, pady=10)
+        parent.Button(text="Snap End", command=self.snapEnd).grid(row=4, column=4, columnspan=1, padx=10, pady=10)
         parent.Button(text="Replay Segment", command=self.replay_segment).grid(row=4, column=5, columnspan=1, padx=10, pady=10)
 
         parent.Progressbar(variable=self.segmentProgress, mode="determinate", lower=0, upper=100, row=5, col=3, colspan=3)
@@ -255,11 +256,13 @@ class VideoView:
     def skip_right(self):
         self.currentFrame.set(self.currentFrame.get()+30)
 
-    def match_frame(self):
-        matching_frame = self.currentFrame.get()
-        self.endFrame.set(matching_frame)
-        self.startFrame.set(matching_frame)
-        self.playing.set(True)
+
+    def snapStart(self):
+        self.startFrame.set(self.currentFrame.get())
+
+    def snapEnd(self):
+        self.endFrame.set(self.currentFrame.get())
+
     
     def replay_segment(self):
         self.currentFrame.set(self.startFrame.get())
