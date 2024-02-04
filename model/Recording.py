@@ -9,6 +9,7 @@ from model.SingleFrameAnnotation import SingleFrameAnnotation
 @dataclass
 class Recording:
     name: str
+    fps: float
     annotation_path: str # ./annotations/recording0001.json
     video_path: str # https://www.youtube.com/watch?v=kljhas3
     
@@ -20,14 +21,16 @@ class Recording:
         Returns:
             str: _description_
         """
-        return (
-        "{" + \
-        f'"name": "{self.name}",' + \
-        f'"annotation_path": "{self.annotation_path}",' + \
-        f'"video_path": "{self.video_path}",' + \
-        f'"multiFrameAnnotations": "{self.multiFrameAnnotations}",' + \
-        f'"singleFrameAnnotation":"{self.singleFrameAnnotation}"' + \
-        "}")
+        raise Exception("Use the EnumEncoder to convert the object to JSON")
+        # return (
+        # "{" + \
+        # f'"name": "{self.name}",' + \
+        # f'"fps": "{self.fps}",' + \
+        # f'"annotation_path": "{self.annotation_path}",' + \
+        # f'"video_path": "{self.video_path}",' + \
+        # f'"multiFrameAnnotations": "{self.multiFrameAnnotations}",' + \
+        # f'"singleFrameAnnotation":"{self.singleFrameAnnotation}"' + \
+        # "}")
 
     def fromJSON(self, json: str) -> 'Recording':
         # read the json string and convert it to a Recording object

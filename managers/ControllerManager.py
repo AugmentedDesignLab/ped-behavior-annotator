@@ -3,10 +3,12 @@ from controller.RecordingController import RecordingController
 from controller.VideoController import VideoController
 #from controller.YoutubeController import YoutubeController
 from model.RecordingRepository import RecordingRepository
+from managers.EventManager import EventManager
 
 class ControllerManager: 
         
-    def __init__(self) -> None:
+    def __init__(self, eventManager: EventManager) -> None:
+        self.eventManager = eventManager
         self.initContext()
 
     def initContext(self) -> None:
@@ -15,7 +17,7 @@ class ControllerManager:
         
         self.context = {
             "controllers": {
-                "recording": RecordingController(recordingRepo),
+                "recording": RecordingController(recordingRepo, self.eventManager),
             },
             "repositories": {
                  "recording": recordingRepo,

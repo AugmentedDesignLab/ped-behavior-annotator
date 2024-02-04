@@ -16,6 +16,7 @@ class EventManager:
          self.saveProjectHandlers = []
          self.updateRecordingViewHandlers = []
          self.exceptionsHandlers = []
+         self.recordingHandlers = []
          
     def unsubscribe(self, appEvent: AppEventType, handler: Callable):
         if appEvent == AppEventType.requestAnnotation:
@@ -28,6 +29,8 @@ class EventManager:
             self.updateRecordingViewHandlers.remove(handler)
         if appEvent == AppEventType.exceptions:
             self.exceptionsHandlers.remove(handler)
+        if appEvent == AppEventType.recording:
+            self.recordingHandlers.remove(handler)
 
     
     def subscribe(self, appEvent: AppEventType, handler: Callable):
@@ -41,6 +44,8 @@ class EventManager:
             self.updateRecordingViewHandlers.append(handler)
         if appEvent == AppEventType.exceptions:
             self.exceptionsHandlers.append(handler)
+        if appEvent == AppEventType.recording:
+            self.recordingHandlers.append(handler)
     
     def onEvent(self, appEvent: AppEvent):
         # if appEvent.type == AppEventType.requestAnnotation:
@@ -71,6 +76,9 @@ class EventManager:
 
         if appEvent.type == AppEventType.exceptions:
             for handler in self.exceptionsHandlers:
+                handler(appEvent)
+        if appEvent.type == AppEventType.recording:
+            for handler in self.recordingHandlers:
                 handler(appEvent)
     
 

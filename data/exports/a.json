@@ -1,23 +1,18 @@
 {
     "name": "a",
+    "fps": 30,
     "annotation_path": "a",
-    "video_path": "https://www.youtube.com/watch?v=4SyuRP86K1Q",
-    "multiFrameAnnotations": [
+    "video_path": "https://www.youtube.com/watch?v=eu4QqwsfXFE",
+    "multiFrameAnnotations": [],
+    "singleFrameAnnotation": [
         {
-            "frameStart": 0,
-            "frameEnd": 20469,
-            "pedTags": [
-                null,
-                "PedestrianTag.Jaywalking"
-            ],
+            "frame": 0,
+            "pedTags": [],
             "egoTags": [
-                null
+                "Run a red light"
             ],
-            "sceneTags": [
-                null
-            ],
+            "sceneTags": [],
             "additionalNotes": ""
         }
-    ],
-    "singleFrameAnnotation": []
+    ]
 }

@@ -3,23 +3,30 @@ from typing import *
 from model import MultiFrameAnnotation, SingleFrameAnnotation
 from model.Recording import Recording
 from model.RecordingRepository import RecordingRepository
-from typing import *
+from managers.EventManager import EventManager 
+from library import AppEvent, AppEventType
+
 
 # A controller sits between the repositories and views.
 
 class RecordingController:
-    def __init__(self, repository: RecordingRepository, recording: Recording = None):
+    def __init__(self, repository: RecordingRepository, eventManager: EventManager, recording: Recording = None):
         self.repository = repository
+        self.eventManager = eventManager
         self._recording = recording
         # self.initNewRecording("Test Recording", self.repository.location, "https://www.youtube.com/watch?v=eu4QqwsfXFE")
+
+        self.eventManager.subscribe(AppEventType.recording, self.handleRecordingEvents)
 
     @property
     def recording(self) -> Recording:
         return self._recording
 
-    def initNewRecording(self, name: str, annotationPath: str, videopath: str) -> Recording:
+    def initNewRecording(self, name: str, fps: Optional[float], annotationPath: str, videopath: str) -> Recording:
+        self.saveProject() # saves the current project if not None
         self._recording = Recording(
             name=name,
+            fps=fps,
             annotation_path=annotationPath,
             video_path=videopath
         ) 
@@ -52,4 +59,10 @@ class RecordingController:
 
     def getRecordingByVideoPath(self, videoPath: str):
         self._recording = self.repository.getByVideoPath(videoPath)
+        pass
+
+    def handleRecordingEvents(self, event: AppEvent):
+        # print("RecordingController received event", event)
+        if "updateFPS" in event.data:
+            self._recording.fps = event.data["updateFPS"]
         pass

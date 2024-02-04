@@ -18,6 +18,7 @@ import time
 class VideoView:
 
     def __init__(self, eventManager: EventManager) -> None:
+        self.name = f"VideoView"
         self.eventManager = eventManager
 
         self.videoScreenSize = (480, 270)
@@ -43,6 +44,7 @@ class VideoView:
 
     def render(self, parent: TKMT.WidgetFrame, videoURL):
         self.videoController = YoutubeController(url=videoURL, eventManager=self.eventManager)
+        # TODO rest of the code should ran after a while.
         self.currentFrame.set(0)
 
         self.videoLabel = parent.Label(text="Video")
@@ -98,6 +100,7 @@ class VideoView:
         
 
     def updateVideo(self, videoURL: str):
+        logging.info(f"{self.name}: Loading new video from {videoURL}")
 
         self.videoURL = videoURL
         self.destroy()
@@ -106,6 +109,8 @@ class VideoView:
     
     def updateAfterDestroy(self):
         self.videoController = YoutubeController(url=self.videoURL, eventManager=self.eventManager)
+        # TODO rest of the code should run after a while.
+        time.sleep(1)
         # self.currentFrame.set(0)
         self.frameList.clear()
         self.videoThread = threading.Thread(target=self.videoController.captureFrames, args=(self.frameList,))
@@ -127,6 +132,9 @@ class VideoView:
         self.currentFrame.set(0)
         self.startFrame.set(0)
         self.endFrame.set(self.videoController.getNFrames())
+        
+        self.fps = self.videoController.getFPS()
+        self.eventManager.onEvent(AppEvent(type=AppEventType.recording, data={"updateFPS": self.fps}))
 
         self.needReset = False
         self.videoLabel.after(0, self.update_frame)
@@ -135,7 +143,9 @@ class VideoView:
 
     def destroy(self):
         # 1. Clean up old update loop
-        self.videoController.stop()
+
+        if hasattr(self, "videoController") and self.videoController is not None:
+            self.videoController.stop()
         self.needReset = True
         self.currentFrame.set(0)
         self.frameList.clear()
@@ -166,7 +176,7 @@ class VideoView:
         print("Slider moved to frame:", value)
 
     def update_frame(self):
-        self.fps = self.videoController.getFPS()
+
         if self.needReset:
             print("Cleaning up the old video loop")
             return
@@ -175,6 +185,7 @@ class VideoView:
             # self.videoLabel.after(100, self.loadingBar.start)
             self.videoLabel.after(1000, self.update_frame)
         else:
+            # self.fps = self.videoController.getFPS() # TODO this is dangerous
             # if self.playing.get() and len(self.frameList) - 1 > self.currentFrame.get():
             if self.currentFrame.get() < self.startFrame.get():
                 self.currentFrame.set(self.startFrame.get())
@@ -195,8 +206,14 @@ class VideoView:
 
             if self.playing.get():
                 self.currentFrame.set(self.currentFrame.get() + 1)
-
-                interval = int(1000 / self.fps)  # ms
+                if self.fps == 0:
+                    self.fps = self.videoController.getFPS()
+                    if self.fps > 0:
+                        self.eventManager.onEvent(AppEvent(type=AppEventType.recording, data={"updateFPS": self.fps}))
+                if self.fps == 0:
+                    interval = 1000
+                else:
+                    interval = int(1000 / self.fps)  # ms
                 # Use 'after' to schedule the next update
                 self.videoLabel.after(interval, self.update_frame)
             else:

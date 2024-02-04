@@ -7,6 +7,7 @@ class AppEventType(IntEnum):
     saveProject = auto()
     updateRecordingView = auto()
     exceptions = auto()
+    recording = auto()
 
 @dataclass
 class AppEvent():

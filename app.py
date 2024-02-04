@@ -27,7 +27,7 @@ class App(TKMT.ThemedTKinterFrame):
 
         self.eventManager = EventManager()
         self.viewManager = ViewManager(self.eventManager)
-        self.controllerManager = ControllerManager()
+        self.controllerManager = ControllerManager(self.eventManager)
         self.recordingController = self.controllerManager.getRecordingController()
         # create two widgetframes, nav and content
         self.makeNav()
@@ -40,6 +40,7 @@ class App(TKMT.ThemedTKinterFrame):
         self.eventManager.subscribe(AppEventType.saveProject, self.handleSaveProject)
         self.eventManager.subscribe(AppEventType.updateRecordingView, self.handleUpdateRecordingView)
         self.eventManager.subscribe(AppEventType.exceptions, self.handleException)
+        
         self.run()
     
     def makeNav(self):
@@ -112,6 +113,7 @@ class App(TKMT.ThemedTKinterFrame):
             PopupView(event.data["message"], "park", "dark")
         
     def createVideoView(self, videoURL:str, videoTitle:str, annotationPath: str):
+        self.recordingController.initNewRecording(videoTitle, None, annotationPath, videoURL)
         print(f"Creating video view with url {videoURL} and title {videoTitle} and annotation path {annotationPath}")
         if not hasattr(self, 'videoView') or self.videoView is None:
             self.videoView = self.viewManager.getVideoView()
@@ -119,7 +121,6 @@ class App(TKMT.ThemedTKinterFrame):
         else:
             self.videoView.updateVideo(videoURL)
 
-        self.recordingController.initNewRecording(videoTitle, annotationPath, videoURL)
     
 
     
