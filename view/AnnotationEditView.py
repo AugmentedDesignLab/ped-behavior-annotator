@@ -34,9 +34,9 @@ class AnnotationEditView(View):
         parent.setActiveCol(0)
         parent.Text("Start Frame:")
         parent.nextCol()
-        parent.Text("", widgetkwargs={"textvariable":self.currentAnnotationStartFrame})
-        parent.setActiveCol(0)
+        parent.Text(text="0", widgetkwargs={"textvariable":self.currentAnnotationStartFrame})
 
+        parent.setActiveCol(0)
         self.pedBehaviorFrame = parent.addLabelFrame("Pedestrian Behavior", padx=(0,0), pady=(10,0))
         self._renderPedOptions(self.pedBehaviorFrame)
         self.vehBehaviorFrame = parent.addLabelFrame("Vehicle Behavior", padx=(0,0), pady=(5,0))
@@ -52,7 +52,7 @@ class AnnotationEditView(View):
     def handleEvent(self, appEvent: AppEvent):
         if "updateStartFrame" in appEvent.data:
             self.currentAnnotationStartFrame.set(appEvent.data["updateStartFrame"])
-            print(f"updated start frame in the edit view with {appEvent.data['updateStartFrame']}")
+            print(f"updated start frame in the edit view with {appEvent.data['updateStartFrame']} == {self.currentAnnotationStartFrame.get()}")
         if "updateEndFrame" in appEvent.data:
             self.currentAnnotationEndFrame.set(appEvent.data["updateEndFrame"])
             print("updated end frame in the edit view")
