@@ -38,6 +38,7 @@ class App(TKMT.ThemedTKinterFrame):
         self.eventManager.subscribe(AppEventType.newProject, self.handleNewProject)
         self.eventManager.subscribe(AppEventType.requestAnnotation, self.handleNewAnnotation)
         self.eventManager.subscribe(AppEventType.saveProject, self.handleSaveProject)
+        self.eventManager.subscribe(AppEventType.updateRecordingView, self.handleUpdateRecordingView)
         self.run()
     
     def makeNav(self):
@@ -77,9 +78,10 @@ class App(TKMT.ThemedTKinterFrame):
         #self.context["controllers"]["recording"])
         self.annotationEditView.render(self.annotationFrame)
 
-
         self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(10,0))
-        text = self.recordingFrame.Text("Recording")
+        self.recordingView = self.viewManager.getRecordingView(self.recordingController, self.eventManager)
+        self.recordingView.render(self.recordingFrame)
+        # text = self.recordingFrame.Text("Recording")
         # text.pack(side=tk.TOP)
 
     def handleNewAnnotation(self, event: AppEvent):
@@ -95,6 +97,10 @@ class App(TKMT.ThemedTKinterFrame):
     def handleSaveProject(self, event: AppEvent):
         print("Save project event handled")
         self.recordingController.saveProject()
+
+    def handleUpdateRecordingView(self, event: AppEvent):
+        print("Update recording view event handled")
+        self.recordingView.updateAnnotations()
         
     # def createVideoView(self, videoURL="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
     def createVideoView(self, videoURL:str, videoTitle:str, annotationPath: str):

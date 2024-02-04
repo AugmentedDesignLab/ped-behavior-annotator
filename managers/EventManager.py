@@ -14,7 +14,7 @@ class EventManager:
          self.annotateFrameHandlers = [] # kust if functions to be called when a annotation is requested
          self.newProjectHandlers = []
          self.saveProjectHandlers = []
-
+         self.updateRecordingViewHandlers = []
          
     def unsubscribe(self, appEvent: AppEventType, handler: Callable):
         if appEvent == AppEventType.requestAnnotation:
@@ -23,6 +23,8 @@ class EventManager:
             self.newProjectHandlers.remove(handler)
         if appEvent == AppEventType.saveProject:
             self.saveProjectHandlers.remove(handler)
+        if appEvent == AppEventType.updateRecordingView:
+            self.updateRecordingViewHandlers.remove(handler)
 
     
     def subscribe(self, appEvent: AppEventType, handler: Callable):
@@ -32,6 +34,8 @@ class EventManager:
             self.newProjectHandlers.append(handler)
         if appEvent == AppEventType.saveProject:
             self.saveProjectHandlers.append(handler)
+        if appEvent == AppEventType.updateRecordingView:
+            self.updateRecordingViewHandlers.append(handler)
     
     def onEvent(self, appEvent: AppEvent):
         # if appEvent.type == AppEventType.requestAnnotation:
@@ -53,5 +57,9 @@ class EventManager:
                 handler(appEvent)
 
         if appEvent.type == AppEventType.saveProject:
+            for handler in self.saveProjectHandlers:
+                handler(appEvent)
+
+        if appEvent.type == AppEventType.updateRecordingView:
             for handler in self.saveProjectHandlers:
                 handler(appEvent)

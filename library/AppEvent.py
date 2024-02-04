@@ -5,6 +5,7 @@ class AppEventType(IntEnum):
     requestAnnotation = auto()
     newProject = auto()
     saveProject = auto()
+    updateRecordingView = auto()
 
 @dataclass
 class AppEvent():
