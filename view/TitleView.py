@@ -30,13 +30,21 @@ class TitleView(tk.Frame):
         newProjButton.grid(row=0, column=0, padx=10, pady=10)
         saveProjButton = self.parent.Button(text="Save project", command=self.saveProject)
         saveProjButton.grid(row=0, column=1, padx=10, pady=10)
-        recordingName = self.parent.Text(text="Recording Name: " + self.recordingController._recording.name)
-        recordingName.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
-        annotationPathLabel = self.parent.Text(text="Annotation Path: " + self.recordingController._recording.annotation_path)
-        # annotationPathLabel = self.parent.Text(text="Annotation Path: " + self.recordingController._recording.annotation_path, widgetkwargs={"textvariable":self.annotationPath})
-        annotationPathLabel.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
-        videoPath = self.parent.Text(text="Video Path: " + self.recordingController._recording.video_path)
-        videoPath.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
+
+        metaFrame = parent.addLabelFrame("Project Info")
+        recordingName = metaFrame.Text(text="Recording Name: ")
+        metaFrame.nextCol()
+        recordingNameLabel = metaFrame.Text(text="", widgetkwargs={"textvariable":self.videoTitle})
+
+        metaFrame. setActiveCol(0)
+        metaFrame.Text(text="Annotation Path: ")
+        metaFrame.nextCol()
+        annotationPathLabel = metaFrame.Text(text="", widgetkwargs={"textvariable":self.annotationPath})
+
+        metaFrame. setActiveCol(0)
+        videoPath = metaFrame.Text(text="Video URL: ")
+        metaFrame.nextCol()
+        videoURLLabel = metaFrame.Text(text="", widgetkwargs={"textvariable":self.videoURL})
 
     def saveProject(self):
         self.eventManager.onEvent(AppEvent(type=AppEventType.saveProject, data={}))
