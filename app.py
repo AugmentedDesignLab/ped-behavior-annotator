@@ -104,6 +104,8 @@ class App(TKMT.ThemedTKinterFrame):
             self.videoView.render(self.videoFrame, videoURL)
         else:
             self.videoView.updateVideo(videoURL)
+            
+        self.recordingController.initNewRecording(videoTitle, annotationPath, videoURL)
     
 
 
