@@ -233,9 +233,9 @@ class VideoView:
         self.currentFrame.set(self.currentFrame.get()+30)
 
     def match_frame(self):
-        matching_frame = self.startFrame.get()
+        matching_frame = self.currentFrame.get()
         self.endFrame.set(matching_frame)
-        self.currentFrame.set(matching_frame)
+        self.startFrame.set(matching_frame)
         self.playing.set(True)
     
     def replay_segment(self):
