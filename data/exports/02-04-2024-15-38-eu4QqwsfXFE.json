@@ -1,0 +1,42 @@
+{
+    "name": "02-04-2024-15-38-eu4QqwsfXFE",
+    "fps": 30,
+    "annotation_path": "02-04-2024-15-38-eu4QqwsfXFE.json",
+    "video_path": "https://www.youtube.com/watch?v=eu4QqwsfXFE",
+    "multiFrameAnnotations": [
+        {
+            "frameStart": 1468,
+            "frameEnd": 2523,
+            "pedTags": [
+                "Crash",
+                "Jaywalking"
+            ],
+            "egoTags": [
+                "Speeding",
+                "Brake"
+            ],
+            "sceneTags": [],
+            "additionalNotes": ""
+        }
+    ],
+    "singleFrameAnnotations": [
+        {
+            "frame": 280,
+            "pedTags": [],
+            "egoTags": [
+                "Speeding"
+            ],
+            "sceneTags": [
+                "Changing Light"
+            ],
+            "additionalNotes": ""
+        },
+        {
+            "frame": 1468,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": ""
+        }
+    ]
+}

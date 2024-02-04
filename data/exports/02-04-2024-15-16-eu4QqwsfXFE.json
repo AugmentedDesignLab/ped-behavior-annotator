@@ -1,0 +1,16 @@
+{
+    "name": "02-04-2024-15-16-eu4QqwsfXFE",
+    "fps": 30,
+    "annotation_path": "02-04-2024-15-16-eu4QqwsfXFE.json",
+    "video_path": "https://www.youtube.com/watch?v=eu4QqwsfXFE",
+    "multiFrameAnnotations": [],
+    "singleFrameAnnotations": [
+        {
+            "frame": 153,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": ""
+        }
+    ]
+}

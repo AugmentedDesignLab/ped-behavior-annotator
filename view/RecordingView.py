@@ -119,29 +119,6 @@ class RecordingView(View):
         return cardFrame
 
     
-    def create_multiFrame_annotation_card(self, parent: ttk.Frame, annotation: MultiFrameAnnotation) -> ttk.Frame:
-        card_frame = ttk.Frame(parent, borderwidth=2, relief="solid")
-
-        # Add labels or other widgets to display annotation properties
-        frame_start_label = ttk.Label(card_frame, text=f"Frame Start: {annotation.frameStart}")
-        frame_start_label.pack()
-
-        frame_end_label = ttk.Label(card_frame, text=f"Frame End: {annotation.frameEnd}")
-        frame_end_label.pack()
-
-        ped_tags_label = ttk.Label(card_frame, text=f"Ped Tags: {', '.join(map(str, annotation.pedTags))}")
-        ped_tags_label.pack()
-
-        ego_tags_label = ttk.Label(card_frame, text=f"Ego Tags: {', '.join(map(str, annotation.egoTags))}")
-        ego_tags_label.pack()
-
-        scene_tags_label = ttk.Label(card_frame, text=f"Scene Tags: {', '.join(map(str, annotation.sceneTags))}")
-        scene_tags_label.pack()
-
-        notes_label = ttk.Label(card_frame, text=f"Notes: {annotation.additionalNotes}")
-        notes_label.pack()
-
-        return card_frame
     
     def addAnnotationCard(self, new_annotation):
 
@@ -161,8 +138,26 @@ class RecordingView(View):
     def updateAnnotations(self, annotation):
         # self.add_annotation_card(annotation)
         # We need to reload the whole thing
+        # clear current
+        self.clear()
         recording = self.recordingController.recording
+        print(recording.singleFrameAnnotations)
+        print(recording.multiFrameAnnotations)
         # order annotations by start frame
         allAnnotations = self.recordingController.getSortedAnnotationsByStartFrame(recording)
         for annotation in allAnnotations:
             self.addAnnotationCard(annotation)
+    
+    def clear(self):
+
+        # for cardWiget in self.recordingFrame.widgets:
+        #     cardFrame = cardWiget.widget # the label WidgetFrame
+        #     cardTKFrame = cardFrame.master
+        #     cardTKFrame.destroy()
+        # self.recordingFrame.widgets.widgetlist.clear()
+        
+        for widgets in self.inner_frame.winfo_children():
+            print(widgets)
+            widgets.destroy()
+        
+        self.recordingFrame = TKMT.WidgetFrame(self.inner_frame, "Recording View")

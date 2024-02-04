@@ -72,4 +72,4 @@ class RecordingController:
 
     def getSortedAnnotationsByStartFrame(self, recording: Recording) -> List[Union[SingleFrameAnnotation, MultiFrameAnnotation]]:
         return sorted(list(recording.singleFrameAnnotations) + list(recording.multiFrameAnnotations), 
-                        key=lambda x: x.frame if isinstance(x, SingleFrameAnnotation) else x.startFrame)
+                        key=lambda x: x.frame if isinstance(x, SingleFrameAnnotation) else x.frameStart)

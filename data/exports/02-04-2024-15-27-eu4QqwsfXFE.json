@@ -1,0 +1,19 @@
+{
+    "name": "02-04-2024-15-27-eu4QqwsfXFE",
+    "fps": 30,
+    "annotation_path": "02-04-2024-15-27-eu4QqwsfXFE.json",
+    "video_path": "https://www.youtube.com/watch?v=eu4QqwsfXFE",
+    "multiFrameAnnotations": [
+        {
+            "frameStart": 104,
+            "frameEnd": 121,
+            "pedTags": [
+                "Flinch"
+            ],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": ""
+        }
+    ],
+    "singleFrameAnnotations": []
+}
