@@ -54,9 +54,7 @@ class AnnotationEditView(View):
     def _renderView(self, parent: TKMT.WidgetFrame):
         # parent.Text("Frame # " + str(self.currentAnnotation.frame))
         parent.setActiveCol(0)
-        parent.Text("Start Frame:")
-        parent.nextCol()
-        parent.Text(text="0", widgetkwargs={"textvariable":self.currentAnnotationStartFrame})
+        self._renderMeta(parent)
         
         parent.setActiveCol(0)
         self._renderAnnotationTypeSelector(parent)
@@ -80,6 +78,16 @@ class AnnotationEditView(View):
         # add radio button for single/multi
         # frame # being annotated
         
+    def _renderMeta(self, parent: TKMT.WidgetFrame):
+        self.metaFrame = parent.addLabelFrame("Frame Info", padx=(10,10), pady=(10, 0))
+        sticky=tk.W 
+
+        self.metaFrame.Text("Start Frame:", row=0, col=0, sticky=tk.E)
+        self.metaFrame.Text(text="0", widgetkwargs={"textvariable":self.currentAnnotationStartFrame}, row=0, col=1, sticky=tk.W)
+        self.metaFrame.Text("End Frame:", row=0, col=2, sticky=tk.E)
+        self.metaFrame.Text(text="0", widgetkwargs={"textvariable":self.currentAnnotationEndFrame}, row=0, col=3, sticky=tk.W)
+
+
 
     def _renderAnnotationTypeSelector(self, parent: TKMT.WidgetFrame):
         self.annotationTypeFrame = parent.addLabelFrame("Annotation Type", padx=(10,10), pady=(10, 0))
