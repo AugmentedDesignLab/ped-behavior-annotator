@@ -100,7 +100,7 @@ class App(TKMT.ThemedTKinterFrame):
 
     def handleUpdateRecordingView(self, event: AppEvent):
         print("Update recording view event handled")
-        self.recordingView.updateAnnotations()
+        self.recordingView.updateAnnotations(event.data["annotation"])
         
     # def createVideoView(self, videoURL="https://www.youtube.com/watch?v=eu4QqwsfXFE"):
     def createVideoView(self, videoURL:str, videoTitle:str, annotationPath: str):

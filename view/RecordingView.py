@@ -12,6 +12,8 @@ from controller.YoutubeController import YoutubeController
 from library.AppEvent import AppEvent, AppEventType
 from managers.EventManager import EventManager
 from controller.RecordingController import RecordingController
+from model.SingleFrameAnnotation import SingleFrameAnnotation
+from model.MultiFrameAnnotation import MultiFrameAnnotation
 import json
 from dataclasses import dataclass, field, asdict
 import platform
@@ -29,46 +31,101 @@ class RecordingView(View):
     def render(self, parent: TKMT.WidgetFrame):
 
         # Create a canvas
-        canvas = tk.Canvas(parent.master)
-        canvas.pack(side="left", fill="both", expand=True)
+        self.canvas = tk.Canvas(parent.master)
+        self.canvas.pack(side="left", fill="both", expand=True)
+
+        # Set the focus to the canvas to enable scrolling
+        self.canvas.focus_set()
 
         # Create a frame to hold widgets
-        inner_frame = ttk.Frame(canvas)
-        inner_frame_id = canvas.create_window((0, 0), window=inner_frame, anchor="nw")
+        self.inner_frame = ttk.Frame(self.canvas)
+        inner_frame_id = self.canvas.create_window((0, 0), window=self.inner_frame, anchor="nw")
 
         # Create a vertical scrollbar
-        scrollbar = ttk.Scrollbar(canvas, orient="vertical", command=canvas.yview)
+        scrollbar = ttk.Scrollbar(self.canvas, orient="vertical", command=self.canvas.yview)
         scrollbar.pack(side="right", fill="y")
-        canvas.configure(yscrollcommand=scrollbar.set)
+        self.canvas.configure(yscrollcommand=scrollbar.set)
 
-        # Function to update the canvas scrolling region
-        def on_configure(event):
-            canvas.configure(scrollregion=canvas.bbox("all"))
-
-        canvas.bind("<Configure>", on_configure)
-
-        # Function to update the inner frame position
-        def on_mousewheel(event):
-            canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
-
-        canvas.bind_all("<MouseWheel>", on_mousewheel)
-
+        # no initial cards
         # Populate the inner frame with widgets
-        for i in range(20):  # Adjust the range as needed
-            widget_frame = ttk.Frame(inner_frame, height=40, width=200)
-            widget_frame.pack(pady=5, padx=10, fill="both")
-            label = ttk.Label(widget_frame, text=f"Label {i}")
-            label.pack()
+        # self.singleFrameAnnotations = self.recordingController._recording.singleFrameAnnotation
+        # for annotation in self.singleFrameAnnotations:
+        #     card_frame = self.create_annotation_card(self.inner_frame, annotation)
+        #     card_frame.pack(pady=5, padx=10, fill="both")
+
+        self.canvas.bind("<Configure>", self.on_configure)
 
         # Call on_configure once to set up the initial scrolling region
-        on_configure(None)
+        self.on_configure(None)
 
-    def updateAnnotations(self):
+        def on_mousewheel(event):
+            self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
 
-        self.singleFrameAnnotations = self.recordingController._recording.singleFrameAnnotation
-        self.multiFrameAnnotations = self.recordingController._recording.multiFrameAnnotations
+        # Bind the mouse wheel event to the canvas
+        self.canvas.bind("<MouseWheel>", on_mousewheel)
 
-        self.singleFrameJSON = [asdict(annotation) for annotation in self.singleFrameAnnotations]
-        print(self.singleFrameJSON)
-        
-        self.parent.Treeview(['Annotations'], [120], 10, self.singleFrameJSON, 'subfiles', ['name', 'purpose'], openkey='open')
+    # Function to update the canvas scrolling region
+    def on_configure(self, event):
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+
+    def create_singleFrame_annotation_card(self, parent: ttk.Frame, annotation: SingleFrameAnnotation) -> ttk.Frame:
+        card_frame = ttk.Frame(parent, borderwidth=2, relief="solid")
+
+        # Add labels or other widgets to display annotation properties
+        frame_label = ttk.Label(card_frame, text=f"Frame: {annotation.frame}")
+        frame_label.pack()
+
+        ped_tags_label = ttk.Label(card_frame, text=f"Ped Tags: {', '.join(map(str, annotation.pedTags))}")
+        ped_tags_label.pack()
+
+        ego_tags_label = ttk.Label(card_frame, text=f"Ego Tags: {', '.join(map(str, annotation.egoTags))}")
+        ego_tags_label.pack()
+
+        scene_tags_label = ttk.Label(card_frame, text=f"Scene Tags: {', '.join(map(str, annotation.sceneTags))}")
+        scene_tags_label.pack()
+
+        notes_label = ttk.Label(card_frame, text=f"Notes: {annotation.additionalNotes}")
+        notes_label.pack()
+
+        return card_frame
+    
+    def create_multiFrame_annotation_card(self, parent: ttk.Frame, annotation: MultiFrameAnnotation) -> ttk.Frame:
+        card_frame = ttk.Frame(parent, borderwidth=2, relief="solid")
+
+        # Add labels or other widgets to display annotation properties
+        frame_start_label = ttk.Label(card_frame, text=f"Frame Start: {annotation.frameStart}")
+        frame_start_label.pack()
+
+        frame_end_label = ttk.Label(card_frame, text=f"Frame End: {annotation.frameEnd}")
+        frame_end_label.pack()
+
+        ped_tags_label = ttk.Label(card_frame, text=f"Ped Tags: {', '.join(map(str, annotation.pedTags))}")
+        ped_tags_label.pack()
+
+        ego_tags_label = ttk.Label(card_frame, text=f"Ego Tags: {', '.join(map(str, annotation.egoTags))}")
+        ego_tags_label.pack()
+
+        scene_tags_label = ttk.Label(card_frame, text=f"Scene Tags: {', '.join(map(str, annotation.sceneTags))}")
+        scene_tags_label.pack()
+
+        notes_label = ttk.Label(card_frame, text=f"Notes: {annotation.additionalNotes}")
+        notes_label.pack()
+
+        return card_frame
+    
+    def add_annotation_card(self, new_annotation):
+
+        # Create and pack a new annotation card
+        if type(new_annotation) == SingleFrameAnnotation:
+            card_frame = self.create_singleFrame_annotation_card(self.inner_frame, new_annotation)
+        else: # otherwise, it's a multi frame annotation
+            card_frame = self.create_multiFrame_annotation_card(self.inner_frame, new_annotation)
+            
+        card_frame.pack(pady=5, padx=10, fill="both")
+
+        # Call on_configure to update the canvas scrolling region
+        self.on_configure(None)
+
+    def updateAnnotations(self, annotation):
+
+        self.add_annotation_card(annotation)
