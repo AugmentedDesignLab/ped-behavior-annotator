@@ -5,6 +5,6 @@ class EnumEncoder(json.JSONEncoder):
         if isinstance(obj, enum.EnumMeta):
             return None
         if isinstance(obj, enum.Enum):
-            return str(obj)
+            return str(obj.value)
         return obj.__dict__
 
