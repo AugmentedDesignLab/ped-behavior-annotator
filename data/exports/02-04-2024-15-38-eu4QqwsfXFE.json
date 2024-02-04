@@ -17,6 +17,33 @@
             ],
             "sceneTags": [],
             "additionalNotes": ""
+        },
+        {
+            "frameStart": 2202,
+            "frameEnd": 3899,
+            "pedTags": [
+                "Crash",
+                "Jaywalking"
+            ],
+            "egoTags": [
+                "Run a red light",
+                "Speeding",
+                "Brake"
+            ],
+            "sceneTags": [],
+            "additionalNotes": ""
+        },
+        {
+            "frameStart": 2660,
+            "frameEnd": 3899,
+            "pedTags": [
+                "Crash",
+                "Jaywalking",
+                "Distracted"
+            ],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": ""
         }
     ],
     "singleFrameAnnotations": [
