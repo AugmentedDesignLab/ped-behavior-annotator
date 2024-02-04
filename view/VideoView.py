@@ -53,8 +53,7 @@ class VideoView:
         # TODO rest of the code should ran after a while.
         self.currentFrame.set(0)
 
-        self.videoLabel = parent.Label(text="Video")
-        self.videoLabel.grid(row=0, column=0, rowspan=6, columnspan=3, padx=10, pady=10)
+        self.videoLabel = parent.Label(text="Video", row=0, col=0, rowspan=6, colspan=3, padx=10, pady=10)
 
         self.frameList = []
 
@@ -64,41 +63,35 @@ class VideoView:
 
 
         self.currentSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.currentFrame,
-                  widgetkwargs={"command":self.updateCurrentFrameFromSlider})
-        self.currentSlider.grid(row=0, column=3, columnspan=3, padx=10, pady=10)
+                  widgetkwargs={"command":self.updateCurrentFrameFromSlider},
+                  row=0, col=3, colspan=3, padx=10, pady=10)
         
         self.startSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
-                  widgetkwargs={"command":self.updateStartFrameFromSlider})
-        self.startSlider.grid(row=1, column=3, columnspan=3, padx=10, pady=10)
+                  widgetkwargs={"command":self.updateStartFrameFromSlider},
+                  row=1, col=3, colspan=3, padx=10, pady=10)
         
         self.endSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.endFrame,
-                  widgetkwargs={"command":self.updateEndFrameFromSlider})
-        self.endSlider.grid(row=2, column=3, columnspan=3, padx=10, pady=10)
+                  widgetkwargs={"command":self.updateEndFrameFromSlider},
+                  row=2, col=3, colspan=3, padx=10, pady=10)
 
         self.endFrame.set(self.videoController.getNFrames())
         
 
-        parent.Button(text="<<", command=self.skip_left).grid(
-            row=3, column=3, padx=10, pady=10)
-        parent.Button(text="Pause" if self.playing.get() else "Play", command=self.toggle_play_pause).grid(
-            row=3, column=4, padx=10, pady=10)
-        parent.Button(text=">>", command=self.skip_right).grid(
-            row=3, column=5, padx=10, pady=10)
+        parent.Button(text="<<", command=self.skip_left, row=3, col=3, padx=10, pady=10)
+        self.playBtn = parent.Button(text="Play", command=self.toggle_play_pause, row=3, col=4, padx=10, pady=10)
+        parent.Button(text=">>", command=self.skip_right, row=3, col=5, padx=10, pady=10)
         
-        parent.Button(text="Snap Start", command=self.snapStart).grid(row=4, column=3, columnspan=1, padx=10, pady=10)
-        parent.Button(text="Snap End", command=self.snapEnd).grid(row=4, column=4, columnspan=1, padx=10, pady=10)
-        parent.Button(text="Replay Segment", command=self.replay_segment).grid(row=4, column=5, columnspan=1, padx=10, pady=10)
+        parent.Button(text="Snap Start", command=self.snapStart, row=4, col=3, padx=10, pady=10)
+        parent.Button(text="Snap End", command=self.snapEnd, row=4, col=4, padx=10, pady=10)
+        parent.Button(text="Replay", command=self.replaysegment, row=4, col=5, padx=10, pady=10)
 
         parent.Progressbar(variable=self.segmentProgress, mode="determinate", lower=0, upper=100, row=5, col=3, colspan=3)
 
-        currentFrameLabel = parent.Label(text=self.currentFrameText.get(), size=12, widgetkwargs={"textvariable":self.currentFrameText})
-        currentFrameLabel.grid(row=0, column=6, columnspan=1, padx=10, pady=10)
+        currentFrameLabel = parent.Label(text=self.currentFrameText.get(), size=12, widgetkwargs={"textvariable":self.currentFrameText}, row=0, col=6, padx=10, pady=10)
 
-        startFrameLabel = parent.Label(text=self.startFrameText.get(), size=12, widgetkwargs={"textvariable":self.startFrameText})
-        startFrameLabel.grid(row=1, column=6, columnspan=1, padx=10, pady=10)
+        startFrameLabel = parent.Label(text=self.startFrameText.get(), size=12, widgetkwargs={"textvariable":self.startFrameText}, row=1, col=6, padx=10, pady=10)
 
-        endFrameLabel = parent.Label(text=self.endFrameText.get(), size=12, widgetkwargs={"textvariable":self.endFrameText})
-        endFrameLabel.grid(row=2, column=6, columnspan=1, padx=10, pady=10)
+        endFrameLabel = parent.Label(text=self.endFrameText.get(), size=12, widgetkwargs={"textvariable":self.endFrameText}, row=2, col=6, padx=10, pady=10)
 
         # loadingLabel = parent.Label(text=self.currentFrameText.get(), size=12, widgetkwargs={"textvariable":self.currentFrameText})
 
@@ -130,11 +123,6 @@ class VideoView:
         self.endSlider.configure(to=self.videoController.getNFrames())
         print(f"the upper for current slider should be {self.videoController.getNFrames()}")
         
-        # self.startSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.startFrame,
-        #           widgetkwargs={"command":self.on_slider_move}).grid(row=1, column=3, columnspan=3, padx=10, pady=10)
-        
-        # self.endSlider = parent.Scale(lower=0, upper=self.videoController.getNFrames(), variable=self.endFrame,
-        #           widgetkwargs={"command":self.on_slider_move}).grid(row=2, column=3, columnspan=3, padx=10, pady=10)
                   
         self.currentFrame.set(0)
         self.startFrame.set(0)
@@ -226,6 +214,9 @@ class VideoView:
     def updateCurrentFrameFromSlider(self, *args):
         # self.currentFrame.set(newVal)
         self.currentFrameText.set(f"Current Frame: {self.currentFrame.get()}")
+        if self.currentFrame.get() == self.endFrame.get():
+            self.pause()
+
         self.viewEventManager.publishCurrentFrameChange(self.currentFrame.get())
 
     def updateStartFrameFromSlider(self, *args):
@@ -238,17 +229,21 @@ class VideoView:
         self.endFrameText.set(f"End Frame: {self.endFrame.get()}")
         self.viewEventManager.publishEndFrameChange(self.endFrame.get())
 
-# Annotations aren't requested in VideoView
-#     def requestAnnotation(self):
-#         event = AppEvent(AppEventType.requestAnnotation, data={"timestamp": 0, "frame": self.currentFrame})
-#         # self.videoController.eventHandler(event)
-#         self.eventManager.onEvent(event)
-#         # Start the first update
-# #        self.videoLabel.after(0, update)
-        
+    def pause(self):
+        self.playing.set(False)
+        self.playBtn.config(text="Play")
+    
+    def play(self):
+        self.playing.set(True)
+        self.playBtn.config(text="Pause")
+
+
     def toggle_play_pause(self):
         self.playing.set(not self.playing.get())
-        print("Paused" if not self.playing.get() else "Playing")
+        if self.playing.get():
+            self.playBtn.config(text="Pause")
+        else:
+            self.playBtn.config(text="Play")
 
     def skip_left(self):
         self.currentFrame.set(self.currentFrame.get()-30)
@@ -264,5 +259,6 @@ class VideoView:
         self.endFrame.set(self.currentFrame.get())
 
     
-    def replay_segment(self):
+    def replaysegment(self):
         self.currentFrame.set(self.startFrame.get())
+        self.play()
