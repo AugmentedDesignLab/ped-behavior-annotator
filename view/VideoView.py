@@ -215,6 +215,8 @@ class VideoView:
         self.currentFrameText.set(f"Current Frame: {self.currentFrame.get()}")
         if self.currentFrame.get() == self.endFrame.get():
             self.pause()
+        else:
+            self.play()
 
         self.viewEventManager.publishCurrentFrameChange(self.currentFrame.get())
 
