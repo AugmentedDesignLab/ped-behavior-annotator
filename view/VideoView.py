@@ -223,13 +223,11 @@ class VideoView:
     def updateStartFrameFromSlider(self, *args):
         # self.startFrame.set(newVal)
         self.startFrameText.set(f"Start Frame: {self.startFrame.get()}")
-        self.play()
         self.viewEventManager.publishStartFrameChange(self.startFrame.get())
     
     def updateEndFrameFromSlider(self, *args):
         # self.endFrame.set(newVal)
         self.endFrameText.set(f"End Frame: {self.endFrame.get()}")
-        self.play()
         self.viewEventManager.publishEndFrameChange(self.endFrame.get())
 
     def pause(self):
