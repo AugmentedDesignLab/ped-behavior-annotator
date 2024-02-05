@@ -1,0 +1,153 @@
+{
+    "name": "Test",
+    "fps": 30,
+    "annotation_path": "/Users/taoruihuang/Documents/GitHub/ped-behavior-annotator/dataset2.json",
+    "video_path": "https://www.youtube.com/watch?v=eu4QqwsfXFE",
+    "multiFrameAnnotations": [
+        {
+            "frameStart": 1549,
+            "frameEnd": 1652,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian walking on road"
+        },
+        {
+            "frameStart": 777,
+            "frameEnd": 797,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "Vehicle steady speed, pedestrian flinches"
+        },
+        {
+            "frameStart": 444,
+            "frameEnd": 471,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "vehicle steady speed forward"
+        },
+        {
+            "frameStart": 750,
+            "frameEnd": 777,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "vehicle steady speed forward, pedestrian steady speed forward, pedestrian not looking"
+        },
+        {
+            "frameStart": 1954,
+            "frameEnd": 1995,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian steady speed, vehicle steady speed, at night, traffic lights in sight (blinking yellow)"
+        },
+        {
+            "frameStart": 1404,
+            "frameEnd": 1973,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian finishes crossing, steady speed"
+        },
+        {
+            "frameStart": 312,
+            "frameEnd": 400,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian falls down"
+        },
+        {
+            "frameStart": 1359,
+            "frameEnd": 1404,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "vehicle near-miss with pedestrian, pedestrian stops and stands"
+        },
+        {
+            "frameStart": 2081,
+            "frameEnd": 2184,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian steady speed, pedestrian on scooter, vehicle slows down, vehicle near-miss with pedestrian"
+        },
+        {
+            "frameStart": 1995,
+            "frameEnd": 2036,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian steady speed, vehicle steady speed, vehicle near-miss with pedestrian, at night, traffic lights in sight (blinking yellow)"
+        },
+        {
+            "frameStart": 797,
+            "frameEnd": 835,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "Pedestrian falls"
+        },
+        {
+            "frameStart": 473,
+            "frameEnd": 635,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "vehicle turns right, vehicle crashes into pedestrian, pedestrian falls"
+        },
+        {
+            "frameStart": 835,
+            "frameEnd": 1330,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian walks away in the direction of the vehicle's rear end"
+        },
+        {
+            "frameStart": 2328,
+            "frameEnd": 2438,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian steady speed, vehicle steady speed, vehicle not in view of pedestrian, pedestrian not in view of vehicle"
+        },
+        {
+            "frameStart": 1142,
+            "frameEnd": 1220,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "vehicle near-miss with pedestrian"
+        },
+        {
+            "frameStart": 1270,
+            "frameEnd": 1354,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian steady speed, vehicle steady speed, pedestrian view of vehicle blocked"
+        },
+        {
+            "frameStart": 835,
+            "frameEnd": 895,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "Vehicle brakes/stops, pedestrian stands up"
+        },
+        {
+            "frameStart": 1068,
+            "frameEnd": 1139,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian walks forward, vehicle slowing down, pedestrian jaywalking"
+        }
+    ],
+    "singleFrameAnnotations": []
+}

@@ -1,0 +1,97 @@
+{
+    "name": "Test",
+    "fps": 30,
+    "annotation_path": "/Users/taoruihuang/Documents/GitHub/ped-behavior-annotator/dataset3.json",
+    "video_path": "https://www.youtube.com/watch?v=eu4QqwsfXFE",
+    "multiFrameAnnotations": [
+        {
+            "frameStart": 2889,
+            "frameEnd": 2937,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian runs, vehicle steady speed, at night, traffic light in sight (blinking yellow)"
+        },
+        {
+            "frameStart": 2937,
+            "frameEnd": 2968,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian slows down, pedestrian walks backwards, vehicle steady speed, at night, traffic lights in sight (blinking yellow)"
+        },
+        {
+            "frameStart": 2968,
+            "frameEnd": 3059,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian falls down"
+        },
+        {
+            "frameStart": 3823,
+            "frameEnd": 3907,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian jogs, crosswalk, vehicle speeding up, vehicle near-miss pedestrian, pedestrian flinches on other side of vehicle"
+        },
+        {
+            "frameStart": 3212,
+            "frameEnd": 3235,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian steady speed, vehicle steady speed, pedestrian not in view of vehicle, vehicle not in view of pedestrian"
+        },
+        {
+            "frameStart": 3756,
+            "frameEnd": 3823,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian steady speed, crosswalk, vehicle slow, vehicle brakes/stops, vehicle near-miss pedestrian"
+        },
+        {
+            "frameStart": 2604,
+            "frameEnd": 2673,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian on phone, pedestrian steady speed, pedestrian looking at vehicle, vehicle slow speed, vehicle slows down, vehicle hits pedestrian lightly"
+        },
+        {
+            "frameStart": 3235,
+            "frameEnd": 3353,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "vehicle brakes/stops, pedestrian steady speed, at night, traffic lights in sight (green, same for previous annotation)"
+        },
+        {
+            "frameStart": 2685,
+            "frameEnd": 2777,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "pedestrian walks steady speed, vehicle speeds back up"
+        },
+        {
+            "frameStart": 2438,
+            "frameEnd": 2505,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "vehicle steady speed, vehicle near-miss pedestrian, pedestrian nearly falls"
+        },
+        {
+            "frameStart": 3370,
+            "frameEnd": 3586,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "both vehicles steady speed, vehicle behind crashes into vehicle in front, both vehicles stop"
+        }
+    ],
+    "singleFrameAnnotations": []
+}
