@@ -24,7 +24,25 @@ class App(TKMT.ThemedTKinterFrame):
         super().__init__("PedAnalyze: Pedestrian Behavior Annotator", theme, mode, usecommandlineargs, usethemeconfigfile)
         #self.initContext()
         global firstWindow
-        firstWindow = False # super important for popups
+        firstWindow = False  # super important for popups
+        
+        
+        # Instantiating Style class 
+        self.style = ttk.Style(self.master)
+        self.fontsize = 12
+        # Changing font-size of all the Label Widget 
+        self.style.configure("TLabel", font=('Arial', self.fontsize))
+        self.style.configure("TEntry", font=('Arial', self.fontsize)) 
+        
+        self.style.configure("TButton", font=('Arial', self.fontsize)) 
+        self.style.configure("TCheckbutton", font=('Arial', self.fontsize)) 
+        self.style.configure("TRadiobutton", font=('Arial', self.fontsize))
+        
+        self.style.configure("TFrame", font=('Arial', self.fontsize)) 
+        self.style.configure("TLabelFrame", font=('Arial', self.fontsize)) 
+        self.style.configure("TCombobox", font=('Arial', self.fontsize)) 
+        self.style.configure("TLabelFrame", font=('Arial', self.fontsize)) 
+        self.style.configure("TMenubutton", font=('Arial', self.fontsize)) 
 
         self.eventManager = EventManager()
         self.viewEventManager = ViewEventManager(self.eventManager)
