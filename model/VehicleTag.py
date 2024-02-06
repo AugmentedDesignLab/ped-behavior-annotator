@@ -1,9 +1,8 @@
 from enum import Enum
 
 class VehicleTag(Enum):
-    Brake = "Brake"
+    Halt = "Halt"
     Speeding = "Speeding"
-    RunRed = "Run a red light"
-    Distracted = "Distracted driving"
-    
-
+    LaneChange = "Lane change"
+    Swerve = "Swerve"
+    RunStop = "Run-stop"

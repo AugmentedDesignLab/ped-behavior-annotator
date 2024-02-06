@@ -1,12 +1,11 @@
 from enum import Enum
 
 class PedestrianTag(Enum):
-    Flinch = "Flinch"
-    Crash = "Crash"
+    FlinchIn = "Flinch in"
+    Collision = "Collision"
     Jaywalking = "Jaywalking"
     Distracted = "Distracted"
-    NoLook = "No Looking"
-
+    NotLooking = "Not looking"
 
 # PedestrianTag.Flinch == this is an object
 # PedestrianTag.Flinch.value == "Flinch" this is a string

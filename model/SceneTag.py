@@ -1,8 +1,8 @@
 from enum import Enum
 
 class SceneTag(Enum):
-    RedLight = "Red Light"
-    ChangingLight = "Changing Light"
-    NoSigns = "No stop signs"
-    NoLight = "No traffic lights"
-
+    Sunny = "Sunny"
+    TrafficLightGreen = "Traffic light green"
+    StopSign = "Stop sign"
+    OccludedPedestrian = "Occluded pedestrian"
+    ModerateTraffic = "Moderate traffic"
