@@ -97,11 +97,42 @@ class AnnotationEditView(View):
     
     def _renderPedOptions(self, parent: TKMT.WidgetFrame):
         options = [
-            PedestrianTag.FlinchIn,
-            PedestrianTag.Collision,
+            PedestrianTag.Trip,
+            PedestrianTag.AloneLane,
+            PedestrianTag.BriskWalk,
+            PedestrianTag.GroupWalk,
+            PedestrianTag.GroupDisperse,
+            PedestrianTag.DogWalk,
+            PedestrianTag.Retreat,
+            PedestrianTag.SpeedUp,
+            PedestrianTag.SlowDown,
+            PedestrianTag.Wander,
+            PedestrianTag.PauseStart,
             PedestrianTag.Jaywalking,
+            PedestrianTag.CrossOnRed,
+            PedestrianTag.Swerve,
+            PedestrianTag.Break,
+            PedestrianTag.FlinchOut,
+            PedestrianTag.FlinchIn,
+            PedestrianTag.Frozen,
+            PedestrianTag.Collision,
+            PedestrianTag.NearMiss,
+            PedestrianTag.RunIntoTraffic,
+            PedestrianTag.ThrownBack,
+            PedestrianTag.MakeStop,
+            PedestrianTag.MakeGo,
+            PedestrianTag.Aggression,
+            PedestrianTag.Observing,
+            PedestrianTag.Looking,
+            PedestrianTag.Glancing,
+            PedestrianTag.NotLookingGlancing,
             PedestrianTag.Distracted,
-            PedestrianTag.NotLooking
+            PedestrianTag.Agitated,
+            PedestrianTag.Cautious,
+            PedestrianTag.Indecisive,
+            PedestrianTag.Cross,
+            PedestrianTag.NotCross,
+            PedestrianTag.NotSureCross
         ]
 
         self.behaviorCheckVars = [tk.BooleanVar(name=option.value) for option in options]
@@ -115,11 +146,20 @@ class AnnotationEditView(View):
 
     def _renderVehicleOptions(self, parent: TKMT.WidgetFrame):
         options = [
-            VehicleTag.Halt,
-            VehicleTag.Speeding,
+            VehicleTag.SpeedUp,
+            VehicleTag.SlowDown,
+            VehicleTag.GradualSpeedUp,
+            VehicleTag.GradualSlowDown,
+            VehicleTag.SlowReverse,
+            VehicleTag.QuickReverse,
             VehicleTag.LaneChange,
+            VehicleTag.Speeding,
+            VehicleTag.Halt,
+            VehicleTag.InducedCollision,
+            VehicleTag.RunStop,
             VehicleTag.Swerve,
-            VehicleTag.RunStop
+            VehicleTag.MakeGo,
+            VehicleTag.Sidewalk
         ]
 
         self.behaviorCheckVars = [tk.BooleanVar(name=option.value) for option in options]
@@ -132,11 +172,28 @@ class AnnotationEditView(View):
 
     def _renderSceneOptions(self, parent: TKMT.WidgetFrame):
         options = [
+            SceneTag.Day,
+            SceneTag.Night,
             SceneTag.Sunny,
-            SceneTag.TrafficLightGreen,
+            SceneTag.Foggy,
+            SceneTag.Cloudy,
+            SceneTag.Snowy,
+            SceneTag.NoTrafficLight,
+            SceneTag.GreenTrafficLight,
+            SceneTag.YellowTrafficLight,
+            SceneTag.BlinkingYellowTrafficLight,
+            SceneTag.RedTrafficLight,
             SceneTag.StopSign,
+            SceneTag.Crosswalk,
+            SceneTag.NoCrosswalk,
+            SceneTag.Roundabout,
+            SceneTag.LightTraffic,
+            SceneTag.ModerateTraffic,
+            SceneTag.HeavyTraffic,
+            SceneTag.OneWayTraffic,
+            SceneTag.TwoWayTraffic,
             SceneTag.OccludedPedestrian,
-            SceneTag.ModerateTraffic
+            SceneTag.GlareOnWindshield
         ]
 
         self.behaviorCheckVars = [tk.BooleanVar(name=option.value) for option in options]
