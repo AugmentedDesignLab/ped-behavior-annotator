@@ -1,5 +1,7 @@
 **Installation**
 
+All dependencies can be found in environment.yaml.
+
 **Breakdown: PedAnalyze's UI and Functionality**
 
 - The TitleView serves as the project management system in PedAnalyze. TitleView contains an "Add New Project" button, which prompts the initiation window with fields to insert a YouTube video link, a project title, and the local path to where the annotations should be saved. A "Save Project" button enables the user to export previously made annotations regarding the video into a JSON-formatted file saved at the annotation path. Below these two buttons lays the project information, with the project title, annotation path, and video path (URL).
