@@ -266,7 +266,7 @@ class AnnotationEditView(View):
                                                      self.egoTags,
                                                      self.sceneTags,
                                                      self.notesVar.get())
-            self.recordingController.addMultiFrameAnnotation(newAnnotation)
+            self.recordingController.addMultiFrameAnnotation(newAnnotation) # TODO, this is anti pattern.
 
         self.viewEventManager.publishNewAnnotation(newAnnotation)
         self.resetAnnotation()
