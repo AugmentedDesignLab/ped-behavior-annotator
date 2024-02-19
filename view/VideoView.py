@@ -178,10 +178,14 @@ class VideoView:
             # if self.playing.get() and len(self.frameList) - 1 > self.currentFrame.get():
             if self.currentFrame.get() < self.startFrame.get():
                 self.currentFrame.set(self.startFrame.get())
-            if self.currentFrame.get() > self.endFrame.get():
+            if self.currentFrame.get() >= self.endFrame.get():
                 self.currentFrame.set(self.endFrame.get())
+                self.pause()
 
-            self.segmentProgress.set(int((self.currentFrame.get()-self.startFrame.get())/(self.endFrame.get()-self.startFrame.get()) * 100))
+            if self.endFrame.get()-self.startFrame.get() == 0:
+                self.segmentProgress.set(100)
+            else:
+                self.segmentProgress.set(int((self.currentFrame.get()-self.startFrame.get())/(self.endFrame.get()-self.startFrame.get()) * 100))
 
             frame = self.frameList[self.currentFrame.get()]
             frame = cv2.resize(frame, self.videoScreenSize)
@@ -213,11 +217,6 @@ class VideoView:
     def updateCurrentFrameFromSlider(self, *args):
         # self.currentFrame.set(newVal)
         self.currentFrameText.set(f"Current Frame: {self.currentFrame.get()}")
-        if self.currentFrame.get() == self.endFrame.get():
-            self.pause()
-        else:
-            self.play()
-
         self.viewEventManager.publishCurrentFrameChange(self.currentFrame.get())
 
     def updateStartFrameFromSlider(self, *args):
