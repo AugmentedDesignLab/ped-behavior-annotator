@@ -73,7 +73,11 @@ class BehaviorTagView(View):
         # parent.setActiveCol(0)
         # self._renderNotesField(parent)
         # self._renderSaveButton(parent)
-        self.notebook = parent.Notebook("Behavior Tag View")
+        scrollbar = ttk.Scrollbar(parent.master)
+        scrollbar.pack(side="right", fill="y")
+
+        self.notebook = parent.Notebook("Behavior Tag View", widgetkwargs={"yscrollcommand":scrollbar.set})
+        scrollbar.config(command=self.notebook.yview)
         self.tabPedestrianBehavior = self.notebook.addTab("Pedestrian Behavior")
         self.tabPedestrianBehavior.makeResizable()
         self._renderPedOptions(self.tabPedestrianBehavior)
