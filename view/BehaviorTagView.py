@@ -73,21 +73,22 @@ class BehaviorTagView(View):
         # parent.setActiveCol(0)
         # self._renderNotesField(parent)
         # self._renderSaveButton(parent)
-        scrollbar = ttk.Scrollbar(parent.master)
-        scrollbar.pack(side="right", fill="y")
 
-        self.notebook = parent.Notebook("Behavior Tag View", widgetkwargs={"yscrollcommand":scrollbar.set})
-        scrollbar.config(command=self.notebook.yview)
+        self.notebook = parent.Notebook("Behavior Tag View")
         self.tabPedestrianBehavior = self.notebook.addTab("Pedestrian Behavior")
-        self.tabPedestrianBehavior.makeResizable()
-        self._renderPedOptions(self.tabPedestrianBehavior)
+        scrollbar = ttk.Scrollbar(self.tabPedestrianBehavior.master)
+        # scrollbar.pack(side="right", fill="y")
+        self.framePedestrianBehavior = self.tabPedestrianBehavior.addFrame("", padx=(0,0), pady=(10,0), widgetkwargs={"yscrollcommand":scrollbar.set})
+        # scrollbar.config(command=self.framePedestrianBehavior.yview)
+        row, col = self._renderPedOptions(self.framePedestrianBehavior)
+        scrollbar.grid(row = 0, column = col + 1, rowspan=row)
 
         self.tabVehicleBehavior = self.notebook.addTab("Vehicle Behavior")
-        self.tabVehicleBehavior.makeResizable()
+        
         self._renderVehicleOptions(self.tabVehicleBehavior)
     
         self.tabEnvironmentConditions = self.notebook.addTab("Environment Conditions")
-        self.tabEnvironmentConditions.makeResizable()
+        
         self._renderSceneOptions(self.tabEnvironmentConditions)
 
         # add radio button for single/multi
@@ -162,6 +163,7 @@ class BehaviorTagView(View):
                 row += 1
                 col = 0
             # the behaviorChangeHandler is called whenever a checkbox is pressed with the associated option and var
+        return row, col
 
     def _renderVehicleOptions(self, parent: TKMT.WidgetFrame):
         options = [
