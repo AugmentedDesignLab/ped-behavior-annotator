@@ -75,13 +75,34 @@ class BehaviorTagView(View):
         # self._renderSaveButton(parent)
 
         self.notebook = parent.Notebook("Behavior Tag View")
+
         self.tabPedestrianBehavior = self.notebook.addTab("Pedestrian Behavior")
-        scrollbar = ttk.Scrollbar(self.tabPedestrianBehavior.master)
-        # scrollbar.pack(side="right", fill="y")
-        self.framePedestrianBehavior = self.tabPedestrianBehavior.addFrame("", padx=(0,0), pady=(10,0), widgetkwargs={"yscrollcommand":scrollbar.set})
-        # scrollbar.config(command=self.framePedestrianBehavior.yview)
-        row, col = self._renderPedOptions(self.framePedestrianBehavior)
-        scrollbar.grid(row = 0, column = col + 1, rowspan=row)
+
+        # Create a canvas
+        self.canvasPedestrianBehavior = tk.Canvas(self.tabPedestrianBehavior.master)
+        self.canvasPedestrianBehavior.pack(side="left", fill="both", expand=True)
+        # Create a vertical scrollbar
+        scrollbarPedestrianBehavior = ttk.Scrollbar(self.canvasPedestrianBehavior, orient="vertical", command=self.canvasPedestrianBehavior.yview)
+        scrollbarPedestrianBehavior.pack(side="right", fill="y")
+        self.canvasPedestrianBehavior.configure(yscrollcommand=scrollbarPedestrianBehavior.set)
+        # Create a frame to hold widgets
+        self.innerFrame = ttk.Frame(self.canvasPedestrianBehavior)
+        self.framePedestrianBehavior = TKMT.WidgetFrame(self.innerFrame, "Pedestrian Behaviors")
+        innerFrameID = self.canvasPedestrianBehavior.create_window((0, 0), window=self.innerFrame, anchor="nw")
+        
+        # Render checkboxes
+        self._renderPedOptions(self.framePedestrianBehavior)
+
+        # Bind function to configure
+        self.canvasPedestrianBehavior.bind("<Configure>", self.on_configure_pedestrian_behavior)
+        # Call on_configure once to set up the initial scrolling region
+        self.on_configure_pedestrian_behavior(None)
+
+        def on_mousewheel(event):
+            self.canvasPedestrianBehavior.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        # Bind the mouse wheel event to the canvas
+        self.canvasPedestrianBehavior.bind("<MouseWheel>", on_mousewheel)
 
         self.tabVehicleBehavior = self.notebook.addTab("Vehicle Behavior")
         
@@ -93,6 +114,10 @@ class BehaviorTagView(View):
 
         # add radio button for single/multi
         # frame # being annotated
+
+    # Function to update the canvas scrolling region
+    def on_configure_pedestrian_behavior(self, event):
+        self.canvasPedestrianBehavior.configure(scrollregion=self.canvasPedestrianBehavior.bbox("all"))
         
     def _renderMeta(self, parent: TKMT.WidgetFrame):
         self.metaFrame = parent.addLabelFrame("Frame Info", padx=(10,10), pady=(10, 0))
