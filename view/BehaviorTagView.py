@@ -86,31 +86,72 @@ class BehaviorTagView(View):
         scrollbarPedestrianBehavior.pack(side="right", fill="y")
         self.canvasPedestrianBehavior.configure(yscrollcommand=scrollbarPedestrianBehavior.set)
         # Create a frame to hold widgets
-        self.innerFrame = ttk.Frame(self.canvasPedestrianBehavior)
-        self.framePedestrianBehavior = TKMT.WidgetFrame(self.innerFrame, "Pedestrian Behaviors")
-        innerFrameID = self.canvasPedestrianBehavior.create_window((0, 0), window=self.innerFrame, anchor="nw")
-        
-        # Render checkboxes
-        self._renderPedOptions(self.framePedestrianBehavior)
+        self.innerFramePedestrianBehavior = ttk.Frame(self.canvasPedestrianBehavior)
+        self.framePedestrianBehavior = TKMT.WidgetFrame(self.innerFramePedestrianBehavior, "Pedestrian Behaviors")
+        innerFrameIDPedestrianBehavior = self.canvasPedestrianBehavior.create_window((0, 0), window=self.innerFramePedestrianBehavior, anchor="nw")
 
         # Bind function to configure
         self.canvasPedestrianBehavior.bind("<Configure>", self.on_configure_pedestrian_behavior)
         # Call on_configure once to set up the initial scrolling region
         self.on_configure_pedestrian_behavior(None)
 
-        def on_mousewheel(event):
-            self.canvasPedestrianBehavior.yview_scroll(int(-1 * (event.delta / 120)), "units")
-
-        # Bind the mouse wheel event to the canvas
-        self.canvasPedestrianBehavior.bind("<MouseWheel>", on_mousewheel)
+        # Render checkboxes
+        self._renderPedOptions(self.framePedestrianBehavior)
 
         self.tabVehicleBehavior = self.notebook.addTab("Vehicle Behavior")
-        
-        self._renderVehicleOptions(self.tabVehicleBehavior)
+
+        # Create a canvas
+        self.canvasVehicleBehavior = tk.Canvas(self.tabVehicleBehavior.master)
+        self.canvasVehicleBehavior.pack(side="left", fill="both", expand=True)
+        # Create a vertical scrollbar
+        scrollbarVehicleBehavior = ttk.Scrollbar(self.canvasVehicleBehavior, orient="vertical", command=self.canvasVehicleBehavior.yview)
+        scrollbarVehicleBehavior.pack(side="right", fill="y")
+        self.canvasVehicleBehavior.configure(yscrollcommand=scrollbarVehicleBehavior.set)
+        # Create a frame to hold widgets
+        self.innerFrameVehicleBehavior = ttk.Frame(self.canvasVehicleBehavior)
+        self.frameVehicleBehavior = TKMT.WidgetFrame(self.innerFrameVehicleBehavior, "Vehicle Behaviors")
+        innerFrameIDVehicleBehavior = self.canvasVehicleBehavior.create_window((0, 0), window=self.innerFrameVehicleBehavior, anchor="nw")
+
+        # Bind function to configure
+        self.canvasVehicleBehavior.bind("<Configure>", self.on_configure_vehicle_behavior)
+        # Call on_configure once to set up the initial scrolling region
+        self.on_configure_vehicle_behavior(None)
+
+        # Render checkboxes
+        self._renderVehicleOptions(self.frameVehicleBehavior)
     
         self.tabEnvironmentConditions = self.notebook.addTab("Environment Conditions")
+
+        # Create a canvas
+        self.canvasEnvironmentConditions = tk.Canvas(self.tabEnvironmentConditions.master)
+        self.canvasEnvironmentConditions.pack(side="left", fill="both", expand=True)
+        # Create a vertical scrollbar
+        scrollbarEnvironmentConditions = ttk.Scrollbar(self.canvasEnvironmentConditions, orient="vertical", command=self.canvasEnvironmentConditions.yview)
+        scrollbarEnvironmentConditions.pack(side="right", fill="y")
+        self.canvasEnvironmentConditions.configure(yscrollcommand=scrollbarEnvironmentConditions.set)
+        # Create a frame to hold widgets
+        self.innerFrameEnvironmentConditions = ttk.Frame(self.canvasEnvironmentConditions)
+        self.frameEnvironmentConditions = TKMT.WidgetFrame(self.innerFrameEnvironmentConditions, "Vehicle Behaviors")
+        innerFrameIDEnvironmentConditions = self.canvasEnvironmentConditions.create_window((0, 0), window=self.innerFrameEnvironmentConditions, anchor="nw")
+
+        # Bind function to configure
+        self.canvasEnvironmentConditions.bind("<Configure>", self.on_configure_environment_conditions)
+        # Call on_configure once to set up the initial scrolling region
+        self.on_configure_environment_conditions(None)
         
-        self._renderSceneOptions(self.tabEnvironmentConditions)
+        self._renderSceneOptions(self.frameEnvironmentConditions)
+
+        def on_mousewheel_pedestrian_behavior(event):
+            self.canvasPedestrianBehavior.yview_scroll(int(-1 * (event.delta / 120)), "units")
+        def on_mousewheel_vehicle_behavior(event):
+            self.canvasVehicleBehavior.yview_scroll(int(-1 * (event.delta / 120)), "units")
+        def on_mousewheel_environment_conditions(event):
+            self.canvasEnvironmentConditions.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        # Bind the mouse wheel event to the canvas
+        self.canvasPedestrianBehavior.bind("<MouseWheel>", on_mousewheel_pedestrian_behavior)
+        self.canvasVehicleBehavior.bind("<MouseWheel>", on_mousewheel_vehicle_behavior)
+        self.canvasEnvironmentConditions.bind("<MouseWheel>", on_mousewheel_environment_conditions)
 
         # add radio button for single/multi
         # frame # being annotated
@@ -118,6 +159,10 @@ class BehaviorTagView(View):
     # Function to update the canvas scrolling region
     def on_configure_pedestrian_behavior(self, event):
         self.canvasPedestrianBehavior.configure(scrollregion=self.canvasPedestrianBehavior.bbox("all"))
+    def on_configure_vehicle_behavior(self, event):
+        self.canvasVehicleBehavior.configure(scrollregion=self.canvasVehicleBehavior.bbox("all"))
+    def on_configure_environment_conditions(self, event):
+        self.canvasEnvironmentConditions.configure(scrollregion=self.canvasEnvironmentConditions.bbox("all"))
         
     def _renderMeta(self, parent: TKMT.WidgetFrame):
         self.metaFrame = parent.addLabelFrame("Frame Info", padx=(10,10), pady=(10, 0))
