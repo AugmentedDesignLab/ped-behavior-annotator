@@ -6,9 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'PedGrid'
-copyright = '2023, Golam Md Muktadir, Taorui Huang, Zarif Ikram, Abdul Jawad'
-author = 'Golam Md Muktadir, Taorui Huang, Zarif Ikram, Abdul Jawad'
+project = 'PedAnalyze'
+copyright = '2024, Taorui Huang, Golam Md Muktadir, Srishti Sripada, Rishi Saravanan, Amelia Yuan, Jim Whitehead'
+author = 'Taorui Huang, Golam Md Muktadir, Srishti Sripada, Rishi Saravanan, Amelia Yuan, Jim Whitehead'
 release = '1.0.0'
 
 # -- General configuration ---------------------------------------------------
