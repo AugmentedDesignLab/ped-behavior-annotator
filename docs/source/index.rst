@@ -12,6 +12,7 @@ Welcome to PedAnalyze's documentation!
    :caption: Contents:
 
    installation.md
+   pedestrian-behavior-tags.md
    user-guide.md
    dev-guide.md
 
