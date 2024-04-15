@@ -10,3 +10,4 @@
 | Safety and Risk Conditions | <ul><li>Collision, NearMiss, RunIntoTraffic, ThrownBack: Types of traffic accidents or near accidents</li><li>OccludedPedestrian, GlareOnWindshield: Visual obstructions or impairments for drivers</li></ul> |
 | Pedestrian Behaviors | <ul><li>Aggression, Observing, Looking, Glancing, NotLookingGlancing, Distracted, Agitated, Cautious, Indecisive, Cross, NotCross, NotSureCross: Behavioral states or actions of pedestrians, such as showing aggression, observing surroundings, being distracted, deciding whether or not to cross the street</li></ul> |
 | Environmental Conditions | <ul><li>Day, Night, Sunny, Foggy, Cloudy, Snowy: Weather or time-of-day conditions affecting visibility and road conditions</li></ul> |
+# User guide
