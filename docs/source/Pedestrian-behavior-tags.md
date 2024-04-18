@@ -1,15 +1,26 @@
-# Instantaneous Reaction
 
 
-| Behavior | Description |
+# Demographic
+
+| Behavior | Explanation |
 | ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
-
-# Instantaneous Reaction
+| Age | [Child, Adult, Old] | 
+| Gender | [Male, Female] |
 
 
-| Behavior | Description |
+# Instant Reaction
+| Behavior | Explanation |
 | ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
+| Swerve | abrupt change in direction |
+
+
+| Behavior | Explanation |
+| ----------- | ----------- |
+| Demographics | <ul><li>Child, Adult, Elderly: Age categories for individuals</li><li>Man, Woman: Gender categories for individuals</li><li>Swedish, Chinese, Indian, German: Nationalities or ethnicities of individuals</li></ul> |
+| Walking Behaviors | <ul><li>Alone Lane, BriskWalk, GroupWalk, GroupDisperse, DogWalk, Retreat, SpeedUp, SlowDown, Wander, PauseStart: Types of walking patterns or styles, such as walking alone, in a brisk manner, in a group, with a dog, retreating, speeding up, slowing down, etc</li><li>Jaywalking, CrossOnRed: Instances of pedestrians who are not complying with regulations, such as crossing roads against traffic signals</li></ul> |
+| Traffic and Road Conditions | <ul><li>NoTrafficLight, GreenTrafficLight, YellowTrafficLight, BlinkingYellowTrafficLight, RedTrafficLight, StopSign: Types of road signs or traffic light states</li><li>Crosswalk, NoCrosswalk, Roundabout: Road features, affecting maneuverability</li><li>LightTraffic, ModerateTraffic, HeavyTraffic: Levels of traffic density</li><li>OneWayTraffic, TwoWayTraffic: Traffic flow directions</li><li>Sidewalk: Presence of sidewalk or not</li></ul> |
+| Vehicle Behaviors | <ul><li>SpeedUp, SlowDown, GradualSpeedUp, GradualSlowDown, SlowReverse, QuickReverse, LaneChange, Speeding, Halt, InducedCollision, RunStop, Swerve, MakeGo: Vehicle maneuvers or actions, such as speeding up, slowing down, reversing, changing lanes, stopping suddenly</li></ul> |
+| Safety and Risk Conditions | <ul><li>Collision, NearMiss, RunIntoTraffic, ThrownBack: Types of traffic accidents or near accidents</li><li>OccludedPedestrian, GlareOnWindshield: Visual obstructions or impairments for drivers</li></ul> |
+| Pedestrian Behaviors | <ul><li>Aggression, Observing, Looking, Glancing, NotLookingGlancing, Distracted, Agitated, Cautious, Indecisive, Cross, NotCross, NotSureCross: Behavioral states or actions of pedestrians, such as showing aggression, observing surroundings, being distracted, deciding whether or not to cross the street</li></ul> |
+| Environmental Conditions | <ul><li>Day, Night, Sunny, Foggy, Cloudy, Snowy: Weather or time-of-day conditions affecting visibility and road conditions</li></ul> |
+
