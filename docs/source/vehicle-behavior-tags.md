@@ -18,5 +18,5 @@
 | Swerve | Making a sudden and sharp change in direction to avoid colliding with a pedestrian or other obstacle |
 | **Interaction** | |
 | Make go | Allowing a pedestrian to proceed by signaling or yielding the right of way |
-| **Irregular** | Explanation |
+| **Irregular** | |
 | Sidewalk | Driving on or partially on the sidewalk, which poses a danger to pedestrians |
