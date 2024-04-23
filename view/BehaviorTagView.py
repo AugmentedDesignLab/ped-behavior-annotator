@@ -78,6 +78,8 @@ class BehaviorTagView(View):
 
         self.tabPedestrianBehavior = self.notebook.addTab("Pedestrian Behavior")
 
+
+
         # Create a canvas
         self.canvasPedestrianBehavior = tk.Canvas(self.tabPedestrianBehavior.master)
         self.canvasPedestrianBehavior.pack(side="left", fill="both", expand=True)
@@ -133,9 +135,8 @@ class BehaviorTagView(View):
     def _renderAnnotationTypeSelector(self, parent: TKMT.WidgetFrame):
         self.annotationTypeFrame = parent.addLabelFrame("Annotation Type", padx=(10,10), pady=(10, 0))
         self.annotationTypeFrame.Radiobutton("Multi", self.annotationTypeRadioVar, value="Multi", row=0, col=0)
-        self.annotationTypeFrame.Radiobutton("Single", self.annotationTypeRadioVar, value="Single", row=0, col=1)
+        self.annotationTypeFrame.Radiobutton("Single", self.annotationTypeRadioVar, value="Single", row=0, col=1)              
 
-    
     def _renderPedOptions(self, parent: TKMT.WidgetFrame):
         options = [
             PedestrianTag.Trip,
@@ -176,10 +177,22 @@ class BehaviorTagView(View):
             PedestrianTag.NotSureCross
         ]
 
+
         self.behaviorCheckVars = [tk.BooleanVar(name=option.value) for option in options]
         row = 0
         col = 0
-        self.pedCheckbuttons = []
+
+        #Adding a SearchBar 
+        self.searchBarLabel = parent.Label("Search Tag: ", row=row, col=col)
+        #self.searchBarLabel.pack(pady = 20)
+        col+=1
+        self.prevlaue = ''
+        self.searchEntry = parent.Entry(self, row=row, col=col)
+        self.searchEntry.bind("<KeyRelease>", self.OnEntryClick)
+        
+        row+=1
+        col=0
+        self.pedCheckbuttons =   []
         for option, var in zip(options, self.behaviorCheckVars):
             parent.Checkbutton(option.value, var, self.behaviorChangeHandler, (option, var), row=row, col=col) 
             self.pedCheckbuttons.append(var)
@@ -189,6 +202,17 @@ class BehaviorTagView(View):
                 col = 0
             # the behaviorChangeHandler is called whenever a checkbox is pressed with the associated option and var
         return row, col
+    
+    def OnEntryClick(self, event):
+        value=self.searchEntry.get().strip()
+        changed = True if self.prevlaue != value else False
+        print(value, 'Text has changed ? {}'.format(changed))
+        self.prevlaue = value
+        self.vehicleCheckbuttons.clear()
+        print(self.vehicleCheckbuttons)
+
+
+
 
     def _renderVehicleOptions(self, parent: TKMT.WidgetFrame):
         options = [
@@ -340,3 +364,6 @@ class BehaviorTagView(View):
         #self.notesVar.set("")
             
         print("annotation reset")
+
+
+
