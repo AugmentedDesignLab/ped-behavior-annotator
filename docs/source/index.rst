@@ -8,7 +8,7 @@ Welcome to PedAnalyze's documentation!
 
 .. toctree::
    :numbered:
-   :maxdepth: 10
+   :maxdepth: 2
    :caption: Contents:
 
    getting-started.md
