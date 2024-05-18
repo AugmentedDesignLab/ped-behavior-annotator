@@ -1,6 +1,5 @@
-
-
 # Vehicle Tags
+
 | Behavior | Explanation |
 | ----------- | ----------- |
 | Aggressive acceleration | A sudden and forceful increase in speed, often in response to traffic conditions |
