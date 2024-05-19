@@ -70,7 +70,7 @@ myst_enable_extensions = [
 
 language = "en"
 myst_html_meta = {
-    "description lang=en": "PedGrid",
-    "keywords": "Autonomous Vehicle Simulation",
+    "description lang=en": "PedAnalyze",
+    "keywords": "Pedestrian Behavior Annotation",
     "property=og:locale":  "en_US"
 }

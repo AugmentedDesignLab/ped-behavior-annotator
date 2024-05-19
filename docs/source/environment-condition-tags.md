@@ -1,4 +1,5 @@
 # Environment Condition Tags
+
 | Condition | Explanation |
 | ----------- | ----------- |
 | Time & weather | Day, night, sunny, foggy, cloudy, snowy, etc |
