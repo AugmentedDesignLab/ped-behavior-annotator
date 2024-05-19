@@ -6,4 +6,4 @@
 | Road signs | Stop signs, crossing signs, etc |
 | Location | Crosswalk, no crosswalk |
 | Traffic | Light, moderate, heavy, one-way, two-way |
-| Visibility | Occluded pedestrian, glare on windshield, rainy or foggy |
+| Visibility | Occluded pedestrian, glare on windshield, rainy or foggy | 
