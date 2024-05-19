@@ -16,6 +16,7 @@ Welcome to PedAnalyze's documentation!
    pedestrian-behavior-tags.md
    vehicle-behavior-tags.md
    environment-condition-tags.md
+   key-concepts.md
    user-guide.md
    advanced-user-guide.md
    dev-guide.md
