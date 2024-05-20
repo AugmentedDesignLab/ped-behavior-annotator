@@ -2,7 +2,8 @@
 
 ## Install Dependencies via environment.yaml
 
-```python
+Run in terminal:
+```
 conda env create -f environment.yml
 
 conda env update --file local.yml --prune
