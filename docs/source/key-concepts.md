@@ -1,4 +1,4 @@
-# Main features
+# User Guide - Main Features
 
 ## Pre-defined tags
 Pre-defined behavior tags are split into four categories: pedestrian behavior, vehicle behavior, environment conditions, and pedestrian demographics. They are accessible in the AnnotationEditView, in the form of check boxes, to annotate the behaviors and conditions in each frame or group of frames. Using pre-defined tags allows for unity across annotations and resulting data sets and makes it easier to identify patterns or common pedestrian-vehicle interaction scenarios. 
