@@ -1,5 +1,16 @@
 Please view PedAnalyze's documentation here: https://pedanalyze.readthedocs.io/
 
+Please cite our paper if you use PedAnalyze or doing relevant research:
+
+```
+@inproceedings{inproceedings,
+    author = {Huang, Taorui and Muktadir, Golam Md and Sripada, Srishti and Saravanan, Rishi and Yuan, Amelia and Whitehead, Jim},
+    booktitle = {35th IEEE Intelligent Vehicles Symposium IV 2024 (Jeju Shinhwa World, Jeju Island, Korea)},
+    year = {2024},
+    title = {PedAnalyze - Pedestrian Behavior Annotator and Ontology}
+}
+```
+
 **Breakdown: PedAnalyze's UI and Functionality**
 
 - The TitleView serves as the project management system in PedAnalyze. TitleView contains an "Add New Project" button, which prompts the initiation window with fields to insert a YouTube video link, a project title, and the local path to where the annotations should be saved. A "Save Project" button enables the user to export previously made annotations regarding the video into a JSON-formatted file saved at the annotation path. Below these two buttons lays the project information, with the project title, annotation path, and video path (URL).
