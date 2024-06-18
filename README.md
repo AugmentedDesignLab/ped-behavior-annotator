@@ -1,6 +1,4 @@
-**Installation**
-
-All dependencies can be found in environment.yaml.
+Please view PedAnalyze's documentation here: https://pedanalyze.readthedocs.io/
 
 **Breakdown: PedAnalyze's UI and Functionality**
 
@@ -21,3 +19,4 @@ All dependencies can be found in environment.yaml.
   Both SingleFrameAnnotations and MultiFrameAnnotations include (1) a list of pedestrian behavior tags, (2) a list of vehicle behavior tags, (3) a list of scene/environment condition tags, and (4) additional notes. The only difference are the frame stamps; SingleFrameAnnotations only have one frame number while MultiFrameAnnotations hold frame start and frame end values.
 
   Whenever the user saves a new annotation via the AnnotationEditView, the annotation is directly appended to the scrolling list for visualization.
+](https://pedanalyze.readthedocs.io/)](https://pedanalyze.readthedocs.io/
