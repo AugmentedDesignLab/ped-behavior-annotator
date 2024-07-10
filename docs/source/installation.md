@@ -6,7 +6,7 @@ Run in terminal:
 ```
 conda env create -f environment.yml
 
-conda env update --file conda.yml --prune
+conda env update --file conda.yaml --prune
 
 conda activate pedanno
 ```
