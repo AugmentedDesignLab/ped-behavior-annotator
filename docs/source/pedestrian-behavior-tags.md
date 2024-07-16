@@ -28,8 +28,8 @@
 | Near-miss | nearly missing a collision |
 | Thrown back | thrown backward by vehicle collision |
 | **Interaction** |  |
-| Make stop | gesturing to vehicle to go |
-| Make go | gesturing to vehicle to stop |
+| Make stop | gesturing to vehicle to stop |
+| Make go | gesturing to vehicle to go |
 | Aggression | aggressive gestures to vehicle |
 | Assault | assault the vehicle |
 | Observing | standing still and observing vehicle’s behavior |
