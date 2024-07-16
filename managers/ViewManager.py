@@ -9,6 +9,9 @@ from view.AnnotationEditView import AnnotationEditView
 from view.VideoView import VideoView
 from view.TitleView import TitleView
 from view.BehaviorTagView import BehaviorTagView
+from view.PedestrianTagView import PedestrianTagView
+from view.VehicleTagView import VehicleTagView
+from view.SceneTagView import SceneTagView
 from library.AppEvent import *
 #from view import *
 class ViewManager:
@@ -37,5 +40,20 @@ class ViewManager:
     
     def getBehaviorTagView(self): 
         view = BehaviorTagView(self.eventManager, self.viewEventManager)
+        #self.eventManager.subscribe(AppEventType.BehaviorTagView, view.handleEvent)
+        return view
+    
+    def getPedestrianTagView(self): 
+        view = PedestrianTagView(self.eventManager, self.viewEventManager)
+        #self.eventManager.subscribe(AppEventType.BehaviorTagView, view.handleEvent)
+        return view
+    
+    def getVehicleTagView(self): 
+        view = VehicleTagView(self.eventManager, self.viewEventManager)
+        #self.eventManager.subscribe(AppEventType.BehaviorTagView, view.handleEvent)
+        return view
+    
+    def getSceneTagView(self): 
+        view = SceneTagView(self.eventManager, self.viewEventManager)
         #self.eventManager.subscribe(AppEventType.BehaviorTagView, view.handleEvent)
         return view

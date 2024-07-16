@@ -99,13 +99,34 @@ class App(TKMT.ThemedTKinterFrame):
         # self.annotationEditView = self.viewManager.getAnnotationEditView(self.recordingController)
         # #self.context["controllers"]["recording"])
         # self.annotationEditView.render(self.annotationFrame)
-        self.behaviorTagFrame = self.leftFrame.addLabelFrame("Behavior Tag Frame", padx=(0,0), pady=(10,0))
-        self.behaviorTagView = self.viewManager.getBehaviorTagView()
-        self.behaviorTagView.render(self.behaviorTagFrame)
 
-        self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(10,0))
-        self.recordingView = self.viewManager.getRecordingView(self.recordingController)
-        self.recordingView.render(self.recordingFrame)
+        # NOTES: create a notebook with tabs and assign each tab to a different view
+        self.behaviorTagFrame = self.rightFrame.addLabelFrame("Behavior Tag Frame", padx=(0,0), pady=(10,0))
+        self.notebook = self.behaviorTagFrame.Notebook("Notebook")
+        self.pedTab = self.notebook.addTab("Pedestrian")
+
+        self.pedestrianView = self.viewManager.getPedestrianTagView()
+        self.pedestrianView.render(self.pedTab)
+
+        self.egoTab = self.notebook.addTab("Vehicle")
+        self.vehicleView = self.viewManager.getVehicleTagView()
+        self.vehicleView.render(self.egoTab)
+
+        self.envTab = self.notebook.addTab("Environment")
+        self.sceneView = self.viewManager.getSceneTagView()
+        self.sceneView.render(self.envTab)
+
+        self.allAnnotationsTab = self.notebook.addTab("Show All Annotations")
+        self.annotationView = self.viewManager.getRecordingView(self.recordingController)
+        self.annotationView.render(self.allAnnotationsTab)
+
+        # self.behaviorTagView = self.viewManager.getBehaviorTagView()
+        # self.behaviorTagView.render(self.behaviorTagFrame)
+
+        # self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(10,0))
+        # self.recordingView = self.viewManager.getRecordingView(self.recordingController)
+        # self.recordingView.render(self.recordingFrame)
+
         # text = self.recordingFrame.Text("Recording")
         # text.pack(side=tk.TOP)
 
