@@ -95,10 +95,13 @@ class App(TKMT.ThemedTKinterFrame):
         
         # self.videoFrame.Text("Video")
         # self.leftFrame.Seperator()
-        self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(10,0))
-        self.annotationEditView = self.viewManager.getAnnotationEditView(self.recordingController)
-        #self.context["controllers"]["recording"])
-        self.annotationEditView.render(self.annotationFrame)
+        # self.annotationFrame = self.leftFrame.addLabelFrame("Annotation Edit View", padx=(0,0), pady=(10,0))
+        # self.annotationEditView = self.viewManager.getAnnotationEditView(self.recordingController)
+        # #self.context["controllers"]["recording"])
+        # self.annotationEditView.render(self.annotationFrame)
+        self.behaviorTagFrame = self.leftFrame.addLabelFrame("Behavior Tag Frame", padx=(0,0), pady=(10,0))
+        self.behaviorTagView = self.viewManager.getBehaviorTagView()
+        self.behaviorTagView.render(self.behaviorTagFrame)
 
         self.recordingFrame = self.rightFrame.addFrame("Recording", padx=(0,0), pady=(10,0))
         self.recordingView = self.viewManager.getRecordingView(self.recordingController)
