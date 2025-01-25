@@ -5,6 +5,7 @@ We didn't have enough space in our paper to include many examples, so we've incl
 ## Wanderer
 Wanderers show diverse behaviors. In [1], a pedestrian runs towards an oncoming vehicle, forcing it to stop, and climbs onto the hood. In [2], another dances on the highway, stopping traffic. When intoxicated, wanderers become even more dangerous, rapidly changing direction or speed [3].
 
+[1] DDPAI Global, “Drunk Drivers and Pedestrians Compilation - DDPAI Dash Cam,” [Online]. Available https://youtu.be/YuofxA63faE?si=INYkx5uGrtoE-lQT&t=284, 2023, Youtube@DDPAI Global, Accessed: 2024-04-28.
 
 [2] ——, “Drunk Drivers and Pedestrians Compilation - DDPAI Dash Cam,” [Online]. Available https://youtu.be/YuofxA63faE?si=Kt-2aZNSuE5H-OY&t=440, 2023, Youtube@DDPAI Global, Accessed: 2024-04-28.
 
