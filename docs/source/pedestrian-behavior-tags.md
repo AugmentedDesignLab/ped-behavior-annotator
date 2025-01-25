@@ -5,6 +5,7 @@
 | Trip | onto driving lane |
 | Fall | onto driving lane |
 | Along lane | along a lane instead of crossing |
+| Zig-zag | abrupt alternating left or right turns |
 | Brisk-walk | walk fast |
 | Group-walk | walk in a group |
 | Group-disperse | initially together and disperse due to traffic, can mean part of the group crosses and part of the group chooses not to |
@@ -13,7 +14,6 @@
 | Retreat | walk backwards |
 | Speed-up | sudden change |
 | Slow-down | sudden change |
-| Wander | wandering off from shortest crossing |
 | Pause-start | stop momentarily and proceed afterward |
 | Cross-at-midbock | not crossing at marked crosswalk |
 | Cross-on-red | crossing on red light |

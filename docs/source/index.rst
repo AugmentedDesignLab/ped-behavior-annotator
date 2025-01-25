@@ -14,6 +14,7 @@ Welcome to PedAnalyze's documentation!
    getting-started.md
    installation.md
    additional-pedestrian-archetype-evidence.md
+   pedestrian-archetype-optional-behaviors.md
    pedestrian-behavior-tags.md
    vehicle-behavior-tags.md
    environment-condition-tags.md
