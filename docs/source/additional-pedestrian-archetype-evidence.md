@@ -26,15 +26,19 @@ In [2], another pedestrian stands outside the highway lanes and suddenly falls o
 [1] DriveStart, “Drunk Pedestrian Fail Compilation,” [Online]. Avail-
 able https://youtu.be/qGs9KAwzneg?si=yTFDbcJeQ2WfQADk&t=35,
 2023, youtube@DriveStartTV, Accessed: 2024-04-28.
+
 [2] ——, “Drunk Pedestrian Fail Compilation,” [Online]. Avail-
 able https://youtu.be/qGs9KAwzneg?si=LXuJeQorKb-D3RbZ, 2023,
 youtube@DriveStartTV, Accessed: 2024-04-28.
+
 [3] ——, “Drunk Pedestrian Fail Compilation,” [Online]. Available
 https://youtu.be/qGs9KAwzneg?si=yTFDbcJeQ2WfQADk&t=4, 2023,
 youtube@DriveStartTV, Accessed: 2024-04-28.
+
 [4] ——, “Drunk Pedestrian Fail Compilation,” [Online]. Avail-
 able https://youtu.be/qGs9KAwzneg?si=yTFDbcJeQ2WfQADk&t=66,
 2023, youtube@DriveStartTV, Accessed: 2024-04-28.
+
 [5] ——, “Drunk Pedestrian Fail Compilation,” [Online]. Avail-
 able https://youtu.be/qGs9KAwzneg?si=yTFDbcJeQ2WfQADk&t=60,
 2023, youtube@DriveStartTV, Accessed: 2024-04-28.
@@ -46,10 +50,12 @@ In [1], while crossing, the pedestrian listens to music and plays with their pho
 Cars Accidents,” [Online]. Available https://youtu.be/YuofxA63faE?si=
 nDT-2i9DCn1vVH-e&t=468, 2023, youtube@carsaccidentsTBl, Ac-
 cessed: 2024-04-28.
+
 [2] ——, “Pedestrians on the road, on footpaths and beyond ——
 Cars Accidents,” [Online]. Available https://youtu.be/YuofxA63faE?si=
 PRxJAtYN97MNKX9T&t=47, 2023, youtube@carsaccidentsTBl, Ac-
 cessed: 2024-04-28.
+
 [3] ——, “Pedestrians on the road, on footpaths and beyond ——
 Cars Accidents,” [Online]. Available https://youtu.be/YuofxA63faE?si=
 PRxJAtYN97MNKX9T&t=30, 2023, youtube@carsaccidentsTBl, Ac-
@@ -61,12 +67,15 @@ In [1], one flock member leaves others behind, scared by the approaching vehicle
 [1] RoyalJordanian, “The Ultimate Pedestrian Compilation,” [Online].
 Available https://youtu.be/PHg3HDg9z3Y?si=8A4u4sYAxOBfba4R&
 t=57, 2023, youtube@royaljordanian, Accessed: 2024-04-28.
+
 [2] ——, “The Ultimate Pedestrian Compilation,” [Online]. Avail-
 able https://youtu.be/PHg3HDg9z3Y?si=8A4u4sYAxOBfba4R&t=72,
 2023, youtube@royaljordanian, Accessed: 2024-04-28.
+
 [3] ——, “The Ultimate Pedestrian Compilation,” [Online]. Available
 https://youtu.be/PHg3HDg9z3Y?si=SF5sWwZwCATPn7pb&t=92,
 2021, youtube@royaljordanian, Accessed: 2024-04-28.
+
 [4] I haz Dashcam, “Dumb Pedestrians,” [Online]. Available
 https://youtu.be/KSfOL61HYoM?si=tfdtOzwPGydw1aik&t=229,
 2023, youtube@ihazdashcam, Accessed: 2024-04-28.
@@ -78,13 +87,16 @@ Pedestrians can also drop items on the road [1], [2]. In [2], a kid crossing wit
 and beyond —— Cars Accidents,” [Online]. Available
 https://youtu.be/YuofxA63faE?si=PRxJAtYN97MNKX9T&t=30,
 2023, youtube@carsaccidentsTBl, Accessed: 2024-04-28.
+
 [2] RoyalJordanian, “The Ultimate Pedestrian Compilation,” [Online].
 Available https://youtu.be/PHg3HDg9z3Y?si=61HickVTkx0LYTUy&
 t=473, 2021, youtube@royaljordanian, Accessed: 2024-04-28.
+
 [3] Cars Accidents, “Pedestrians on the road, on footpaths
 and beyond —— Cars Accidents,” [Online]. Available
 https://youtu.be/YuofxA63faE?si=BoWWlfozN JZKqGC&t=495,
 2023, youtube@carsaccidentsTBl, Accessed: 2024-04-28.
+
 [4] I haz Dashcam, “Dumb Pedestrians,” [Online]. Available
 https://youtu.be/KSfOL61HYoM?si=NYw5Fr8ZnUbFeGwa&t=74,
 2023, youtube@ihazdashcam, Accessed: 2024-04-28.
