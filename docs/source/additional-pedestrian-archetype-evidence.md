@@ -1,5 +1,7 @@
 # Additional Pedestrian Archetype Evidence
 
+We didn't have enough space in our paper to include many examples, so we've included them here for further evidence of our archetypes.
+
 ## Wanderer
 Wanderers show diverse behaviors. In [1], a pedestrian runs towards an oncoming vehicle, forcing it to stop, and climbs onto the hood. In [2], another dances on the highway, stopping traffic. When intoxicated, wanderers become even more dangerous, rapidly changing direction or speed [3].
 
