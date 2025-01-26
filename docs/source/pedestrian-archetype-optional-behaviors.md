@@ -38,6 +38,7 @@ Not-sure-cross\
 Not-cross
 
 ## Jaywalker
+Crosswalk-detour\
 Make-stop (can be observed when cars suddenly stop in front of driver)\
 Near-miss (can be observed when cars suddenly stop in front of driver)\
 Collision

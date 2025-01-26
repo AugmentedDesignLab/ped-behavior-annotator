@@ -22,7 +22,7 @@
 | Pop-out occlusion | appears suddenly behind another object |
 | Crawling | moving slowly, often on hands and knees |
 | Dancing | moving rhythmically or performing dance-like motions |
-| Crosswalk detour | initially on the crosswalk but leaves to take a shortcut |
+| Crosswalk-detour | initially on the crosswalk but leaves to take a shortcut |
 | Gesturing | using hand or body movements to signal or communicate with anything except incoming vehicle (waving at someone across the street) |
 | Back turned | against incoming vehicle |
 | Ignore-traffic | ​crossing or walking in front of moving vehicles, ignoring them |
