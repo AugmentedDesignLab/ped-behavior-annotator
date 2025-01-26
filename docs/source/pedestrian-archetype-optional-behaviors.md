@@ -1,65 +1,65 @@
 # Pedestrian Archetype Optional Behaviors
 
 ## Wanderer
-Not-sure-cross\
+Not-sure-cross
 
 ## Drunk
 Crawling\
 Dancing\
 Crosswalk detour\
 Fall\
-Trip\
+Trip
 
 ## Distracted
 Gesturing\
-Back turned\
+Back turned
 
 ## Flash
 Fixated not at incoming vehicle\
 Flinch-in\
 Flinch-out\
 Brisk-walking\
-Not looking/glancing\
+Not looking/glancing
 
 ## Indecisive
 Near-miss\
 Not-sure-cross\
-Pause-start\
+Pause-start
 
 ## Blind
 Preoccupied\
-Not looking/glancing\
+Not looking/glancing
 
 ## Flock
 Group-disperse\
 Re-group\
 Cross\
 Not-sure-cross\
-Not-cross\
+Not-cross
 
 ## Jaywalker
 Make-stop (can be observed when cars suddenly stop in front of driver)\
 Near-miss (can be observed when cars suddenly stop in front of driver)\
-Collision\
+Collision
 
 ## Elderly
-Cautious\
+Cautious
 
 ## Kid
 Ignore traffic\
 Not-sure-cross\
 Make-stop\
-Fixated not at incoming vehicle\
+Fixated not at incoming vehicle
 
 ## Eventful
 Near-miss\
 Make-stop\
 Flinch-in\
 Flinch-out\
-Retreat\
+Retreat
 
 ## Parked
 Fixated not at incoming vehicle\
 Preoccupied\
 Trip\
-Fall\
+Fall
