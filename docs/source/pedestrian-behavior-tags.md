@@ -20,6 +20,12 @@
 | Drop object | onto driving lane |
 | Pickup object | onto driving lane |
 | Pop-out occlusion | appears suddenly behind another object |
+| Crawling | moving slowly, often on hands and knees |
+| Dancing | moving rhythmically or performing dance-like motions |
+| Crosswalk detour | initially on the crosswalk but leaves to take a shortcut |
+| Gesturing | using hand or body movements to signal or communicate with anything except incoming vehicle (waving at someone across the street) |
+| Back turned | against incoming vehicle |
+| Ignore-traffic | ​crossing or walking in front of moving vehicles, ignoring them |
 | **Instant Reaction** |  |
 | Swerve | abrupt change in direction |
 | Break | abrupt stop at the lane boundary and yield |
@@ -41,7 +47,7 @@
 | Looking | at the oncoming traffic (>1s) |
 | Glancing | at the oncoming traffic (<1s) |
 | Not looking/glancing | at the oncoming traffic |
-| Not fixated at incoming vehicle | Fixating attention at any object except incoming vehicle |
+| Fixated not at incoming vehicle | Fixating attention at any object except incoming vehicle |
 | Preoccupied | performing a task such that attention isn't given to the incoming vehicle |
 | Agitated | showing agitation |
 | Cautious | showing careful deliberation |
