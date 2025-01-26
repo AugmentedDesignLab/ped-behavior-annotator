@@ -15,7 +15,7 @@
 | Speed-up | sudden change |
 | Slow-down | sudden change |
 | Pause-start | stop momentarily and proceed afterward |
-| Cross-at-midbock | not crossing at marked crosswalk |
+| Cross-without-crosswalk | not crossing at marked crosswalk, whether that be at a mid-block or over anything |
 | Cross-on-red | crossing on red light |
 | Drop object | onto driving lane |
 | Pickup object | onto driving lane |
