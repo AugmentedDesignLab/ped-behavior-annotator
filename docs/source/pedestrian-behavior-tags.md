@@ -42,6 +42,7 @@
 | Make go | gesturing to vehicle to go |
 | Aggression | aggressive gestures to vehicle |
 | Assault | assault the vehicle |
+| Climbing onto car hood | climbs onto the car hood |
 | Observing | standing still and observing vehicle’s behavior |
 | **Mental State** |  |
 | Looking | at the oncoming traffic (>1s) |
