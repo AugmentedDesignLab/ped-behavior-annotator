@@ -26,7 +26,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 1. The Wanderer
+## The Wanderer
 
 **Definition:** Pedestrians who wander along driving lanes and often ignore traffic; their intentions are hard to predict.
 
@@ -45,7 +45,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 2. The Drunk
+## The Drunk
 
 **Definition:** Pedestrians impaired by alcohol or drugs, producing unpredictable gait, balance, and decision-making.
 
@@ -65,7 +65,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 3. The Distracted
+## The Distracted
 
 **Definition:** Pedestrians whose attention is fixated on something other than traffic (phone, conversation, music, etc.), reducing situational awareness.
 
@@ -82,7 +82,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 4. The Flash
+## The Flash
 
 **Definition:** Pedestrians who dash or sprint through traffic with urgency and little regard for safety.
 
@@ -102,7 +102,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 5. The Indecisive
+## The Indecisive
 
 **Definition:** Pedestrians who hesitate, vacillate, or repeatedly change crossing decisions, increasing risk as time passes.
 
@@ -122,7 +122,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 6. The Blind
+## The Blind
 
 **Definition:** Pedestrians who either intentionally ignore traffic/signals or fail to notice vehicles and signals.
 
@@ -140,7 +140,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 7. The Flock
+## The Flock
 
 **Definition:** Groups of pedestrians that typically move together but can become dangerous when members disagree or become separated.
 
@@ -161,7 +161,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 8. The Jaywalker
+## The Jaywalker
 
 **Definition:** Pedestrians who cross at non-designated locations (mid-block, roundabout center, or other unexpected positions) regardless of signals.
 
@@ -181,7 +181,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 9. The Elderly
+## The Elderly
 
 **Definition:** Older adults who typically exhibit slower perception and decision-making; behavior is risky due to delayed reaction rather than intentionally dangerous actions.
 
@@ -197,7 +197,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 10. The Kid
+## The Kid
 
 **Definition:** Children and younger pedestrians who behave unpredictably due to inexperience, small size, and impulsivity.
 
@@ -214,7 +214,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 11. The Eventful
+## The Eventful
 
 **Definition:** Pedestrians who become dangerous due to external, often involuntary events (trips, falls, occlusions, dropped items, or pets).
 
@@ -233,7 +233,7 @@ This is the list of all the archetypes and their essential and optional behavior
 |  • Pop-out-occlusion     |           |
 ---
 
-## 12. The Parked Pedestrian
+## The Parked Pedestrian
 
 **Definition:** Pedestrians who interact with parked vehicles — loading/unloading, getting in/out, or moving along parked cars — and therefore exhibit different risks than regular crossers.
 
@@ -251,7 +251,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 13. The Con Artist
+## The Con Artist
 
 **Definition:** Individuals who intentionally stage collisions with incoming vehicles to claim insurance compensation, typically involving vehicles at rest or traveling at slow speeds.
 
@@ -269,7 +269,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 14. The Foreigner
+## The Foreigner
 
 **Definition:** Visitors unfamiliar with local traffic norms who misinterpret signals/structures, causing unsafe crossing decisions due to different traffic cultures.
 
@@ -287,7 +287,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 15. The Influencer
+## The Influencer
 
 **Definition:** Social media content creators who disregard traffic regulations to film videos, often involving photographers lying on roads or extended occupation of traffic lanes.
 
@@ -306,7 +306,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 16. The Protester
+## The Protester
 
 **Definition:** Groups of people participating in demonstrations who ignore traffic regulations, move into oncoming lanes, and obstruct vehicle visibility while displaying resistance.
 
@@ -324,7 +324,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 17. The Pseudo Pedestrian
+## The Pseudo Pedestrian
 
 **Definition:** Individuals using wheeled devices (skateboard, rollerblades, wheelchair) who move faster than typical pedestrians and exhibit rapid, unpredictable movements.
 
@@ -342,7 +342,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ---
 
-## 18. The Street Vendor
+## The Street Vendor
 
 **Definition:** Individuals who approach vehicles during slow or stopped traffic to sell merchandise, creating close-proximity interactions with vehicles.
 
