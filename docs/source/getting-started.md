@@ -1,6 +1,6 @@
 # Getting Started
 
-We have moved our PedAnalyze (pedestrian behavior annotation) from our Python Tkinter-based software to the web for easier access and operations. Please access the new annotator here: https://pedanalyze.glitch.me/
+We have moved our PedAnalyze (pedestrian behavior annotation) from our Python Tkinter-based software to the web for easier access and operations. Please access the new annotator here: https://pedanalyze-web.vercel.app/
 
 Ignore the previous instructions below:
 1. Install
