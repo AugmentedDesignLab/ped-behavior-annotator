@@ -29,9 +29,11 @@
 | **Instant Reaction** |  |
 | Swerve | abrupt change in direction |
 | Break | abrupt stop at the lane boundary and yield |
-| Flinch out | jump out of ego’s lane |
-| Flinch in | jump into the ego’s lane |
+| Flinch out | jump out of ego's lane |
+| Flinch in | jump into the ego's lane |
 | Frozen | stop in the middle of a lane |
+| Skid | loses traction or sliding on lane |
+| Dragged on ground | being dragged along the ground |
 | **Collision** |  |
 | Collision | leading to injury |
 | Near-miss | nearly missing a collision |
@@ -43,7 +45,7 @@
 | Aggression | aggressive gestures to vehicle |
 | Assault | assault the vehicle |
 | Climbing onto car hood | climbs onto the car hood |
-| Observing | standing still and observing vehicle’s behavior |
+| Observing | standing still and observing vehicle's behavior |
 | **Mental State** |  |
 | Looking | at the oncoming traffic (>1s) |
 | Glancing | at the oncoming traffic (<1s) |
@@ -54,5 +56,5 @@
 | Cautious | showing careful deliberation |
 | **Intention** |  |
 | Cross | intends to cross |
-| Not-cross | doesn’t intend to cross |
+| Not-cross | doesn't intend to cross |
 | Not-sure-cross | not sure if intends to cross |
