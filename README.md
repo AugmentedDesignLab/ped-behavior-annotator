@@ -1,5 +1,7 @@
 Please view PedAnalyze's documentation here: https://pedanalyze.readthedocs.io/
 
+Do not use this GitHub repo as the local Python Tkinter annotator has been discontinued. Please reference the new web version here: https://github.com/PedSim/pedanalyze-web
+
 Please cite our paper if you use PedAnalyze or doing relevant research:
 
 ```
