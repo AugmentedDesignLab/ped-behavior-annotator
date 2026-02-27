@@ -1,6 +1,6 @@
 # Pedestrian Archetypes
 
-This is the list of all the archetypes and their essential and optional behaviors. The list includes the archetypes from our previous published paper [Pedestrian Archetypes](https://www.researchgate.net/publication/390398650_Pedestrian_Archetypes_-_The_Must-Have_Pedestrian_Models_for_Autonomous_Vehicle_Safety_Testing) and the ongoing research.
+This is the list of all the archetypes and their essential and optional behaviors. The list includes the archetypes from our previous published paper [Pedestrian Archetypes](https://www.researchgate.net/publication/390398650_Pedestrian_Archetypes_-_The_Must-Have_Pedestrian_Models_for_Autonomous_Vehicle_Safety_Testing).
 
 
 ## Table of Contents
@@ -17,12 +17,6 @@ This is the list of all the archetypes and their essential and optional behavior
 10. [The Kid](#the-kid)
 11. [The Eventful](#the-eventful)
 12. [The Parked Pedestrian](#the-parked-pedestrian)
-13. [The Con Artist](#the-con-artist)
-14. [The Foreigner](#the-foreigner)
-15. [The Influencer](#the-influencer)
-16. [The Protester](#the-protester)
-17. [The Pseudo Pedestrian](#the-pseudo-pedestrian)
-18. [The Street Vendor](#the-street-vendor)
 
 ---
 
@@ -248,114 +242,5 @@ This is the list of all the archetypes and their essential and optional behavior
 |  • getting-in                  | • Trip        |
 |  • Getting-off ( a parked vehicle)                 | • Fall           |
 
-
----
-
-## The Con Artist
-
-**Definition:** Individuals who intentionally stage collisions with incoming vehicles to claim insurance compensation, typically involving vehicles at rest or traveling at slow speeds.
-
-**Important descriptions:**
-
-* Usually involves exaggerated and fake actions to minimize actual harm while ensuring collision occurs.
-* Often work with accomplices who quickly arrive to assist after the staged incident.
-* Target stopped or slow-moving vehicles to control the level of impact.
-
-| **Essential Behaviors**                  | **Optional Behaviors**                                                  |
-|-----------------------------------------|------------------------------------------------------------------------|
-|                  |                    |
-|                    |                             |
-|                   |                           |
-
----
-
-## The Foreigner
-
-**Definition:** Visitors unfamiliar with local traffic norms who misinterpret signals/structures, causing unsafe crossing decisions due to different traffic cultures.
-
-**Important descriptions:**
-
-* Behavior stems from applying home country traffic norms to foreign traffic systems.
-* Often involves confusion about crossing signals, intersection types, or right-of-way rules.
-* May wait indefinitely for traffic that will never stop, or attempt crossings where local drivers don't yield.
-
-| **Essential Behaviors**                  | **Optional Behaviors**                                                  |
-|-----------------------------------------|------------------------------------------------------------------------|
-|                       |                         |
-|                           |                         |
-|                      |                          |
-
----
-
-## The Influencer
-
-**Definition:** Social media content creators who disregard traffic regulations to film videos, often involving photographers lying on roads or extended occupation of traffic lanes.
-
-**Important descriptions:**
-
-* Deliberately ignore traffic safety for content creation purposes.
-* Often involve multiple people (photographer, subject) creating complex obstruction scenarios.
-* May include props, extended setup time, and sudden movements between shooting locations.
-
-| **Essential Behaviors**                  | **Optional Behaviors**                                                  |
-|-----------------------------------------|------------------------------------------------------------------------|
-|                   |                   |
-|                     |                  |
-|                    |                          |
-|                     |                       |
-
----
-
-## The Protester
-
-**Definition:** Groups of people participating in demonstrations who ignore traffic regulations, move into oncoming lanes, and obstruct vehicle visibility while displaying resistance.
-
-**Important descriptions:**
-
-* Characterized by large groups holding signs and deliberately obstructing traffic.
-* May trigger aggressive responses from human drivers, creating additional hazards.
-* Behavior is ideologically motivated rather than transportation-focused.
-
-| **Essential Behaviors**                  | **Optional Behaviors**                                                  |
-|-----------------------------------------|------------------------------------------------------------------------|
-|                  |            |
-|                    |                         |
-|                         |                  |
-
----
-
-## The Pseudo Pedestrian
-
-**Definition:** Individuals using wheeled devices (skateboard, rollerblades, wheelchair) who move faster than typical pedestrians and exhibit rapid, unpredictable movements.
-
-**Important descriptions:**
-
-* Speed and wheeled movement creates different risk patterns than walking pedestrians.
-* May lose control of wheeled device, creating secondary hazards (e.g., skateboard rolling into traffic).
-* Combines pedestrian unpredictability with higher speeds and momentum.
-
-| **Essential Behaviors**                  | **Optional Behaviors**                                                  |
-|-----------------------------------------|------------------------------------------------------------------------|
-|       |         |
-|        |                   |
-|              |               |
-
----
-
-## The Street Vendor
-
-**Definition:** Individuals who approach vehicles during slow or stopped traffic to sell merchandise, creating close-proximity interactions with vehicles.
-
-**Important descriptions:**
-
-* Deliberately approaches vehicles much closer than other pedestrian types.
-* Behavior involves sustained interaction alongside moving vehicles.
-* Creates unique tracking challenges due to close proximity and movement alongside vehicles.
-
-| **Essential Behaviors**                  | **Optional Behaviors**  |
-|-----------------------------------------|-----------------------------------------------------------------------|
-|        |               |
-|       |                   |
-|             |             |
 
 ---
