@@ -8,6 +8,7 @@ from view.RecordingView import RecordingView
 from view.AnnotationEditView import AnnotationEditView
 from view.VideoView import VideoView
 from view.TitleView import TitleView
+from view.BehaviorTagView import BehaviorTagView
 from library.AppEvent import *
 #from view import *
 class ViewManager:
@@ -33,3 +34,8 @@ class ViewManager:
 
     def getTitleView(self, recordingController: RecordingController):
         return TitleView(recordingController, self.eventManager, self.viewEventManager)
+    
+    def getBehaviorTagView(self): 
+        view = BehaviorTagView(self.eventManager, self.viewEventManager)
+        #self.eventManager.subscribe(AppEventType.BehaviorTagView, view.handleEvent)
+        return view
