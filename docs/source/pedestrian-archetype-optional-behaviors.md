@@ -253,7 +253,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ## The Con Artist
 
-**Definition:** Individuals who intentionally stage collisions with incoming vehicles to claim insurance compensation, typically involving vehicles at rest or traveling at slow speeds.
+**Definition:** Individuals who intentionally stage exaggerated collisions with incoming vehicles to claim insurance compensationor extort money out of the driver, typically involving vehicles at rest or traveling at slow speeds.
 
 **Important descriptions:**
 
@@ -263,9 +263,12 @@ This is the list of all the archetypes and their essential and optional behavior
 
 | **Essential Behaviors**                  | **Optional Behaviors**                                                  |
 |-----------------------------------------|------------------------------------------------------------------------|
-|                  |                    |
-|                    |                             |
-|                   |                           |
+|  • Collision                |   • Climbing-onto-carhood                 |
+|      • Looking               |     • Thrown-back                        |
+|   • Fall          |      • Ignore-traffic                     |
+|    • Not-cross          |                           |
+|      • Run-into-traffic          |                           |
+|      • Cross-without-crosswalk          |                           |
 
 ---
 
@@ -281,9 +284,11 @@ This is the list of all the archetypes and their essential and optional behavior
 
 | **Essential Behaviors**                  | **Optional Behaviors**                                                  |
 |-----------------------------------------|------------------------------------------------------------------------|
-|                       |                         |
-|                           |                         |
-|                      |                          |
+|   • Ignore-traffic             |    • Retreat                     |
+|    • Near-miss                       |     • Back-turned                    |
+|    • Cross-without-crosswalk                  |      • Cautious                    |
+|    • Run-into-traffic                  |                          |
+|    • Not-looking-glancing                  |                          |
 
 ---
 
@@ -299,10 +304,9 @@ This is the list of all the archetypes and their essential and optional behavior
 
 | **Essential Behaviors**                  | **Optional Behaviors**                                                  |
 |-----------------------------------------|------------------------------------------------------------------------|
-|                   |                   |
-|                     |                  |
-|                    |                          |
-|                     |                       |
+|   • Ignore-traffic               |                   |
+|    • Gesturing                  |                  |
+|     • Glancing                |                          |
 
 ---
 
@@ -318,9 +322,28 @@ This is the list of all the archetypes and their essential and optional behavior
 
 | **Essential Behaviors**                  | **Optional Behaviors**                                                  |
 |-----------------------------------------|------------------------------------------------------------------------|
-|                  |            |
-|                    |                         |
-|                         |                  |
+|   • Frozen                |  • Group-walk          |
+|    • Not-cross                 |    • Along-lane                     |
+|    • Looking                      |    • Back-turned              |
+|    • Ignore-traffic                      |                  |
+|    • Agitated                      |                  |
+
+---
+
+## The Confronted
+
+**Definition:** Individuals whose behavior is driven by hostile and emotional responses towards another vehicle.
+
+**Important descriptions:**
+
+* When interacting with drivers, they often display visible agitation, confrontational gestures, or even attack the vehicle, regardless of who is at fault.
+
+| **Essential Behaviors**                  | **Optional Behaviors**                                                  |
+|-----------------------------------------|------------------------------------------------------------------------|
+|   • Agitated                |  • Assault          |
+|    • Aggression                 |   • Gesturing                      |
+|    • Cross                      |    • Near-miss              |
+|    • Ignore-traffic                      |                  |
 
 ---
 
@@ -336,9 +359,11 @@ This is the list of all the archetypes and their essential and optional behavior
 
 | **Essential Behaviors**                  | **Optional Behaviors**                                                  |
 |-----------------------------------------|------------------------------------------------------------------------|
-|       |         |
-|        |                   |
-|              |               |
+|  • Ignore-traffic      |  • Along-lane         |
+|    • Run-into-traffic             |   • Swerve                |
+|    • Cross            |   • Pop-out-occlusion            |
+|    • Collision            |               |
+|    • Not-looking-glancing            |               |
 
 ---
 
@@ -354,8 +379,8 @@ This is the list of all the archetypes and their essential and optional behavior
 
 | **Essential Behaviors**                  | **Optional Behaviors**  |
 |-----------------------------------------|-----------------------------------------------------------------------|
-|        |               |
-|       |                   |
-|             |             |
+|  • Pause-start       |               |
+|   • Pickup-object     |                   |
+|    • Cross-on-red          |             |
 
 ---
