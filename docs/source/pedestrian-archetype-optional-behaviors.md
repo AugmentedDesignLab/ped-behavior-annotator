@@ -253,7 +253,7 @@ This is the list of all the archetypes and their essential and optional behavior
 
 ## The Con Artist
 
-**Definition:** Individuals who intentionally stage exaggerated collisions with incoming vehicles to claim insurance compensationor extort money out of the driver, typically involving vehicles at rest or traveling at slow speeds.
+**Definition:** Individuals who intentionally stage exaggerated collisions with incoming vehicles to claim insurance compensation or extort money out of the driver, typically involving vehicles at rest or traveling at slow speeds.
 
 **Important descriptions:**
 
