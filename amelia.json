@@ -1,0 +1,200 @@
+{
+    "name": "proj 1",
+    "fps": 30,
+    "annotation_path": "/Users/ameliayuan/Documents/ped-behavior-annotator/amelia.json",
+    "video_path": "https://www.youtube.com/watch?v=eu4QqwsfXFE",
+    "multiFrameAnnotations": [
+        {
+            "frameStart": 5225,
+            "frameEnd": 5447,
+            "pedTags": [],
+            "egoTags": [
+                "Distracted driving"
+            ],
+            "sceneTags": [
+                "No traffic lights"
+            ],
+            "additionalNotes": "Vehicle stopped but started to pull forward right as pedestrian walked towards its path"
+        },
+        {
+            "frameStart": 4980,
+            "frameEnd": 5128,
+            "pedTags": [
+                "Jaywalking"
+            ],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "Vehicle swerves to avoid person, person is hidden behind vehicle by curb as they begin crossing the street"
+        },
+        {
+            "frameStart": 8518,
+            "frameEnd": 8778,
+            "pedTags": [
+                "Flinch",
+                "No Looking"
+            ],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "Pedestrian almost walked into path of incoming light rail train"
+        },
+        {
+            "frameStart": 8901,
+            "frameEnd": 8923,
+            "pedTags": [
+                "Jaywalking"
+            ],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "Pedestrian in middle of road, very dark, vehicle swerved to avoid"
+        },
+        {
+            "frameStart": 7571,
+            "frameEnd": 7727,
+            "pedTags": [
+                "Flinch",
+                "Distracted"
+            ],
+            "egoTags": [
+                "Speeding"
+            ],
+            "sceneTags": [
+                "No stop signs",
+                "No traffic lights"
+            ],
+            "additionalNotes": "Vehicle did not stop at crosswalk for already crossing pedestrian, pedestrian jumped back to avoid getting hit"
+        },
+        {
+            "frameStart": 5588,
+            "frameEnd": 5654,
+            "pedTags": [
+                "Crash"
+            ],
+            "egoTags": [
+                "Distracted driving"
+            ],
+            "sceneTags": [
+                "No stop signs",
+                "No traffic lights"
+            ],
+            "additionalNotes": "The car did not stop at the crosswalk even though there were pedestrians clearly there"
+        },
+        {
+            "frameStart": 4771,
+            "frameEnd": 4907,
+            "pedTags": [
+                "Jaywalking",
+                "No Looking"
+            ],
+            "egoTags": [
+                "Brake"
+            ],
+            "sceneTags": [
+                "No stop signs",
+                "No traffic lights"
+            ],
+            "additionalNotes": ""
+        },
+        {
+            "frameStart": 9002,
+            "frameEnd": 12480,
+            "pedTags": [
+                "Flinch"
+            ],
+            "egoTags": [
+                "Distracted driving",
+                "Speeding"
+            ],
+            "sceneTags": [],
+            "additionalNotes": "Vehicle did not stop at crosswalk, person flinched back to avoid"
+        },
+        {
+            "frameStart": 5793,
+            "frameEnd": 5902,
+            "pedTags": [
+                "Crash"
+            ],
+            "egoTags": [
+                "Distracted driving"
+            ],
+            "sceneTags": [
+                "No stop signs",
+                "No traffic lights"
+            ],
+            "additionalNotes": "Vehicle did not stop at crosswalk, pedestrian was already crossing"
+        },
+        {
+            "frameStart": 6848,
+            "frameEnd": 7029,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [
+                "No traffic lights",
+                "No stop signs"
+            ],
+            "additionalNotes": "Pedestrian attempted to cross road, cars on half of the road did not stop for the pedestrian, so they retreated back to the sidewalk and waited"
+        },
+        {
+            "frameStart": 6612,
+            "frameEnd": 6720,
+            "pedTags": [
+                "Crash"
+            ],
+            "egoTags": [],
+            "sceneTags": [],
+            "additionalNotes": "vehicle did not stop at crosswalk, pedestrian was already walking"
+        },
+        {
+            "frameStart": 6428,
+            "frameEnd": 6534,
+            "pedTags": [],
+            "egoTags": [
+                "Speeding"
+            ],
+            "sceneTags": [],
+            "additionalNotes": "Vehicle hit from behind by a vehicle speeding that didn't brake for the crosswalk"
+        },
+        {
+            "frameStart": 7303,
+            "frameEnd": 7427,
+            "pedTags": [],
+            "egoTags": [],
+            "sceneTags": [
+                "No stop signs",
+                "No traffic lights"
+            ],
+            "additionalNotes": "Vehicle did not stop at crosswalk for already crossing pedestrians, pedestrians waited in the middle of the road to let vehicle through"
+        },
+        {
+            "frameStart": 7895,
+            "frameEnd": 14408,
+            "pedTags": [
+                "Flinch"
+            ],
+            "egoTags": [
+                "Brake"
+            ],
+            "sceneTags": [
+                "No stop signs",
+                "No traffic lights"
+            ],
+            "additionalNotes": "Cars braked last-minute at crosswalk, pedestrian retreated back onto sidewalk before crossing again"
+        },
+        {
+            "frameStart": 8305,
+            "frameEnd": 8448,
+            "pedTags": [
+                "Crash",
+                "Flinch"
+            ],
+            "egoTags": [
+                "Brake"
+            ],
+            "sceneTags": [
+                "No stop signs",
+                "No traffic lights"
+            ],
+            "additionalNotes": "Vehicle paused, then appeared to get lurch forward from behind perhaps from another car crashing, then hit the pedestrians"
+        }
+    ],
+    "singleFrameAnnotations": []
+}
